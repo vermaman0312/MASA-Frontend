@@ -1,0 +1,24 @@
+.success {
+    @apply bg-[#00b4d8] text-white;
+}
+
+.success .Toastify__close-button {
+    color: #ef233c;
+}
+
+.error {
+    @apply bg-[#ef233c] text-white;
+}
+
+.error .Toastify__close-button {
+    color: #00b4d8
+}
+
+.transparent {
+    @apply bg-transparent border-none text-white;
+}
+
+.transparent {
+    border: none;
+    box-shadow: none;
+}
