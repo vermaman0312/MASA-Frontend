@@ -5,9 +5,15 @@ type Props = {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value?: File | null;
   isError?: boolean;
+  placeholder?: string;
 };
 
-const CustomFileInputField = ({ onChange, value, isError }: Props) => {
+const CustomFileInputField = ({
+  onChange,
+  value,
+  isError,
+  placeholder,
+}: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const clearInput = () => {
     if (inputRef.current) {
@@ -35,11 +41,7 @@ const CustomFileInputField = ({ onChange, value, isError }: Props) => {
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <div className="mb-4">
               <CloudUpload
-                // direction={value?.name ? "down" : "up"}
-                // size={8}
-                // color={isError ? "#F44336" : "#a0aec0"}
                 className={`${isError ? "text-red-500" : "text-gray-500"}`}
-
               />
             </div>
             <p
@@ -61,7 +63,7 @@ const CustomFileInputField = ({ onChange, value, isError }: Props) => {
                 isError ? "text-red-500" : "text-gray-500"
               } dark:text-gray-400`}
             >
-              SVG, PNG, JPG or GIF (MAX. 800x400px)
+              {placeholder ?? "SVG, PNG, JPG or GIF (MAX. 800x400px)"}
             </p>
           </div>
           <input

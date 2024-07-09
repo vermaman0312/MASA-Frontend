@@ -15,7 +15,7 @@ const PrivateAuthApplicationPage = () => {
           </CustomLabel>
         </div>
       </div>
-      <div className="border w-full h-full mt-5">
+      <div className="w-full h-full mt-5">
         <PrivateApplicationPageLayout />
       </div>
     </CustomSideBar>

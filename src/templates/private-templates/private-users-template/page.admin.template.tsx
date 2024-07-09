@@ -7,6 +7,10 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import CustomSideDrawer from "../../../components/custom-side-drawer/custom-side-drawer.component";
 import { allUserList, userType } from "../../../mock/user-data";
+import { ArrowLeft } from "lucide-react";
+import CustomFileInputField from "../../../components/custom-file-input-field/custom-file-input-field.component";
+import { CustomInputField } from "../../../components/custom-input-field/custom-input-field.component";
+import CustomDropdown from "../../../components/custom-dropdown/custom-dropdown.component";
 
 interface RoleCountAccumulator {
   [key: string]: number;
@@ -865,6 +869,208 @@ export const PrivateUserTableButtonPageTemplate = ({
       >
         Students
       </button>
+    </div>
+  );
+};
+
+// ADD FORM
+
+type addFormProps = {
+  onClickBack?: () => void;
+  onClickForm?: () => void;
+  onClickExcel?: () => void;
+  isFillForm?: boolean;
+};
+
+export const PrivateUserAddFormHeaderPageTemplate = ({
+  onClickBack,
+  onClickForm,
+  onClickExcel,
+  isFillForm,
+}: addFormProps) => {
+  return (
+    <div className="w-full flex items-center justify-between">
+      <button
+        onClick={onClickBack}
+        className="flex items-center justify-center w-[2rem] p-1 rounded-lg bg-gray-900"
+      >
+        <ArrowLeft className="text-white" />
+      </button>
+      <div className="bg-gray-300 md:hidden w-64 md:w-[25rem] flex items-center justify-between p-1 rounded-lg">
+        <button
+          onClick={onClickForm}
+          className={`text-sm font-display w-full ${
+            isFillForm
+              ? "bg-gray-700 text-white"
+              : "bg-transparent text-gray-900"
+          } p-2 rounded-lg font-medium slide-in-from-right transition-all`}
+        >
+          Form Details
+        </button>
+        <button
+          onClick={onClickExcel}
+          className={`text-sm font-display w-full ${
+            !isFillForm
+              ? "bg-gray-700 text-white"
+              : "bg-transparent text-gray-900"
+          } p-2 rounded-lg font-medium slide-in-from-right transition-all`}
+        >
+          Form Excel
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export const PrivateUserAddFormExcelPageTemplate = () => {
+  return (
+    <div className="w-full h-full flex flex-col p-5">
+      <div className="w-full">
+        <CustomLabel className="text-xl font-display text-gray-900">
+          Excel Information
+        </CustomLabel>
+      </div>
+      <div className="mt-5 w-full h-full">
+        <div>
+          <CustomFileInputField placeholder="excel" />
+        </div>
+        <div className="w-full mt-5">
+          <button className="w-full md:w-32 text-md font-display text-white bg-gray-900 p-2 rounded-lg">
+            Upload
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+type formProps = {
+  roleList?: Array<string>;
+  departmentList?: Array<string>;
+  designationList?: Array<string>;
+};
+
+export const PrivateUserAddFormPageTemplate = ({
+  roleList,
+  departmentList,
+  designationList,
+}: formProps) => {
+  return (
+    <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
+      <div className="w-full h-full flex flex-col p-5">
+        <div className="w-full">
+          <CustomLabel className="text-xl font-display text-gray-900">
+            Form Information
+          </CustomLabel>
+        </div>
+        <div className="mt-5 w-full h-full">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-5">
+            <div className="w-full">
+              <CustomLabel className="text-xs font-display text-gray-900">
+                First Name:
+              </CustomLabel>
+              <CustomInputField
+                type="text"
+                className="focus:outline-none focus:border-none active:border-none active:outline-none font-display text-sm"
+              />
+            </div>
+            <div className="w-full">
+              <CustomLabel className="text-xs font-display text-gray-900">
+                Last Name:
+              </CustomLabel>
+              <CustomInputField
+                type="text"
+                className="focus:outline-none focus:border-none active:border-none active:outline-none"
+              />
+            </div>
+          </div>
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-5 mt-3">
+            <div className="w-full">
+              <CustomLabel className="text-xs font-display text-gray-900">
+                Email Address:
+              </CustomLabel>
+              <CustomInputField
+                type="email"
+                className="focus:outline-none focus:border-none active:border-none active:outline-none"
+              />
+            </div>
+            <div className="w-full">
+              <CustomLabel className="text-xs font-display text-gray-900">
+                Phone Number:
+              </CustomLabel>
+              <CustomInputField
+                type="tel"
+                className="focus:outline-none focus:border-none active:border-none active:outline-none"
+              />
+            </div>
+          </div>
+          <div className="w-full mt-3">
+            <div className="w-full">
+              <CustomLabel className="text-xs font-display text-gray-900">
+                Choose Image:
+              </CustomLabel>
+              <CustomInputField
+                type="file"
+                className="w-full file-input font-display block text-sm text-gray-900 border-2 border-gray-200 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+              />
+            </div>
+          </div>
+          <div className="w-full grid grid-cols-1 gap-2 md:gap-5 mt-3">
+            <div className="w-full">
+              <CustomLabel className="text-xs font-display text-gray-900">
+                Select Role:
+              </CustomLabel>
+              <CustomDropdown title="Select your role" list={roleList} />
+            </div>
+          </div>
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-5 mt-4">
+            <div className="w-full">
+              <CustomLabel className="text-xs font-display text-gray-900">
+                Department:
+              </CustomLabel>
+              <CustomDropdown
+                title="Select your department"
+                list={departmentList}
+              />
+            </div>
+            <div className="w-full">
+              <CustomLabel className="text-xs font-display text-gray-900">
+                Designation:
+              </CustomLabel>
+              <CustomDropdown
+                title="Select your designation"
+                list={designationList}
+              />
+            </div>
+          </div>
+          <div className="w-full mt-5">
+            <CustomLabel className="text-xs font-display text-gray-900">
+              Your Employee ID:
+            </CustomLabel>
+            <CustomInputField
+              disabled={true}
+              type="text"
+              value={"ABC123"}
+              className="focus:outline-none focus:border-none active:border-none active:outline-none font-display text-sm"
+            />
+          </div>
+          <div className="w-full mt-5">
+            <button className="w-full md:w-32 text-md font-display text-white bg-gray-900 p-2 rounded-lg">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="w-full hidden md:flex flex-col p-5">
+        <div className="w-full">
+          <CustomLabel className="text-xl font-display text-gray-900">
+            Excel Information
+          </CustomLabel>
+        </div>
+        <div className="mt-5 w-full h-full">
+          <PrivateUserAddFormExcelPageTemplate />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,7 @@
 import {
+  PrivateUserAddFormExcelPageTemplate,
+  PrivateUserAddFormHeaderPageTemplate,
+  PrivateUserAddFormPageTemplate,
   PrivateUserDataVisulizationPageTemplate,
   PrivateUserListDataTablePageTemplate,
   PrivateUserPieChartPageTemplate,
@@ -104,185 +107,24 @@ const PrivateUsersPageLayout = () => {
     <div className="w-full h-full flex flex-col items-start justify-start gap-2 scroll-container">
       {isOpen ? (
         <div className="h-full w-full flex flex-col items-center justify-start gap-2">
-          <div className="w-full flex items-center justify-between">
-            <button
-              onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center w-[2rem] p-1 rounded-lg bg-gray-900"
-            >
-              <ArrowLeft className="text-white" />
-            </button>
-            <div className="bg-gray-300 md:hidden w-64 md:w-[25rem] flex items-center justify-between p-1 rounded-lg">
-              <button
-                onClick={() => setIsFillForm(true)}
-                className={`text-sm font-display w-full ${
-                  isFillForm
-                    ? "bg-gray-700 text-white"
-                    : "bg-transparent text-gray-900"
-                } p-2 rounded-lg font-medium slide-in-from-right transition-all`}
-              >
-                Form Details
-              </button>
-              <button
-                onClick={() => setIsFillForm(false)}
-                className={`text-sm font-display w-full ${
-                  !isFillForm
-                    ? "bg-gray-700 text-white"
-                    : "bg-transparent text-gray-900"
-                } p-2 rounded-lg font-medium slide-in-from-right transition-all`}
-              >
-                Form Excel
-              </button>
-            </div>
+          <div className="w-full">
+            <PrivateUserAddFormHeaderPageTemplate
+              onClickBack={() => setIsOpen(false)}
+              onClickForm={() => setIsFillForm(true)}
+              onClickExcel={() => setIsFillForm(false)}
+              isFillForm={isFillForm}
+            />
           </div>
           <div className="w-full h-[20px] flex flex-col items-center justify-start gap-5">
             <div className="w-full h-full">
               {isFillForm ? (
-                <div className="w-full h-full grid grid-cols-1 md:grid-cols-2">
-                  <div className="w-full h-full flex flex-col p-5">
-                    <div className="w-full">
-                      <CustomLabel className="text-xl font-display text-gray-900">
-                        Form Information
-                      </CustomLabel>
-                    </div>
-                    <div className="mt-5 w-full h-full">
-                      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-5">
-                        <div className="w-full">
-                          <CustomLabel className="text-xs font-display text-gray-900">
-                            First Name:
-                          </CustomLabel>
-                          <CustomInputField
-                            type="text"
-                            className="focus:outline-none focus:border-none active:border-none active:outline-none font-display text-sm"
-                          />
-                        </div>
-                        <div className="w-full">
-                          <CustomLabel className="text-xs font-display text-gray-900">
-                            Last Name:
-                          </CustomLabel>
-                          <CustomInputField
-                            type="text"
-                            className="focus:outline-none focus:border-none active:border-none active:outline-none"
-                          />
-                        </div>
-                      </div>
-                      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-5 mt-3">
-                        <div className="w-full">
-                          <CustomLabel className="text-xs font-display text-gray-900">
-                            Email Address:
-                          </CustomLabel>
-                          <CustomInputField
-                            type="email"
-                            className="focus:outline-none focus:border-none active:border-none active:outline-none"
-                          />
-                        </div>
-                        <div className="w-full">
-                          <CustomLabel className="text-xs font-display text-gray-900">
-                            Phone Number:
-                          </CustomLabel>
-                          <CustomInputField
-                            type="tel"
-                            className="focus:outline-none focus:border-none active:border-none active:outline-none"
-                          />
-                        </div>
-                      </div>
-                      <div className="w-full mt-3">
-                        <div className="w-full">
-                          <CustomLabel className="text-xs font-display text-gray-900">
-                            Choose Image:
-                          </CustomLabel>
-                          <CustomInputField
-                            type="file"
-                            className="w-full file-input font-display block text-sm text-gray-900 border-2 border-gray-200 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                          />
-                        </div>
-                      </div>
-                      <div className="w-full grid grid-cols-1 gap-2 md:gap-5 mt-3">
-                        <div className="w-full">
-                          <CustomLabel className="text-xs font-display text-gray-900">
-                            Select Role:
-                          </CustomLabel>
-                          <CustomDropdown
-                            title="Select your role"
-                            list={roleList}
-                          />
-                        </div>
-                      </div>
-                      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-5 mt-4">
-                        <div className="w-full">
-                          <CustomLabel className="text-xs font-display text-gray-900">
-                            Department:
-                          </CustomLabel>
-                          <CustomDropdown
-                            title="Select your department"
-                            list={departmentList}
-                          />
-                        </div>
-                        <div className="w-full">
-                          <CustomLabel className="text-xs font-display text-gray-900">
-                            Designation:
-                          </CustomLabel>
-                          <CustomDropdown
-                            title="Select your designation"
-                            list={designationList}
-                          />
-                        </div>
-                      </div>
-                      <div className="w-full mt-5">
-                        <CustomLabel className="text-xs font-display text-gray-900">
-                          Your Employee ID:
-                        </CustomLabel>
-                        <CustomInputField
-                          disabled={true}
-                          type="text"
-                          value={"ABC123"}
-                          className="focus:outline-none focus:border-none active:border-none active:outline-none font-display text-sm"
-                        />
-                      </div>
-                      <div className="w-full mt-5">
-                        <button className="w-full md:w-32 text-md font-display text-white bg-gray-900 p-2 rounded-lg">
-                          Submit
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-full hidden md:flex flex-col p-5">
-                    <div className="w-full">
-                      <CustomLabel className="text-xl font-display text-gray-900">
-                        Excel Information
-                      </CustomLabel>
-                    </div>
-                    <div className="mt-5 w-full h-full">
-                      <div>
-                        <CustomFileInputField />
-                      </div>
-                      <div className="w-full mt-5">
-                        <button className="w-full md:w-32 text-md font-display text-white bg-gray-900 p-2 rounded-lg">
-                          Upload
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <PrivateUserAddFormPageTemplate
+                  roleList={roleList}
+                  departmentList={departmentList}
+                  designationList={designationList}
+                />
               ) : (
-                <div className="w-full h-full">
-                  <div className="w-full h-full flex flex-col p-5">
-                    <div className="w-full">
-                      <CustomLabel className="text-xl font-display text-gray-900">
-                        Excel Information
-                      </CustomLabel>
-                    </div>
-                    <div className="mt-5 w-full h-full">
-                      <div>
-                        <CustomFileInputField />
-                      </div>
-                      <div className="w-full mt-5">
-                        <button className="w-full md:w-32 text-md font-display text-white bg-gray-900 p-2 rounded-lg">
-                          Upload
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <PrivateUserAddFormExcelPageTemplate />
               )}
             </div>
           </div>
