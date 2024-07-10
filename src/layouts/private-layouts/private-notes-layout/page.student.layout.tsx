@@ -1,14 +1,15 @@
 import React, { useCallback, useState } from "react";
 import "../../../css/scroll-container.css";
-import { data } from "./mock";
 import CustomAlertDialogBox from "../../../components/custom-alert-dialogbox/custom.alert-dialogbox.component";
 import "../../../css/scroll-container.css";
 import {
-  PrivateNoteFormDrawerPageTemplate,
+  PrivateNoteFormPageTemplate,
   PrivateNoteListPageTemplate,
   PrivateNoteNotFoundPageTemplate,
   PrivateNotesHeadingPageTemplate,
 } from "../../../templates/private-templates/private-notes-template/page.student.template";
+import { noteList } from "../../../mock/note-data";
+import CustomLoader from "../../../components/custom-loader/custom-loader.component";
 
 type noteType = {
   id: string;
@@ -22,8 +23,9 @@ type noteType = {
 };
 
 const PrivateNotePageLayout = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isCreateNoteOpen, setIsCreateNoteOpen] = useState<boolean>(false);
-  const [notes, setNotes] = useState<Array<noteType>>(data);
+  const [notes, setNotes] = useState<Array<noteType>>(noteList);
   const [addNote, setAddNote] = useState<noteType>({
     id: "",
     title: "",
@@ -46,6 +48,7 @@ const PrivateNotePageLayout = () => {
         ...addNote,
         id: Math.floor(Math.random() * 16777215).toString(16),
         title: event.target.value,
+        description: " ",
       });
     },
     [addNote]
@@ -118,47 +121,78 @@ const PrivateNotePageLayout = () => {
         return note;
       })
     );
-    setIsNotePadOpen(false);
   }, [isNoteDetails?.description, noteId]);
 
   return (
     <div className="w-full h-full flex flex-col items-start justify-start scroll-container">
-      <div className="w-full">
-        <PrivateNotesHeadingPageTemplate
-          isOpen={isCreateNoteOpen}
-          onOpenChange={setIsCreateNoteOpen}
-          onClickAddNote={() => setIsCreateNoteOpen(true)}
-          onChange={onChangeNoteTitle}
-          onSubmitAddNot={handleCreateNote}
-          onClickUnhide={() => setIsHidden(false)}
-          onClickHide={() => setIsHidden(true)}
-          isHidden={isHidden}
-        />
-      </div>
-
-      <div className="h-[50px] w-full mt-5">
-        {(notes?.length === 0 || notes?.length === undefined) && (
-          <PrivateNoteNotFoundPageTemplate />
-        )}
-        {(notes?.length !== 0 || notes?.length !== undefined) && (
-          <PrivateNoteListPageTemplate
+      {!isNotePadOpen && (
+        <div className="w-full">
+          <PrivateNotesHeadingPageTemplate
+            isOpen={isCreateNoteOpen}
+            onOpenChange={setIsCreateNoteOpen}
+            onClickAddNote={() => setIsCreateNoteOpen(true)}
+            onChange={onChangeNoteTitle}
+            onSubmitAddNot={handleCreateNote}
+            onClickUnhide={() => setIsHidden(false)}
+            onClickHide={() => setIsHidden(true)}
             isHidden={isHidden}
-            notes={notes}
-            onClick={(id, note) => {
-              setNoteId(id);
-              setIsNoteDetails(note);
-              setIsNotePadOpen(true);
-            }}
-            onClickSelectUnSelect={(id) => handleSelectUnSelect(id)}
-            onClickHideUnhide={(id) => handleHideUnhide(id)}
-            onClickPinnedUnPinned={(id) => handlePinnedUnPinned(id)}
-            onClickDelete={(id) => {
-              setNoteId(id);
-              setIsDeletedNoteOpen(true);
-            }}
           />
-        )}
-      </div>
+        </div>
+      )}
+
+      {!isNotePadOpen && (
+        <div className="h-[50px] w-full mt-5">
+          {(notes?.length === 0 || notes?.length === undefined) && (
+            <PrivateNoteNotFoundPageTemplate />
+          )}
+          {(notes?.length !== 0 || notes?.length !== undefined) && (
+            <PrivateNoteListPageTemplate
+              isHidden={isHidden}
+              notes={notes}
+              onClick={(id, note) => {
+                setNoteId(id);
+                setIsNoteDetails(note);
+                setIsLoading(true);
+                setTimeout(() => {
+                  setIsLoading(false);
+                  setIsNotePadOpen(true);
+                }, 5000);
+              }}
+              onClickSelectUnSelect={(id) => handleSelectUnSelect(id)}
+              onClickHideUnhide={(id) => handleHideUnhide(id)}
+              onClickPinnedUnPinned={(id) => handlePinnedUnPinned(id)}
+              onClickDelete={(id) => {
+                setNoteId(id);
+                setIsDeletedNoteOpen(true);
+              }}
+            />
+          )}
+        </div>
+      )}
+      {isNotePadOpen && (
+        <div className="h-[50px] w-full mt-5">
+          <PrivateNoteFormPageTemplate
+            onClickBack={() => setIsNotePadOpen(false)}
+            value={isNoteDetails?.description}
+            title={isNoteDetails?.title}
+            timeStamp={isNoteDetails?.timeStamp}
+            setValue={(value) =>
+              setIsNoteDetails((prevState) => ({
+                ...prevState,
+                description: value,
+                id: prevState?.id ?? "",
+                title: prevState?.title ?? "",
+                isSelected: prevState?.isSelected ?? false,
+                isHide: prevState?.isHide ?? false,
+                isPinned: prevState?.isPinned ?? false,
+                isDeleted: prevState?.isDeleted ?? false,
+                timeStamp: new Date(),
+              }))
+            }
+            onClick={handleUpdateNote}
+          />
+        </div>
+      )}
       <div>
         <CustomAlertDialogBox
           isDeleteOpen={isDeletedNoteOpen}
@@ -171,29 +205,13 @@ const PrivateNotePageLayout = () => {
           onClick={handleNoteDelete}
         />
       </div>
-      <div>
-        <PrivateNoteFormDrawerPageTemplate
-          isOpen={isNotePadOpen}
-          onOpenChange={setIsNotePadOpen}
-          title={isNoteDetails?.title}
-          timeStamp={isNoteDetails?.timeStamp}
-          setValue={(value) =>
-            setIsNoteDetails((prevState) => ({
-              ...prevState,
-              description: value,
-              id: prevState?.id ?? "",
-              title: prevState?.title ?? "",
-              isSelected: prevState?.isSelected ?? false,
-              isHide: prevState?.isHide ?? false,
-              isPinned: prevState?.isPinned ?? false,
-              isDeleted: prevState?.isDeleted ?? false,
-              timeStamp: new Date(),
-            }))
-          }
-          value={isNoteDetails?.description}
-          onClick={handleUpdateNote}
+      {isLoading && (
+        <CustomLoader
+        // backgroundTransparent={true}
+        // backgroundLoader="bg-[#0d1b2a]"
+        // loaderColor="text-white"
         />
-      </div>
+      )}
     </div>
   );
 };

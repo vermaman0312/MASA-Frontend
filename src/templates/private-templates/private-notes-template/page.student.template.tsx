@@ -1,8 +1,9 @@
 import {
+  ArrowLeft,
   Check,
+  EllipsisVertical,
   Eye,
   EyeOff,
-  Notebook,
   Pin,
   Plus,
   SquareMousePointer,
@@ -10,7 +11,7 @@ import {
 } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import { CustomDialogBox } from "../../../components/custom-dialogbox/custom.dialogBox.component";
-import React from "react";
+import React, { useState } from "react";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -20,8 +21,11 @@ import {
 import moment from "moment";
 import { getRandomColor } from "../../../themes/color";
 import NoteIllustration from "../../../assets/illustrations/notes-illustration";
-import CustomSideDrawer from "../../../components/custom-side-drawer/custom-side-drawer.component";
 import CustomMarkDown from "../../../components/custom-markdown/custom-markdown.component";
+import MDEditor from "@uiw/react-md-editor";
+import CustomMenuDropdown from "../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
+import { DropdownMenuItem } from "../../../components/custom-menu-dropdown/custom-menu-dropdown.ui";
+import { CustomInputField } from "../../../components/custom-input-field/custom-input-field.component";
 
 type props = {
   isOpen?: boolean;
@@ -175,9 +179,15 @@ export const PrivateNoteDetailsPageTemplate = ({
           </div>
         </div>
         <div className="w-full h-full p-1 truncate-3-lines">
-          <CustomLabel className="text-xs font-display text-gray-500">
-            {description}
-          </CustomLabel>
+          <MDEditor.Markdown
+            source={description}
+            style={{
+              whiteSpace: "pre-wrap",
+              background: "transparent",
+              fontSize: 12,
+              fontFamily: "Poppins",
+            }}
+          />
         </div>
       </ContextMenuTrigger>
       <ContextMenuContent className="w-[5rem] hover:border-none focus:border-none">
@@ -370,37 +380,82 @@ type formProps = {
   ) => void;
   value?: string;
   onClick?: () => void;
+
+  onClickBack?: () => void;
 };
 
-export const PrivateNoteFormDrawerPageTemplate = ({
-  isOpen,
-  onOpenChange,
+export const PrivateNoteFormPageTemplate = ({
+  onClickBack,
   title,
   timeStamp,
   setValue,
   value,
   onClick,
 }: formProps) => {
+  const [isEdited, setIsEdited] = useState<boolean>(false);
+
   return (
-    <CustomSideDrawer
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
-      title={title}
-      description={moment(timeStamp).fromNow()}
-    >
-      <div className="w-full h-full flex flex-col items-center justify-start">
-        <div className="w-full">
-          <CustomMarkDown value={value} setValue={setValue} />
+    <div className="w-full h-full">
+      <div className="flex items-start md:items-center justify-between gap-3">
+        <div className="flex items-start md:items-center gap-5">
+          <div
+            onClick={onClickBack}
+            className="p-2 bg-gray-300 rounded-lg cursor-pointer"
+          >
+            <ArrowLeft />
+          </div>
+          <div className="flex flex-col">
+            <CustomLabel className="text-3xl font-display text-[#0d1b2a]">
+              {title}
+            </CustomLabel>
+            <CustomLabel className="font-display text-xs text-gray-400 font-light">
+              {moment(timeStamp).fromNow()}
+            </CustomLabel>
+          </div>
         </div>
-        <div className="w-full mt-2 flex items-center justify-end">
+        <div>
+          <CustomMenuDropdown
+            buttonComponent={<EllipsisVertical />}
+            marginRight="mr-6"
+          >
+            <DropdownMenuItem
+              onClick={() => setIsEdited(true)}
+              className="hover:bg-gray-100 cursor-pointer"
+            >
+              <span className="font-display text-xs">Edit Note</span>
+            </DropdownMenuItem>
+          </CustomMenuDropdown>
+        </div>
+      </div>
+      <div className="w-full bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] mt-5" />
+      <div className="mt-5">
+        {!value || isEdited ? (
+          <CustomMarkDown value={value} setValue={setValue} height={550} />
+        ) : (
+          <MDEditor.Markdown
+            source={value}
+            className="font-display"
+            style={{
+              whiteSpace: "pre-wrap",
+              fontSize: 12,
+              fontFamily: "Poppins",
+            }}
+          />
+        )}
+      </div>
+      {isEdited && (
+        <div className="mt-5 p-2 w-full flex items-center justify-end">
           <button
-            onClick={onClick}
-            className="border p-2 w-28 text-sm font-display rounded-lg bg-[#0d1b2a] text-white"
+            onClick={() => {
+              onClick && onClick();
+              setIsEdited(false);
+            }}
+            className="p-2 w-full md:w-16 bg-gray-900 rounded-lg text-xs text-white font-display"
           >
             Save
           </button>
         </div>
-      </div>
-    </CustomSideDrawer>
+      )}
+    </div>
   );
 };

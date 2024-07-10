@@ -1,8 +1,9 @@
-export const data = [
+export const noteList = [
   {
     id: "1",
     title: "Note 1",
-    description: "This is description 1",
+    description:
+      "A simple markdown editor with preview, implemented with React.js and TypeScript. This React Component aims to provide a simple Markdown editor with syntax highlighting support. This is based on textarea encapsulation, so it does not depend on any modern code editors such as Acs, CodeMirror, Monaco etc.",
     isSelected: false,
     isHide: false,
     isPinned: false,
@@ -329,5 +330,5 @@ export const data = [
     isPinned: false,
     isDeleted: false,
     timeStamp: new Date(),
-  }
+  },
 ];

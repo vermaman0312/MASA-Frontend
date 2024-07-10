@@ -1,11 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5percent from "@amcharts/amcharts5/percent";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
-import CustomSideDrawer from "../../../components/custom-side-drawer/custom-side-drawer.component";
 import { allUserList, userType } from "../../../mock/user-data";
 import { ArrowLeft } from "lucide-react";
 import CustomFileInputField from "../../../components/custom-file-input-field/custom-file-input-field.component";

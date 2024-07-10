@@ -1,4 +1,4 @@
-import { Contact, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import ContactIllustration from "../../../assets/illustrations/contact-illustration";
 import { getRandomColor } from "../../../themes/color";

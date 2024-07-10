@@ -17,7 +17,8 @@ const CustomMarkDown = ({ value, setValue, height }: props) => {
     <div className="w-full h-full">
       <MDEditor
         value={value}
-        height={height ?? 700}
+        height={height ?? 650}
+        preview="edit"
         onChange={(newValue, event, state) => {
           setValue && setValue(newValue);
         }}
@@ -26,7 +27,6 @@ const CustomMarkDown = ({ value, setValue, height }: props) => {
           rehypePlugins: [[rehypeSanitize]],
         }}
       />
-      {/* <MDEditor.Markdown source={value} style={{ whiteSpace: "pre-wrap" }} /> */}
     </div>
   );
 };
