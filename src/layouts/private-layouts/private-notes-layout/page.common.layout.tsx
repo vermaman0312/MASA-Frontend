@@ -141,7 +141,13 @@ const PrivateNotePageLayout = () => {
       )}
 
       {!isNotePadOpen && (
-        <div className="h-[50px] w-full mt-5">
+        <div
+          className={`${
+            notes?.length === 0 || notes?.length === undefined
+              ? "h-auto"
+              : "h-[20px]"
+          } w-full mt-5`}
+        >
           {(notes?.length === 0 || notes?.length === undefined) && (
             <PrivateNoteNotFoundPageTemplate />
           )}
@@ -156,7 +162,7 @@ const PrivateNotePageLayout = () => {
                 setTimeout(() => {
                   setIsLoading(false);
                   setIsNotePadOpen(true);
-                }, 5000);
+                }, 500);
               }}
               onClickSelectUnSelect={(id) => handleSelectUnSelect(id)}
               onClickHideUnhide={(id) => handleHideUnhide(id)}

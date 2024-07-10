@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateContactPageLayout from "../../../layouts/private-layouts/private-contacts-layout/page.student.layout";
+import PrivateContactPageLayout from "../../../layouts/private-layouts/private-contacts-layout/page.common.layout";
 import { Contact } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import "../../../css/scroll-container.css";

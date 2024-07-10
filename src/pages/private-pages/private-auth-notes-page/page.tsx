@@ -1,6 +1,6 @@
 import { Notebook } from "lucide-react";
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateNotePageLayout from "../../../layouts/private-layouts/private-notes-layout/page.student.layout";
+import PrivateNotePageLayout from "../../../layouts/private-layouts/private-notes-layout/page.common.layout";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 
 const PrivateAuthNotesPage = () => {

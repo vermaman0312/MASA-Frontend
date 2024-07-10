@@ -14,8 +14,11 @@ import {
   View,
 } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
+import { authenticatedUserRole } from "../../../utils/token/token";
 
 type myApprovalType = {
+  userUniqueId: string;
+  userName: string;
   requestedDate: string;
   type: string;
   FromDate: string;
@@ -53,6 +56,7 @@ export const PrivateApplicationSideMenuPageTemplate = ({
   onClickComplaint,
   onClickRegisterQueries,
 }: props) => {
+  const role = authenticatedUserRole();
   return (
     <div className="w-[20rem] h-[20px] hidden md:flex flex-col items-start justify-start gap-1 p-6">
       <div
@@ -111,20 +115,22 @@ export const PrivateApplicationSideMenuPageTemplate = ({
           <ChevronRight className="w-5 h-5 text-gray-900" />
         )}
       </div>
-      <div
-        onClick={onClickWorkFromHome}
-        className={`flex items-center justify-between gap-2 w-full p-2 rounded-lg cursor-pointer hover:bg-gray-200 transition-all hover:zoom-in`}
-      >
-        <div className="flex items-center gap-2">
-          <School className="w-5 h-5 text-gray-900" />
-          <CustomLabel className="font-display text-gray-900 cursor-pointer whitespace-nowrap">
-            Work from home
-          </CustomLabel>
+      {role !== "Student" && (
+        <div
+          onClick={onClickWorkFromHome}
+          className={`flex items-center justify-between gap-2 w-full p-2 rounded-lg cursor-pointer hover:bg-gray-200 transition-all hover:zoom-in`}
+        >
+          <div className="flex items-center gap-2">
+            <School className="w-5 h-5 text-gray-900" />
+            <CustomLabel className="font-display text-gray-900 cursor-pointer whitespace-nowrap">
+              Work from home
+            </CustomLabel>
+          </div>
+          {applicationMenu === "workFromHome" && (
+            <ChevronRight className="w-5 h-5 text-gray-900" />
+          )}
         </div>
-        {applicationMenu === "workFromHome" && (
-          <ChevronRight className="w-5 h-5 text-gray-900" />
-        )}
-      </div>
+      )}
       <div
         onClick={onClickChangeTimeTable}
         className={`flex items-center justify-between gap-2 w-full p-2 rounded-lg cursor-pointer hover:bg-gray-200 transition-all hover:zoom-in`}
@@ -319,6 +325,96 @@ export const PrivateApplicationTableContentPageTemplate = ({
             <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
               <span className="relative inline-block text-green-900 leading-tight">
                 {data.requestedDate}
+              </span>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span className="relative inline-block font-semibold text-green-900 leading-tight">
+                <span className="relative">{data.type}</span>
+              </span>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span className="relative inline-block text-green-900 leading-tight">
+                <span className="relative">{data.FromDate}</span>
+              </span>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span className="relative inline-block text-green-900 leading-tight">
+                <span className="relative">{data.ToDate}</span>
+              </span>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span className="relative inline-block text-green-900 leading-tight">
+                <span className="relative">{data.numberOfDays}</span>
+              </span>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span className="relative inline-block font-semibold text-green-900 leading-tight">
+                <span className="relative">{data.approvedBy}</span>
+              </span>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span
+                className={`relative inline-block font-semibold ${
+                  data.Status === "Cancelled"
+                    ? "text-red-500"
+                    : data.Status === "Pending"
+                    ? "text-yellow-600"
+                    : "text-blue-600"
+                } leading-tight`}
+              >
+                <span className="relative">{data.Status}</span>
+              </span>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span className="w-32 relative inline-block text-green-900 leading-tight">
+                <span className="relative word-break">{data.reason}</span>
+              </span>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <div className="w-full h-full grid grid-cols-2 gap-2">
+                {data.Status === "Pending" && (
+                  <p className="bg-green-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
+                    <FilePenLine className="w-4 h-4" />
+                  </p>
+                )}
+                {data.Status === "Pending" && (
+                  <p className="bg-red-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
+                    <Trash2 className="w-4 h-4" />
+                  </p>
+                )}
+                {data.Status !== "Cancelled" && (
+                  <p className="bg-yellow-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
+                    <SquareX className="w-4 h-4" />
+                  </p>
+                )}
+                <p className="bg-blue-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
+                  <View className="w-4 h-4" />
+                </p>
+              </div>
+            </td>
+          </tr>
+        );
+      })}
+    </>
+  );
+};
+
+export const PrivateApplicationApprovalTableContentPageTemplate = ({
+  tableData,
+}: props) => {
+  return (
+    <>
+      {tableData?.map((data, index) => {
+        return (
+          <tr>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span className="relative inline-block font-semibold text-green-900 leading-tight">
+                {index + 1}
+              </span>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span className="relative inline-block text-green-900 leading-tight">
+                {data.userName}
               </span>
             </td>
             <td className="border-b border-gray-200 bg-white text-xs font-display p-5">

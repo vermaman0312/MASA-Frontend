@@ -89,7 +89,7 @@ export const PrivateContactCardDetailPageTemplate = ({
       </div>
       <div className="w-full truncate flex items-center justify-center">
         <CustomLabel className="font-display text-xs font-medium cursor-pointer text-blue-600">
-          {role}
+          {role ? role : "Student"}
         </CustomLabel>
       </div>
       <div className="w-full truncate flex items-center justify-center">

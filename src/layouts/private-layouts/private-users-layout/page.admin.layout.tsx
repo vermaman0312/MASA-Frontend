@@ -7,19 +7,15 @@ import {
   PrivateUserPieChartPageTemplate,
   PrivateUserTableButtonPageTemplate,
 } from "../../../templates/private-templates/private-users-template/page.admin.template";
-import { contactUserList } from "../private-contacts-layout/mock";
 import "../../../css/scroll-container.css";
 import { useCallback, useRef, useState } from "react";
 import CustomPagination from "../../../components/custom-pagination/custom-pagination.component";
 import CustomSearchBox from "../../../components/custom-searchbox/custom-searchbox.component";
 import CustomDropdown from "../../../components/custom-dropdown/custom-dropdown.component";
 import { allUserList, userType } from "../../../mock/user-data";
-import { ArrowLeft, File } from "lucide-react";
+import { File } from "lucide-react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import { CustomLabel } from "../../../components/custom-label/custom-label.component";
-import { CustomInputField } from "../../../components/custom-input-field/custom-input-field.component";
-import CustomFileInputField from "../../../components/custom-file-input-field/custom-file-input-field.component";
 
 const roleList = ["Teacher", "Admin", "Non Teacher", "Student"];
 const departmentList = [
@@ -158,7 +154,7 @@ const PrivateUsersPageLayout = () => {
                   <CustomDropdown
                     title="Selecte the number"
                     width="w-[5rem]"
-                    data={contactUserList.length}
+                    data={allUserList.length}
                     onChange={handleSelectNumber}
                     value={selectedNumber}
                   />
@@ -198,7 +194,7 @@ const PrivateUsersPageLayout = () => {
             </div>
             <div>
               <CustomPagination
-                totalLength={contactUserList.length}
+                totalLength={allUserList.length}
                 minimumLength={1}
                 maximumLength={selectedNumber}
                 onClickPrev={() => alert("prev")}

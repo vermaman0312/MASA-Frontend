@@ -1,5 +1,7 @@
 export const myLeaveWfhList = [
   {
+    userUniqueId: "20SOECE11091",
+    userName: "Aman Verma",
     requestedDate: "20-12-1998",
     type: "Full Leave",
     FromDate: "12-02-1998",
@@ -10,6 +12,8 @@ export const myLeaveWfhList = [
     reason: "This is reason 1.",
   },
   {
+    userUniqueId: "20SOECE11091",
+    userName: "Aman Verma",
     requestedDate: "20-12-1998",
     type: "Half Leave",
     FromDate: "12-02-1998",
@@ -20,6 +24,8 @@ export const myLeaveWfhList = [
     reason: "This is reason 2.",
   },
   {
+    userUniqueId: "20SOECE11091",
+    userName: "Aman Verma",
     requestedDate: "20-12-1998",
     type: "WFH",
     FromDate: "12-02-1998",
@@ -30,6 +36,8 @@ export const myLeaveWfhList = [
     reason: "This is reason 5.",
   },
   {
+    userUniqueId: "20SOECE11091",
+    userName: "Aman Verma",
     requestedDate: "20-12-1998",
     type: "Full Leave",
     FromDate: "12-02-1998",
@@ -40,6 +48,8 @@ export const myLeaveWfhList = [
     reason: "This is reason 6.",
   },
   {
+    userUniqueId: "20SOECE11091",
+    userName: "Aman Verma",
     requestedDate: "20-12-1998",
     type: "WFH",
     FromDate: "12-02-1998",

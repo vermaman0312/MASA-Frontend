@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { contactUserList } from "./mock";
 import {
   PrivateContactCardDetailPageTemplate,
   PrivateContactHeadingPageTemplate,
   PrivateContactNotFoundPageTemplate,
 } from "../../../templates/private-templates/private-contact-template/page.student.template";
+import { allUserList } from "../../../mock/user-data";
 
 const PrivateContactPageLayout = () => {
   const [inputValue, setInputValue] = useState("");
@@ -12,7 +12,7 @@ const PrivateContactPageLayout = () => {
     const value = e.target.value;
     setInputValue(value);
   };
-  const filteredList = contactUserList.filter((contact) =>
+  const filteredList = allUserList.filter((contact) =>
     Object.values(contact).some((value) =>
       value.toLowerCase().includes(inputValue.toLowerCase())
     )
@@ -32,12 +32,14 @@ const PrivateContactPageLayout = () => {
           {filteredList.map((user, index) => (
             <PrivateContactCardDetailPageTemplate
               key={index}
-              firstName={user.firstName}
-              lastName={user.lastName}
-              emailAddress={user.emailAddress}
-              phoneNumber={user.phoneNumber}
-              role={user.role}
+              firstName={user.userFirstName}
+              lastName={user.userLastName}
+              userProfileImage={user.userProfileImage}
+              emailAddress={user.userEmailAddress}
+              phoneNumber={user.userPhoneNumber}
+              role={user.userDesignation}
               buttonTitle="View Profile"
+              onClick={() => alert("view")}
             />
           ))}
         </div>
