@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateFeesPaymentPageLayout from "../../../layouts/private-layouts/private-fees-payment-layout/page.student.layout";
+import PrivateFeesPaymentPageLayout from "../../../layouts/private-layouts/private-fees-payment-layout/page.common.layout";
 import { SmartphoneNfc } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

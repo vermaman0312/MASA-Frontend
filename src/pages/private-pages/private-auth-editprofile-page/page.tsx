@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateEditProfilePageLayout from "../../../layouts/private-layouts/private-edit-profile-layout/page.student.layout";
+import PrivateEditProfilePageLayout from "../../../layouts/private-layouts/private-edit-profile-layout/page.common.layout";
 import { FilePenLine } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

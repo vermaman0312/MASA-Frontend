@@ -1,6 +1,6 @@
 import { LayoutDashboard } from "lucide-react";
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateDashboardPageLayout from "../../../layouts/private-layouts/private-dashboard-layout/page.student.layout";
+import PrivateDashboardPageLayout from "../../../layouts/private-layouts/private-dashboard-layout/page.common.layout";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 
 const PrivateAuthDashboardPage = () => {

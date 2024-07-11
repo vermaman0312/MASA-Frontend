@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateTasksheetPageLayout from "../../../layouts/private-layouts/private-tasksheet-layout/page.student.layout";
+import PrivateTasksheetPageLayout from "../../../layouts/private-layouts/private-tasksheet-layout/page.common.layout";
 import { ClipboardList } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

@@ -7,7 +7,7 @@ import {
   PrivateNoteListPageTemplate,
   PrivateNoteNotFoundPageTemplate,
   PrivateNotesHeadingPageTemplate,
-} from "../../../templates/private-templates/private-notes-template/page.student.template";
+} from "../../../templates/private-templates/private-notes-template/page.common.template";
 import { noteList } from "../../../mock/note-data";
 import CustomLoader from "../../../components/custom-loader/custom-loader.component";
 

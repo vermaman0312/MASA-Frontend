@@ -6,6 +6,7 @@ type props = {
   value?: string;
   type?: string;
   onCancel?: () => void;
+  onKeyDown?: () => void;
 };
 
 const CustomSearchBox = ({
@@ -14,6 +15,7 @@ const CustomSearchBox = ({
   value,
   type,
   onCancel,
+  onKeyDown,
 }: props) => {
   return (
     <div className="w-full border rounded-full flex items-center gap-2 p-2">
@@ -22,6 +24,7 @@ const CustomSearchBox = ({
         className="border-none w-full h--full outline-none text-xs font-display"
         placeholder={placeholder}
         onChange={(event) => onChange && onChange(event)}
+        onKeyDown={onKeyDown}
         value={value}
       />
       {value ? (

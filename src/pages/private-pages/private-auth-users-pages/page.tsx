@@ -2,7 +2,7 @@ import React from "react";
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
 import { Users } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
-import PrivateUsersPageLayout from "../../../layouts/private-layouts/private-users-layout/page.admin.layout";
+import PrivateUsersPageLayout from "../../../layouts/private-layouts/private-users-layout/page.common.layout";
 
 const PrivateAuthUsersPage = () => {
   return (

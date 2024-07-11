@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "../../../css/scroll-container.css";
 import CustomSearchBox from "../../../components/custom-searchbox/custom-searchbox.component";
 import CustomPagination from "../../../components/custom-pagination/custom-pagination.component";
@@ -11,6 +11,20 @@ import {
   PrivateApplicationUserDetailsPageTemplate,
 } from "../../../templates/private-templates/private-application-template/page.common.template";
 import { myLeaveWfhList } from "../../../mock/user-leave-wfh";
+import { authenticatedUserRole } from "../../../utils/token/token";
+
+type myApprovalType = {
+  userUniqueId: string;
+  userName: string;
+  requestedDate: string;
+  type: string;
+  FromDate: string;
+  ToDate: string;
+  numberOfDays: string;
+  approvedBy: string;
+  Status: string;
+  reason: string;
+};
 
 const myTableHeadingList = [
   "S.N",
@@ -27,6 +41,7 @@ const myTableHeadingList = [
 
 const approvalTableHeadingList = [
   "S.N",
+  "Unique ID",
   "Name",
   "Date",
   "Type",
@@ -35,18 +50,38 @@ const approvalTableHeadingList = [
   "Number of days",
   "Status",
   "Reason",
-  "More",
+  "View",
+  "Action",
 ];
 
 const PrivateApplicationPageLayout = () => {
+  const role = authenticatedUserRole();
   const [applicationMenu, setApplicationMenu] = useState<string>("myApproval");
   const [myApproval, setMyApproval] = useState<boolean>(true);
+  const [inputValue, setInputValue] = useState("");
+  const [approvalList, setApprovalList] =
+    useState<Array<myApprovalType>>(myLeaveWfhList);
+  const [myApprovalList, setMyApprovalList] = useState<Array<myApprovalType>>();
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
+  };
+  useEffect(() => {
+    const myApprovalFilteredList = myLeaveWfhList.filter((contact) =>
+      Object.values(contact).some((value) =>
+        value.toString().toLowerCase().includes(inputValue.toLowerCase())
+      )
+    );
+    setMyApprovalList(myApprovalFilteredList);
+  }, [inputValue]);
+
   const handleSelectApplicationMenu = useCallback(
     (value: string) => {
       setApplicationMenu(value);
     },
     [setApplicationMenu]
   );
+
   return (
     <div className="w-full h-full flex items-start justify-between gap-1 scroll-container">
       <div>
@@ -104,28 +139,35 @@ const PrivateApplicationPageLayout = () => {
 
           <div className="w-full h-[20px] mt-5">
             <div className="flex flex-col md:flex-row items-end justify-end gap-5">
-              <div>
-                <div className="bg-gray-200 p-1 flex items-center justify-between w-64 rounded-lg">
-                  <button
-                    onClick={() => setMyApproval(true)}
-                    className={`w-full ${
-                      myApproval ? "bg-white" : "bg-transparent"
-                    } p-1 text-xs font-display font-medium text-gray-900 rounded-lg transition-all`}
-                  >
-                    My Approval
-                  </button>
-                  <button
-                    onClick={() => setMyApproval(false)}
-                    className={`w-full ${
-                      !myApproval ? "bg-white" : "bg-transparent"
-                    } p-1 text-xs font-display font-medium text-gray-900 rounded-lg transition-all`}
-                  >
-                    Approval
-                  </button>
+              {role.toLowerCase() !== "student" && (
+                <div>
+                  <div className="bg-gray-200 p-1 flex items-center justify-between w-64 rounded-lg">
+                    <button
+                      onClick={() => setMyApproval(true)}
+                      className={`w-full ${
+                        myApproval ? "bg-white" : "bg-transparent"
+                      } p-1 text-xs font-display font-medium text-gray-900 rounded-lg transition-all`}
+                    >
+                      My Approval
+                    </button>
+                    <button
+                      onClick={() => setMyApproval(false)}
+                      className={`w-full ${
+                        !myApproval ? "bg-white" : "bg-transparent"
+                      } p-1 text-xs font-display font-medium text-gray-900 rounded-lg transition-all`}
+                    >
+                      Approval
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
               <div>
-                <CustomSearchBox />
+                <CustomSearchBox
+                  placeholder="Search..."
+                  onChange={handleInputChange}
+                  value={inputValue}
+                  onCancel={() => setInputValue("")}
+                />
               </div>
             </div>
 
@@ -140,7 +182,7 @@ const PrivateApplicationPageLayout = () => {
                     </thead>
                     <tbody>
                       <PrivateApplicationTableContentPageTemplate
-                        tableData={myLeaveWfhList}
+                        tableData={myApprovalList}
                       />
                     </tbody>
                   </table>
@@ -162,7 +204,7 @@ const PrivateApplicationPageLayout = () => {
                     </thead>
                     <tbody>
                       <PrivateApplicationApprovalTableContentPageTemplate
-                        tableData={myLeaveWfhList}
+                        tableData={approvalList}
                       />
                     </tbody>
                   </table>

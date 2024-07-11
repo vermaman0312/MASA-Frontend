@@ -1,6 +1,6 @@
 import React from "react";
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateApplicationPageLayout from "../../../layouts/private-layouts/private-application-layout/page.student.layout";
+import PrivateApplicationPageLayout from "../../../layouts/private-layouts/private-application-layout/page.common.layout";
 import { AppWindowMac } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

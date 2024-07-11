@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateResultPageLayout from "../../../layouts/private-layouts/private-result-layout/page.student.layout";
+import PrivateResultPageLayout from "../../../layouts/private-layouts/private-result-layout/page.common.layout";
 import { RectangleEllipsis } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

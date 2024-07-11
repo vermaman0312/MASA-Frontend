@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateOnlineMeetPageLayout from "../../../layouts/private-layouts/private-online-meet-layout/page.student.layout";
+import PrivateOnlineMeetPageLayout from "../../../layouts/private-layouts/private-online-meet-layout/page.common.layout";
 import { Radio } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

@@ -9,6 +9,6 @@ export const authenticatedUser = () => {
 };
 
 export const authenticatedUserRole = () => {
-  const role = "admin";
+  const role = "teacher";
   return role;
 };

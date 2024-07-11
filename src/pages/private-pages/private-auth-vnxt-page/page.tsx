@@ -1,6 +1,6 @@
 import React from "react";
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateVNXTPageLayout from "../../../layouts/private-layouts/private-vnxt-layout/page.student.layout";
+import PrivateVNXTPageLayout from "../../../layouts/private-layouts/private-vnxt-layout/page.common.layout";
 import { GalleryVertical } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

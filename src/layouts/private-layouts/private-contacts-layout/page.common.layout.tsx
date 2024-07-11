@@ -3,7 +3,7 @@ import {
   PrivateContactCardDetailPageTemplate,
   PrivateContactHeadingPageTemplate,
   PrivateContactNotFoundPageTemplate,
-} from "../../../templates/private-templates/private-contact-template/page.student.template";
+} from "../../../templates/private-templates/private-contact-template/page.common.template";
 import { allUserList } from "../../../mock/user-data";
 
 const PrivateContactPageLayout = () => {

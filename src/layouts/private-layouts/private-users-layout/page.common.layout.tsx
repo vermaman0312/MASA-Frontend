@@ -6,7 +6,7 @@ import {
   PrivateUserListDataTablePageTemplate,
   PrivateUserPieChartPageTemplate,
   PrivateUserTableButtonPageTemplate,
-} from "../../../templates/private-templates/private-users-template/page.admin.template";
+} from "../../../templates/private-templates/private-users-template/page.common.template";
 import "../../../css/scroll-container.css";
 import { useCallback, useRef, useState } from "react";
 import CustomPagination from "../../../components/custom-pagination/custom-pagination.component";

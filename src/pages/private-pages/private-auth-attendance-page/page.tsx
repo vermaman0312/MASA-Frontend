@@ -1,6 +1,6 @@
 import React from "react";
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateAttendancePageLayout from "../../../layouts/private-layouts/private-attendance-layout/page.student.layout";
+import PrivateAttendancePageLayout from "../../../layouts/private-layouts/private-attendance-layout/page.common.layout";
 import { PersonStanding } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateOnlineExamPageLayout from "../../../layouts/private-layouts/private-online-exam-layout/page.student.layout";
+import PrivateOnlineExamPageLayout from "../../../layouts/private-layouts/private-online-exam-layout/page.common.layout";
 import { Layers3 } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

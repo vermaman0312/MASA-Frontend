@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateCalenderPageLayout from "../../../layouts/private-layouts/private-calender-layout/page.student.layout";
+import PrivateCalenderPageLayout from "../../../layouts/private-layouts/private-calender-layout/page.common.layout";
 import { CalendarDays } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

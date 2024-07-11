@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateProfilePageLayout from "../../../layouts/private-layouts/private-profile-layout/page.student.layout";
+import PrivateProfilePageLayout from "../../../layouts/private-layouts/private-profile-layout/page.common.layout";
 import { User } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 

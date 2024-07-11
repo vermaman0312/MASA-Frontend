@@ -1,8 +1,10 @@
 import {
   CalendarSearch,
+  Check,
   ChevronRight,
   CircleFadingPlus,
   Dock,
+  EllipsisVertical,
   FilePenLine,
   FileSignature,
   OctagonAlert,
@@ -12,9 +14,13 @@ import {
   SquareX,
   Trash2,
   View,
+  X,
 } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import { authenticatedUserRole } from "../../../utils/token/token";
+import CustomToolTip from "../../../components/custom-tooltip/custom-tooltip.component";
+import CustomMenuDropdown from "../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
+import { DropdownMenuItem } from "../../../components/custom-menu-dropdown/custom-menu-dropdown.ui";
 
 type myApprovalType = {
   userUniqueId: string;
@@ -366,31 +372,38 @@ export const PrivateApplicationTableContentPageTemplate = ({
               </span>
             </td>
             <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
-              <span className="w-32 relative inline-block text-green-900 leading-tight">
-                <span className="relative word-break">{data.reason}</span>
-              </span>
+              <span className="relative word-break">{data.reason}</span>
             </td>
             <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
-              <div className="w-full h-full grid grid-cols-2 gap-2">
+              <CustomMenuDropdown
+                buttonComponent={
+                  <EllipsisVertical className="w-4 h-4 cursor-pointer" />
+                }
+                marginRight="mr-6"
+              >
+                <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                  <View className="w-4 h-4" />
+                  <span className="font-display text-xs">View Request</span>
+                </DropdownMenuItem>
                 {data.Status === "Pending" && (
-                  <p className="bg-green-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
+                  <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
                     <FilePenLine className="w-4 h-4" />
-                  </p>
-                )}
-                {data.Status === "Pending" && (
-                  <p className="bg-red-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
-                    <Trash2 className="w-4 h-4" />
-                  </p>
+                    <span className="font-display text-xs">Edit Request</span>
+                  </DropdownMenuItem>
                 )}
                 {data.Status !== "Cancelled" && (
-                  <p className="bg-yellow-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
+                  <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 text-yellow-500">
                     <SquareX className="w-4 h-4" />
-                  </p>
+                    <span className="font-display text-xs">Cancel Request</span>
+                  </DropdownMenuItem>
                 )}
-                <p className="bg-blue-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
-                  <View className="w-4 h-4" />
-                </p>
-              </div>
+                {data.Status === "Pending" && (
+                  <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 text-red-500">
+                    <Trash2 className="w-4 h-4" />
+                    <span className="font-display text-xs">Delete Request</span>
+                  </DropdownMenuItem>
+                )}
+              </CustomMenuDropdown>
             </td>
           </tr>
         );
@@ -414,7 +427,18 @@ export const PrivateApplicationApprovalTableContentPageTemplate = ({
             </td>
             <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
               <span className="relative inline-block text-green-900 leading-tight">
+                {data.userUniqueId}
+              </span>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span className="relative inline-block text-green-900 leading-tight">
                 {data.userName}
+              </span>
+            </td>
+
+            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+              <span className="relative inline-block text-green-900 leading-tight">
+                <span className="relative">{data.requestedDate}</span>
               </span>
             </td>
             <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
@@ -433,13 +457,8 @@ export const PrivateApplicationApprovalTableContentPageTemplate = ({
               </span>
             </td>
             <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
-              <span className="relative inline-block text-green-900 leading-tight">
-                <span className="relative">{data.numberOfDays}</span>
-              </span>
-            </td>
-            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
               <span className="relative inline-block font-semibold text-green-900 leading-tight">
-                <span className="relative">{data.approvedBy}</span>
+                <span className="relative">{data.numberOfDays}</span>
               </span>
             </td>
             <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
@@ -460,25 +479,20 @@ export const PrivateApplicationApprovalTableContentPageTemplate = ({
                 <span className="relative word-break">{data.reason}</span>
               </span>
             </td>
-            <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
-              <div className="w-full h-full grid grid-cols-2 gap-2">
-                {data.Status === "Pending" && (
-                  <p className="bg-green-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
-                    <FilePenLine className="w-4 h-4" />
-                  </p>
-                )}
-                {data.Status === "Pending" && (
-                  <p className="bg-red-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
-                    <Trash2 className="w-4 h-4" />
-                  </p>
-                )}
-                {data.Status !== "Cancelled" && (
-                  <p className="bg-yellow-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
-                    <SquareX className="w-4 h-4" />
-                  </p>
-                )}
-                <p className="bg-blue-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
+            <td className="border-b border-gray-200 bg-white text-xs font-display">
+              <div className="w-full h-full flex items-center gap-2">
+                <p className="w-6 h-6 bg-blue-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
                   <View className="w-4 h-4" />
+                </p>
+              </div>
+            </td>
+            <td className="border-b border-gray-200 bg-white text-xs font-display">
+              <div className="w-full h-full flex items-center gap-2">
+                <p className="w-6 h-6 bg-green-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
+                  <Check className="w-4 h-4" />
+                </p>
+                <p className="w-6 h-6 bg-red-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
+                  <X className="w-4 h-4" />
                 </p>
               </div>
             </td>
