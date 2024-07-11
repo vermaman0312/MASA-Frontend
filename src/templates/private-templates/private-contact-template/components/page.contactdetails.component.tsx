@@ -1,53 +1,9 @@
-import { Search } from "lucide-react";
-import { CustomLabel } from "../../../components/custom-label/custom-label.component";
-import ContactIllustration from "../../../assets/illustrations/contact-illustration";
-import { getRandomColor } from "../../../themes/color";
-import CustomAvatar from "../../../components/custom-avatar/custom-avatar.component";
+import React from "react";
+import { getRandomColor } from "../../../../themes/color";
+import CustomAvatar from "../../../../components/custom-avatar/custom-avatar.component";
+import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
 
 type props = {
-  value?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-export const PrivateContactHeadingPageTemplate = ({
-  value,
-  onChange,
-}: props) => {
-  return (
-    <div className="flex items-center justify-center gap-1 p-2 border rounded-full">
-      <input
-        type="text"
-        className="w-full outline-none border-none ml-1 font-display text-xs"
-        placeholder="Search..."
-        value={value}
-        onChange={onChange}
-      />
-      <Search className="w-5 h-5" />
-    </div>
-  );
-};
-
-export const PrivateContactNotFoundPageTemplate = () => {
-  return (
-    <div className="w-full h-full flex flex-col items-center justify-center transition-all">
-      <div className="w-[18rem]">
-        <ContactIllustration />
-      </div>
-      <div>
-        <CustomLabel className="text-4xl font-display font-medium">
-          No users found...
-        </CustomLabel>
-      </div>
-      <div>
-        <CustomLabel className="text-xs font-display text-center">
-          Please contact with admistration!
-        </CustomLabel>
-      </div>
-    </div>
-  );
-};
-
-type detailsProps = {
   key?: number;
   firstName?: string;
   lastName?: string;
@@ -59,7 +15,7 @@ type detailsProps = {
   onClick?: () => void;
 };
 
-export const PrivateContactCardDetailPageTemplate = ({
+const PrivateContactCardDetailPageComponent = ({
   key,
   firstName,
   lastName,
@@ -69,7 +25,7 @@ export const PrivateContactCardDetailPageTemplate = ({
   phoneNumber,
   buttonTitle,
   onClick,
-}: detailsProps) => {
+}: props) => {
   return (
     <div
       key={key}
@@ -123,3 +79,5 @@ export const PrivateContactCardDetailPageTemplate = ({
     </div>
   );
 };
+
+export default PrivateContactCardDetailPageComponent;

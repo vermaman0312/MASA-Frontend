@@ -17,7 +17,7 @@ const PrivateAuthNotesPage = () => {
     >
       <div
         className="w-full mt-5"
-        style={{ width: "100%", height: "calc(100vh - 160px)" }}
+        style={{ height: "calc(100vh - 160px)" }}
       >
         <PrivateNotePageLayout />
       </div>
