@@ -1,4 +1,4 @@
-import { LogOut, Search } from "lucide-react";
+import { LogOut, Notebook, Search } from "lucide-react";
 import { CustomLabel } from "../custom-label/custom-label.component";
 import { useNavigate } from "react-router-dom";
 import { ReactNode, useCallback } from "react";
@@ -8,12 +8,14 @@ import UserProfileMenuItems from "./user-profile-menuItems.ui";
 import NotificationNavBar from "./notification-navbar.ui";
 import "../../css/scroll-container.css";
 import { authenticatedUserRole } from "../../utils/token/token";
+import "../../css/scroll-container.css";
 
 type props = {
+  headerChildren?: ReactNode;
   children?: ReactNode;
 };
 
-const CustomSideBar = ({ children }: props) => {
+const CustomSideBar = ({ headerChildren, children }: props) => {
   const role = authenticatedUserRole();
   const navigate = useNavigate();
   const handleLogout = useCallback(() => {
@@ -25,7 +27,7 @@ const CustomSideBar = ({ children }: props) => {
     <div className="w-screen h-screen flex">
       <div className="w-[15rem] bg-[#0d1b2a] flex flex-col items-center justify-between gap-2 hidden md:flex">
         <div>
-          <div className="w-full h-24 text-white flex items-center justify-center font-display text-2xl p-2">
+          <div className="w-full text-white flex items-center justify-center font-display text-2xl p-5">
             Logo
           </div>
           <div className="w-full p-2">
@@ -41,7 +43,7 @@ const CustomSideBar = ({ children }: props) => {
         </div>
         <DesktopMenuItem />
         <div onClick={handleLogout} className="w-full bg-white">
-          <button className="w-full h-10 bg-red-500 flex items-center justify-between p-2">
+          <button className="w-full bg-red-500 flex items-center justify-between p-2">
             <CustomLabel className="text-white font-display font-medium cursor-pointer">
               Logout
             </CustomLabel>
@@ -54,14 +56,18 @@ const CustomSideBar = ({ children }: props) => {
           <div className="w-full flex items-center justify-start">
             <MobileMenuItems />
           </div>
-
           <div className="w-full flex items-center justify-end gap-5">
             <NotificationNavBar />
             <UserProfileMenuItems />
           </div>
         </div>
-        <div className="w-full h-full flex flex-col items-start justify-start">
-          {children}
+        <div className="w-full">
+          <div className="w-full flex flex-col items-start justify-start">
+            {headerChildren}
+          </div>
+          <div className="w-full flex-1 overflow-y-auto flex flex-col items-start justify-start scroll-container mt-5">
+            {children}
+          </div>
         </div>
       </div>
     </div>
