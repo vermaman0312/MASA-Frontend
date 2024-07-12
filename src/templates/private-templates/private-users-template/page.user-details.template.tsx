@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "../../../css/scroll-container.css";
 import { allUserList, userType } from "../../../mock/user-data";
 import jsPDF from "jspdf";
@@ -13,7 +13,7 @@ type props = {
 };
 
 const PrivateUserDetailsPageTemplate = ({ onClickAddUser }: props) => {
-  const [userList, setUserList] = useState<Array<userType>>(allUserList);
+  const [userList, setUserList] = useState<Array<userType>>([]);
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectedNumber, setSelectedNumber] = useState<number>(5);
   const [table, setTable] = useState<string>("admin");
@@ -29,6 +29,14 @@ const PrivateUserDetailsPageTemplate = ({ onClickAddUser }: props) => {
     },
     [setSearchValue]
   );
+  useEffect(() => {
+    const myApprovalFilteredList = allUserList.filter((contact) =>
+      Object.values(contact).some((value) =>
+        value.toString().toLowerCase().includes(searchValue.toLowerCase())
+      )
+    );
+    setUserList(myApprovalFilteredList);
+  }, [searchValue]);
   const handleSelectNumber = useCallback(
     (value: string | number) => {
       setSelectedNumber(Number(value));
