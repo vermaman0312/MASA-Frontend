@@ -1,7 +1,6 @@
 export type userType = {
   id: string;
-  employeeId?: string | undefined;
-  enrollmentNumber?: string | undefined;
+  uniqueId?: string | undefined;
   userFirstName: string;
   userLastName: string;
   userProfileImage: string;
@@ -19,7 +18,7 @@ export const allUserList: userType[] = [
   // Existing users
   {
     id: "1",
-    employeeId: "ABC123",
+    uniqueId: "ABC123",
     userFirstName: "Sushant",
     userLastName: "Shareebastav",
     userProfileImage: "https://github.com/shadcn.png",
@@ -31,7 +30,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "2",
-    employeeId: "ABC1234",
+    uniqueId: "ABC1234",
     userFirstName: "Anant",
     userLastName: "Shareebastav",
     userProfileImage: "https://github.com/shadcn.png",
@@ -43,7 +42,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "3",
-    enrollmentNumber: "20SOECE11091",
+    uniqueId: "20SOECE11091",
     userFirstName: "Aman",
     userLastName: "Verma",
     userProfileImage: "https://github.com/shadcn.png",
@@ -57,7 +56,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "4",
-    employeeId: "ABC12356",
+    uniqueId: "ABC12356",
     userFirstName: "Atal",
     userLastName: "Verma",
     userProfileImage: "https://github.com/shadcn.png",
@@ -71,7 +70,7 @@ export const allUserList: userType[] = [
   // Additional Admins
   {
     id: "5",
-    employeeId: "ABC1235",
+    uniqueId: "ABC1235",
     userFirstName: "Priya",
     userLastName: "Sharma",
     userProfileImage: "https://github.com/shadcn.png",
@@ -83,7 +82,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "6",
-    employeeId: "ABC1236",
+    uniqueId: "ABC1236",
     userFirstName: "Rohan",
     userLastName: "Mehta",
     userProfileImage: "https://github.com/shadcn.png",
@@ -95,7 +94,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "7",
-    employeeId: "ABC1237",
+    uniqueId: "ABC1237",
     userFirstName: "Sneha",
     userLastName: "Patel",
     userProfileImage: "https://github.com/shadcn.png",
@@ -107,7 +106,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "8",
-    employeeId: "ABC1238",
+    uniqueId: "ABC1238",
     userFirstName: "Amit",
     userLastName: "Kumar",
     userProfileImage: "https://github.com/shadcn.png",
@@ -120,7 +119,7 @@ export const allUserList: userType[] = [
   // Additional Teachers
   {
     id: "9",
-    employeeId: "ABC1239",
+    uniqueId: "ABC1239",
     userFirstName: "Vikas",
     userLastName: "Gupta",
     userProfileImage: "https://github.com/shadcn.png",
@@ -133,7 +132,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "10",
-    employeeId: "ABC1240",
+    uniqueId: "ABC1240",
     userFirstName: "Neha",
     userLastName: "Singh",
     userProfileImage: "https://github.com/shadcn.png",
@@ -146,7 +145,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "11",
-    employeeId: "ABC1241",
+    uniqueId: "ABC1241",
     userFirstName: "Manish",
     userLastName: "Agarwal",
     userProfileImage: "https://github.com/shadcn.png",
@@ -159,7 +158,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "12",
-    employeeId: "ABC1242",
+    uniqueId: "ABC1242",
     userFirstName: "Kavita",
     userLastName: "Reddy",
     userProfileImage: "https://github.com/shadcn.png",
@@ -172,7 +171,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "13",
-    employeeId: "ABC1243",
+    uniqueId: "ABC1243",
     userFirstName: "Raj",
     userLastName: "Kapoor",
     userProfileImage: "https://github.com/shadcn.png",
@@ -185,7 +184,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "14",
-    employeeId: "ABC1244",
+    uniqueId: "ABC1244",
     userFirstName: "Sonia",
     userLastName: "Gupta",
     userProfileImage: "https://github.com/shadcn.png",
@@ -198,7 +197,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "15",
-    employeeId: "ABC1245",
+    uniqueId: "ABC1245",
     userFirstName: "Rakesh",
     userLastName: "Yadav",
     userProfileImage: "https://github.com/shadcn.png",
@@ -211,7 +210,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "16",
-    employeeId: "ABC1246",
+    uniqueId: "ABC1246",
     userFirstName: "Pooja",
     userLastName: "Shah",
     userProfileImage: "https://github.com/shadcn.png",
@@ -224,7 +223,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "17",
-    employeeId: "ABC1247",
+    uniqueId: "ABC1247",
     userFirstName: "Deepak",
     userLastName: "Patil",
     userProfileImage: "https://github.com/shadcn.png",
@@ -237,7 +236,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "18",
-    employeeId: "ABC1248",
+    uniqueId: "ABC1248",
     userFirstName: "Seema",
     userLastName: "Jain",
     userProfileImage: "https://github.com/shadcn.png",
@@ -251,7 +250,7 @@ export const allUserList: userType[] = [
   // Additional NonTeachers
   {
     id: "19",
-    employeeId: "ABC1249",
+    uniqueId: "ABC1249",
     userFirstName: "Tarun",
     userLastName: "Malhotra",
     userProfileImage: "https://github.com/shadcn.png",
@@ -263,7 +262,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "20",
-    employeeId: "ABC1250",
+    uniqueId: "ABC1250",
     userFirstName: "Jyoti",
     userLastName: "Arora",
     userProfileImage: "https://github.com/shadcn.png",
@@ -275,7 +274,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "21",
-    employeeId: "ABC1251",
+    uniqueId: "ABC1251",
     userFirstName: "Nitin",
     userLastName: "Kumar",
     userProfileImage: "https://github.com/shadcn.png",
@@ -287,7 +286,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "22",
-    employeeId: "ABC1252",
+    uniqueId: "ABC1252",
     userFirstName: "Alok",
     userLastName: "Mishra",
     userProfileImage: "https://github.com/shadcn.png",
@@ -299,7 +298,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "23",
-    employeeId: "ABC1253",
+    uniqueId: "ABC1253",
     userFirstName: "Geeta",
     userLastName: "Joshi",
     userProfileImage: "https://github.com/shadcn.png",
@@ -311,7 +310,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "24",
-    employeeId: "ABC1254",
+    uniqueId: "ABC1254",
     userFirstName: "Sunil",
     userLastName: "Rathod",
     userProfileImage: "https://github.com/shadcn.png",
@@ -323,7 +322,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "25",
-    employeeId: "ABC1255",
+    uniqueId: "ABC1255",
     userFirstName: "Anjali",
     userLastName: "Saxena",
     userProfileImage: "https://github.com/shadcn.png",
@@ -336,7 +335,7 @@ export const allUserList: userType[] = [
   // Additional Students
   {
     id: "26",
-    enrollmentNumber: "20SOECE11092",
+    uniqueId: "20SOECE11092",
     userFirstName: "Rahul",
     userLastName: "Kumar",
     userProfileImage: "https://github.com/shadcn.png",
@@ -350,7 +349,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "27",
-    enrollmentNumber: "20SOECE11093",
+    uniqueId: "20SOECE11093",
     userFirstName: "Karan",
     userLastName: "Gupta",
     userProfileImage: "https://github.com/shadcn.png",
@@ -364,7 +363,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "28",
-    enrollmentNumber: "20SOECE11094",
+    uniqueId: "20SOECE11094",
     userFirstName: "Riya",
     userLastName: "Sharma",
     userProfileImage: "https://github.com/shadcn.png",
@@ -378,7 +377,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "29",
-    enrollmentNumber: "20SOECE11095",
+    uniqueId: "20SOECE11095",
     userFirstName: "Vishal",
     userLastName: "Patel",
     userProfileImage: "https://github.com/shadcn.png",
@@ -392,7 +391,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "30",
-    enrollmentNumber: "20SOECE11096",
+    uniqueId: "20SOECE11096",
     userFirstName: "Aditi",
     userLastName: "Rao",
     userProfileImage: "https://github.com/shadcn.png",
@@ -406,7 +405,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "31",
-    enrollmentNumber: "20SOECE11097",
+    uniqueId: "20SOECE11097",
     userFirstName: "Sahil",
     userLastName: "Verma",
     userProfileImage: "https://github.com/shadcn.png",
@@ -420,7 +419,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "32",
-    enrollmentNumber: "20SOECE11098",
+    uniqueId: "20SOECE11098",
     userFirstName: "Ishita",
     userLastName: "Mehta",
     userProfileImage: "https://github.com/shadcn.png",
@@ -434,7 +433,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "33",
-    enrollmentNumber: "20SOECE11099",
+    uniqueId: "20SOECE11099",
     userFirstName: "Mohit",
     userLastName: "Sharma",
     userProfileImage: "https://github.com/shadcn.png",
@@ -448,7 +447,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "34",
-    enrollmentNumber: "20SOECE11100",
+    uniqueId: "20SOECE11100",
     userFirstName: "Nisha",
     userLastName: "Yadav",
     userProfileImage: "https://github.com/shadcn.png",
@@ -462,7 +461,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "35",
-    enrollmentNumber: "20SOECE11101",
+    uniqueId: "20SOECE11101",
     userFirstName: "Ankur",
     userLastName: "Tiwari",
     userProfileImage: "https://github.com/shadcn.png",
@@ -476,7 +475,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "36",
-    enrollmentNumber: "20SOECE11102",
+    uniqueId: "20SOECE11102",
     userFirstName: "Snehal",
     userLastName: "Kulkarni",
     userProfileImage: "https://github.com/shadcn.png",
@@ -490,7 +489,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "37",
-    enrollmentNumber: "20SOECE11103",
+    uniqueId: "20SOECE11103",
     userFirstName: "Varun",
     userLastName: "Bhatt",
     userProfileImage: "https://github.com/shadcn.png",
@@ -504,7 +503,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "38",
-    enrollmentNumber: "20SOECE11104",
+    uniqueId: "20SOECE11104",
     userFirstName: "Tina",
     userLastName: "Patel",
     userProfileImage: "https://github.com/shadcn.png",
@@ -518,7 +517,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "39",
-    enrollmentNumber: "20SOECE11105",
+    uniqueId: "20SOECE11105",
     userFirstName: "Aditya",
     userLastName: "Singh",
     userProfileImage: "https://github.com/shadcn.png",
@@ -532,7 +531,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "40",
-    enrollmentNumber: "20SOECE11106",
+    uniqueId: "20SOECE11106",
     userFirstName: "Rohit",
     userLastName: "Chopra",
     userProfileImage: "https://github.com/shadcn.png",
@@ -546,7 +545,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "41",
-    enrollmentNumber: "20SOECE11107",
+    uniqueId: "20SOECE11107",
     userFirstName: "Kavya",
     userLastName: "Nair",
     userProfileImage: "https://github.com/shadcn.png",
@@ -560,7 +559,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "42",
-    enrollmentNumber: "20SOECE11108",
+    uniqueId: "20SOECE11108",
     userFirstName: "Siddharth",
     userLastName: "Khan",
     userProfileImage: "https://github.com/shadcn.png",
@@ -574,7 +573,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "43",
-    enrollmentNumber: "20SOECE11109",
+    uniqueId: "20SOECE11109",
     userFirstName: "Tanvi",
     userLastName: "Rana",
     userProfileImage: "https://github.com/shadcn.png",
@@ -588,7 +587,7 @@ export const allUserList: userType[] = [
   },
   {
     id: "44",
-    enrollmentNumber: "20SOECE11110",
+    uniqueId: "20SOECE11110",
     userFirstName: "Aryan",
     userLastName: "Mishra",
     userProfileImage: "https://github.com/shadcn.png",
