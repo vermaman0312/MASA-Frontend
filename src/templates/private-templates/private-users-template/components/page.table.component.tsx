@@ -1,5 +1,15 @@
+import {
+  ArrowBigUp,
+  EllipsisVertical,
+  Eye,
+  LockKeyhole,
+  Trash2,
+  UserRoundCog,
+} from "lucide-react";
+import CustomMenuDropdown from "../../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
 import CustomPagination from "../../../../components/custom-pagination/custom-pagination.component";
 import { userType } from "../../../../mock/user-data";
+import { DropdownMenuItem } from "../../../../components/custom-menu-dropdown/custom-menu-dropdown.ui";
 
 type props = {
   items: Array<userType>;
@@ -179,12 +189,43 @@ const PrivateUserTablePageComponent = ({
                           type="button"
                           className="inline-block text-gray-500 hover:text-gray-700"
                         >
-                          <svg
-                            className="inline-block h-6 w-6 fill-current"
-                            viewBox="0 0 24 24"
+                          <CustomMenuDropdown
+                            buttonComponent={
+                              <EllipsisVertical className="w-4 h-4 cursor-pointer" />
+                            }
+                            marginRight="mr-6"
                           >
-                            <path d="M12 6a2 2 0 110-4 2 2 0 010 4zm0 8a2 2 0 110-4 2 2 0 010 4zm-2 6a2 2 0 104 0 2 2 0 00-4 0z" />
-                          </svg>
+                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                              <Eye className="w-4 h-4" />
+                              <span className="font-display text-xs">
+                                View user
+                              </span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                              <UserRoundCog className="w-4 h-4" />
+                              <span className="font-display text-xs">
+                                Edit user
+                              </span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                              <ArrowBigUp className="w-4 h-4" />
+                              <span className="font-display text-xs">
+                                Shift to admin
+                              </span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                              <LockKeyhole className="w-4 h-4" />
+                              <span className="font-display text-xs">
+                                Block user
+                              </span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                              <Trash2 className="w-4 h-4" />
+                              <span className="font-display text-xs">
+                                Delete user
+                              </span>
+                            </DropdownMenuItem>
+                          </CustomMenuDropdown>
                         </button>
                       </td>
                     </tr>

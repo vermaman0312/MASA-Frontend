@@ -1,3 +1,16 @@
+export type myApprovalType = {
+  userUniqueId: string;
+  userName: string;
+  requestedDate: string;
+  type: string;
+  FromDate: string;
+  ToDate: string;
+  numberOfDays: string;
+  approvedBy: string;
+  Status: string;
+  reason: string;
+};
+
 export const myLeaveWfhList = [
   {
     userUniqueId: "20SOECE11091",

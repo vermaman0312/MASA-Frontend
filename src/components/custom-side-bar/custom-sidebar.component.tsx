@@ -1,4 +1,4 @@
-import { LogOut, Notebook, Search } from "lucide-react";
+import { LogOut, Search } from "lucide-react";
 import { CustomLabel } from "../custom-label/custom-label.component";
 import { useNavigate } from "react-router-dom";
 import { ReactNode, useCallback } from "react";
@@ -7,8 +7,6 @@ import MobileMenuItems from "./mobile-menuItems.ui";
 import UserProfileMenuItems from "./user-profile-menuItems.ui";
 import NotificationNavBar from "./notification-navbar.ui";
 import "../../css/scroll-container.css";
-import { authenticatedUserRole } from "../../utils/token/token";
-import "../../css/scroll-container.css";
 
 type props = {
   headerChildren?: ReactNode;
@@ -16,7 +14,6 @@ type props = {
 };
 
 const CustomSideBar = ({ headerChildren, children }: props) => {
-  const role = authenticatedUserRole();
   const navigate = useNavigate();
   const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
