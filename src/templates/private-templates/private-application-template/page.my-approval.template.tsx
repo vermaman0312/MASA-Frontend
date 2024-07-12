@@ -3,6 +3,7 @@ import PrivateApplicationHeadingOptionPageComponent from "./components/page.appl
 import { authenticatedUserRole } from "../../../utils/token/token";
 import { myApprovalType, myLeaveWfhList } from "../../../mock/user-leave-wfh";
 import PrivateApplicationApprovalTablePageComponent from "./components/page.applicationtable.component";
+import "../../../css/scroll-container.css";
 
 const PrivateApplicationMyApprovalPageTemplate = () => {
   const role = authenticatedUserRole();
@@ -37,7 +38,7 @@ const PrivateApplicationMyApprovalPageTemplate = () => {
           onCancel={() => setInputValue("")}
         />
       </div>
-      <div className="mt-5">
+      <div className="mt-5 w-full overflow-x-auto scroll-container">
         <PrivateApplicationApprovalTablePageComponent
           optionValue={myApproval}
           items={approvalList}

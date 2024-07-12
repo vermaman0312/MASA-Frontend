@@ -51,7 +51,7 @@ const CustomDropdown = ({
       <SelectTrigger
         className={`${
           width ? width : "w-full"
-        } font-display text-xs gap-2 outline-none`}
+        } font-display text-xs gap-2 outline-none select-none`}
       >
         <SelectValue placeholder={title} />
       </SelectTrigger>

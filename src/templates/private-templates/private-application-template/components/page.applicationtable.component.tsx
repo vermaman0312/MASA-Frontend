@@ -165,14 +165,14 @@ const PrivateApplicationApprovalTablePageComponent = ({
                           }
                           marginRight="mr-6"
                         >
-                          <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                          <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 flex p-1.5 rounded-lg">
                             <View className="w-4 h-4" />
                             <span className="font-display text-xs">
                               View Request
                             </span>
                           </DropdownMenuItem>
                           {data.Status === "Pending" && (
-                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 flex p-1.5 rounded-lg">
                               <FilePenLine className="w-4 h-4" />
                               <span className="font-display text-xs">
                                 Edit Request
@@ -180,7 +180,7 @@ const PrivateApplicationApprovalTablePageComponent = ({
                             </DropdownMenuItem>
                           )}
                           {data.Status !== "Cancelled" && (
-                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 text-yellow-500">
+                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 text-yellow-500 flex p-1.5 rounded-lg">
                               <SquareX className="w-4 h-4" />
                               <span className="font-display text-xs">
                                 Cancel Request
@@ -188,7 +188,7 @@ const PrivateApplicationApprovalTablePageComponent = ({
                             </DropdownMenuItem>
                           )}
                           {data.Status === "Pending" && (
-                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 text-red-500">
+                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 text-red-500 flex p-1.5 rounded-lg">
                               <Trash2 className="w-4 h-4" />
                               <span className="font-display text-xs">
                                 Delete Request
