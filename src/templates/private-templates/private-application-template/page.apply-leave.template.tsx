@@ -1,11 +1,148 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
-import CustomDropdown from "../../../components/custom-dropdown/custom-dropdown.component";
-import { CustomInputField } from "../../../components/custom-input-field/custom-input-field.component";
+import PrivateApplicationApplyFormPageComponent from "./components/page.application-appyleave-form.component";
+import CustomLoader from "../../../components/custom-loader/custom-loader.component";
 
 const leaveType = ["Full leave", "Half leave", "Quarter leave"];
 
+interface formType {
+  leaveType: string | undefined;
+  isLeaveTypeError: boolean;
+  requestedDate: Date | undefined;
+  userUniqueId: string | undefined;
+  fromDate: Date | undefined;
+  isFromDateError: boolean;
+  toDate: Date | undefined;
+  isToDateError: boolean;
+  numberOfDays: number | undefined;
+  reason: string | undefined;
+  isReasonError: boolean;
+}
+
 const PrivateApplicationApplyLeavePageTemplate = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [formDetails, setFormDetails] = useState<formType>({
+    leaveType: "",
+    isLeaveTypeError: false,
+    requestedDate: undefined,
+    userUniqueId: "",
+    fromDate: undefined,
+    isFromDateError: false,
+    toDate: undefined,
+    isToDateError: false,
+    numberOfDays: undefined,
+    reason: "",
+    isReasonError: false,
+  });
+  const onChangeLeaveType = useCallback(
+    (value: string) => {
+      setFormDetails((prevState) => ({
+        ...prevState,
+        leaveType: value,
+        isLeaveTypeError: false,
+        requestedDate: new Date(),
+        userUniqueId: "20SOECE11091",
+      }));
+    },
+    [setFormDetails]
+  );
+  const onChangeFromDate = useCallback(
+    (date: Date) => {
+      setFormDetails((prevState) => ({
+        ...prevState,
+        fromDate: date,
+        isFromDateError: false,
+      }));
+    },
+    [setFormDetails]
+  );
+  const calculateNumberOfDays = (fromDate: Date, toDate: Date): number => {
+    const oneDay = 24 * 60 * 60 * 1000;
+    const diffDays = Math.round(
+      Math.abs((toDate.getTime() - fromDate.getTime()) / oneDay)
+    );
+    return diffDays + 1;
+  };
+  const onChangeToDate = useCallback(
+    (date: Date) => {
+      setFormDetails((prevState) => ({
+        ...prevState,
+        toDate: date,
+        isToDateError: false,
+        numberOfDays:
+          formDetails?.fromDate &&
+          calculateNumberOfDays(formDetails?.fromDate, date),
+      }));
+    },
+    [formDetails?.fromDate]
+  );
+  const onChangeReason = useCallback(
+    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setFormDetails((prevState) => ({
+        ...prevState,
+        reason: event.target.value,
+        isReasonError: false,
+      }));
+    },
+    [setFormDetails]
+  );
+  const handleSubmit = useCallback(() => {
+    setIsLoading(true);
+    if (!formDetails.leaveType) {
+      setIsLoading(false);
+      setFormDetails((prevState) => ({
+        ...prevState,
+        isLeaveTypeError: true,
+      }));
+      return;
+    }
+    if (!formDetails.fromDate) {
+      setIsLoading(false);
+      setFormDetails((prevState) => ({
+        ...prevState,
+        isFromDateError: true,
+      }));
+      return;
+    }
+    if (!formDetails.toDate) {
+      setIsLoading(false);
+      setFormDetails((prevState) => ({
+        ...prevState,
+        isToDateError: true,
+      }));
+      return;
+    }
+    if (!formDetails.reason) {
+      setIsLoading(false);
+      setFormDetails((prevState) => ({
+        ...prevState,
+        isReasonError: true,
+      }));
+      return;
+    }
+    setTimeout(() => {
+      setIsLoading(false);
+      setFormDetails({
+        leaveType: "",
+        isLeaveTypeError: false,
+        requestedDate: undefined,
+        userUniqueId: "",
+        fromDate: undefined,
+        isFromDateError: false,
+        toDate: undefined,
+        isToDateError: false,
+        numberOfDays: undefined,
+        reason: "",
+        isReasonError: false,
+      });
+    }, 3000);
+  }, [
+    formDetails.fromDate,
+    formDetails.leaveType,
+    formDetails.reason,
+    formDetails.toDate,
+  ]);
+
   return (
     <div className="w-full h-full">
       <div>
@@ -14,85 +151,27 @@ const PrivateApplicationApplyLeavePageTemplate = () => {
         </CustomLabel>
       </div>
       <div className="mt-5 w-full">
-        <div className="w-full">
-          <CustomLabel className="text-xs font-display text-gray-900">
-            Select leave type:
-          </CustomLabel>
-          <CustomDropdown title="Select your leave type" list={leaveType} />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-          <div className="w-full">
-            <CustomLabel className="text-xs font-display text-gray-900">
-              Requested date:
-            </CustomLabel>
-            <CustomInputField
-              disabled
-              type="text"
-              value={new Date().toLocaleDateString()}
-              className="focus:outline-none focus:border-none active:border-none active:outline-none"
-            />
-          </div>
-          <div className="w-full">
-            <CustomLabel className="text-xs font-display text-gray-900">
-              User unique ID:
-            </CustomLabel>
-            <CustomInputField
-              disabled
-              type="text"
-              value="20SOECE11091"
-              className="focus:outline-none focus:border-none active:border-none active:outline-none"
-            />
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-          <div className="w-full">
-            <CustomLabel className="text-xs font-display text-gray-900">
-              From date:
-            </CustomLabel>
-            <CustomInputField
-              type="date"
-              value={new Date().toLocaleDateString()}
-              className="focus:outline-none focus:border-none active:border-none active:outline-none"
-            />
-          </div>
-          <div className="w-full">
-            <CustomLabel className="text-xs font-display text-gray-900">
-              To date:
-            </CustomLabel>
-            <CustomInputField
-              type="date"
-              value="20SOECE11091"
-              className="focus:outline-none focus:border-none active:border-none active:outline-none"
-            />
-          </div>
-        </div>
-        <div className="w-full mt-5">
-          <CustomLabel className="text-xs font-display text-gray-900">
-            Number of days:
-          </CustomLabel>
-          <CustomInputField
-            disabled
-            type="text"
-            value={`10 days`}
-            className="focus:outline-none focus:border-none active:border-none active:outline-none"
-          />
-        </div>
-        <div className="w-full mt-5">
-          <CustomLabel className="text-xs font-display text-gray-900">
-            Reason:
-          </CustomLabel>
-          <CustomInputField
-            type="text"
-            value={`10 days`}
-            className="focus:outline-none focus:border-none active:border-none active:outline-none"
-          />
-        </div>
-        <div className="w-full mt-5 flex items-center justify-end">
-          <button className="border text-xs font-display font-medium text-white p-2 bg-gray-700 rounded-lg">
-            Submit request
-          </button>
-        </div>
+        <PrivateApplicationApplyFormPageComponent
+          leaveTypeList={leaveType}
+          isDropdownError={formDetails.isLeaveTypeError}
+          onChangeDropdown={(value) => onChangeLeaveType(value as string)}
+          dropdownValue={formDetails.leaveType}
+          requestedDate={formDetails.requestedDate}
+          userUniqueId={formDetails.userUniqueId}
+          onChangeFromDate={onChangeFromDate}
+          fromDateValue={formDetails.fromDate}
+          isFromDateError={formDetails.isFromDateError}
+          onChangeToDate={onChangeToDate}
+          toDateValue={formDetails.toDate}
+          isToDateError={formDetails.isToDateError}
+          numberOfDays={formDetails.numberOfDays}
+          onChangeReason={onChangeReason}
+          isReasonError={formDetails.isReasonError}
+          reasonValue={formDetails.reason}
+          onClick={handleSubmit}
+        />
       </div>
+      <div>{isLoading && <CustomLoader />}</div>
     </div>
   );
 };

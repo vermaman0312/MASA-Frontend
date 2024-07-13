@@ -16,6 +16,7 @@ type props = {
   onChange?: (value: number | string) => void;
   value?: string | number;
   width?: string;
+  isError?: boolean;
 };
 
 const CustomDropdown = ({
@@ -26,6 +27,7 @@ const CustomDropdown = ({
   onChange,
   value,
   width,
+  isError,
 }: props) => {
   const generateItems = (data: number) => {
     let items = [];
@@ -51,7 +53,9 @@ const CustomDropdown = ({
       <SelectTrigger
         className={`${
           width ? width : "w-full"
-        } font-display text-xs gap-2 outline-none select-none`}
+        } font-display text-xs gap-2 outline-none select-none ${
+          isError && "border-red-500 text-red-500"
+        }`}
       >
         <SelectValue placeholder={title} />
       </SelectTrigger>

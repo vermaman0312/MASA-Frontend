@@ -1,0 +1,1 @@
+export const APPLICATION_MENU = "APPLICATION_MENU";
