@@ -1,15 +1,21 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import PrivateApplicationPageTemplate from "../../../templates/private-templates/private-application-template/page.template";
 import PrivateApplicationSideMenuPageComponent from "../../../templates/private-templates/private-application-template/components/page.application-sidemenu.component";
 import PrivateApplicationTopMenuPageComponent from "../../../templates/private-templates/private-application-template/components/page.application-topmenu.component";
+import { useDispatch, useSelector } from "react-redux";
+import { subApplicationMenuAction } from "../../../redux/actions/private-actions/private.application.action";
+import { RootState } from "../../../redux/redux-index";
 
 const PrivateApplicationPageLayout = () => {
-  const [applicationMenu, setApplicationMenu] = useState<string>("myApproval");
+  const dispatch = useDispatch();
+  const applicationMenu = useSelector(
+    (state: RootState) => state.applicationMenu.subApplicationMenu
+  ) as string | undefined;
   const handleSelectApplicationMenu = useCallback(
     (value: string) => {
-      setApplicationMenu(value);
+      dispatch(subApplicationMenuAction(value));
     },
-    [setApplicationMenu]
+    [dispatch]
   );
   return (
     <div className="w-full h-full flex items-center justify-start gap-2">

@@ -2,59 +2,44 @@ import React, { useCallback, useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import PrivateApplicationApplyFormPageComponent from "./components/page.application-appyleave-form.component";
 import CustomLoader from "../../../components/custom-loader/custom-loader.component";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fromDate,
+  isFromDateError,
+  isLeaveReasonError,
+  isLeaveTypeError,
+  isToDateError,
+  leaveReason,
+  leaveType,
+  numberOfDays,
+  requestedDate,
+  toDate,
+} from "../../../redux/actions/private-actions/private.application.action";
+import { RootState } from "../../../redux/redux-index";
 
-const leaveType = ["Full leave", "Half leave", "Quarter leave"];
-
-interface formType {
-  leaveType: string | undefined;
-  isLeaveTypeError: boolean;
-  requestedDate: Date | undefined;
-  userUniqueId: string | undefined;
-  fromDate: Date | undefined;
-  isFromDateError: boolean;
-  toDate: Date | undefined;
-  isToDateError: boolean;
-  numberOfDays: number | undefined;
-  reason: string | undefined;
-  isReasonError: boolean;
-}
+const leaveTypeList = ["Full leave", "Half leave", "Quarter leave"];
 
 const PrivateApplicationApplyLeavePageTemplate = () => {
+  const dispatch = useDispatch();
+  const applyFormData = useSelector(
+    (state: RootState) =>
+      state.applicationMenu.applicationData.myApproval.applyLeave.formData
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [formDetails, setFormDetails] = useState<formType>({
-    leaveType: "",
-    isLeaveTypeError: false,
-    requestedDate: undefined,
-    userUniqueId: "",
-    fromDate: undefined,
-    isFromDateError: false,
-    toDate: undefined,
-    isToDateError: false,
-    numberOfDays: undefined,
-    reason: "",
-    isReasonError: false,
-  });
   const onChangeLeaveType = useCallback(
     (value: string) => {
-      setFormDetails((prevState) => ({
-        ...prevState,
-        leaveType: value,
-        isLeaveTypeError: false,
-        requestedDate: new Date(),
-        userUniqueId: "20SOECE11091",
-      }));
+      dispatch(leaveType(value));
+      dispatch(isLeaveTypeError(false));
+      dispatch(requestedDate(new Date()));
     },
-    [setFormDetails]
+    [dispatch]
   );
   const onChangeFromDate = useCallback(
     (date: Date) => {
-      setFormDetails((prevState) => ({
-        ...prevState,
-        fromDate: date,
-        isFromDateError: false,
-      }));
+      dispatch(fromDate(date));
+      dispatch(isFromDateError(false));
     },
-    [setFormDetails]
+    [dispatch]
   );
   const calculateNumberOfDays = (fromDate: Date, toDate: Date): number => {
     const oneDay = 24 * 60 * 60 * 1000;
@@ -65,82 +50,60 @@ const PrivateApplicationApplyLeavePageTemplate = () => {
   };
   const onChangeToDate = useCallback(
     (date: Date) => {
-      setFormDetails((prevState) => ({
-        ...prevState,
-        toDate: date,
-        isToDateError: false,
-        numberOfDays:
-          formDetails?.fromDate &&
-          calculateNumberOfDays(formDetails?.fromDate, date),
-      }));
+      dispatch(toDate(date));
+      dispatch(isToDateError(false));
+      dispatch(
+        numberOfDays(
+          calculateNumberOfDays(applyFormData.fromDate as Date, date)
+        )
+      );
     },
-    [formDetails?.fromDate]
+    [applyFormData.fromDate, dispatch]
   );
   const onChangeReason = useCallback(
     (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setFormDetails((prevState) => ({
-        ...prevState,
-        reason: event.target.value,
-        isReasonError: false,
-      }));
+      dispatch(leaveReason(event.target.value));
+      dispatch(isLeaveReasonError(false));
     },
-    [setFormDetails]
+    [dispatch]
   );
   const handleSubmit = useCallback(() => {
     setIsLoading(true);
-    if (!formDetails.leaveType) {
+    if (!applyFormData.leaveType) {
       setIsLoading(false);
-      setFormDetails((prevState) => ({
-        ...prevState,
-        isLeaveTypeError: true,
-      }));
+      dispatch(isLeaveTypeError(true));
       return;
     }
-    if (!formDetails.fromDate) {
+    if (!applyFormData.fromDate) {
       setIsLoading(false);
-      setFormDetails((prevState) => ({
-        ...prevState,
-        isFromDateError: true,
-      }));
+      dispatch(isFromDateError(true));
       return;
     }
-    if (!formDetails.toDate) {
+    if (!applyFormData.toDate) {
       setIsLoading(false);
-      setFormDetails((prevState) => ({
-        ...prevState,
-        isToDateError: true,
-      }));
+      dispatch(isToDateError(true));
       return;
     }
-    if (!formDetails.reason) {
+    if (!applyFormData.leaveReason) {
       setIsLoading(false);
-      setFormDetails((prevState) => ({
-        ...prevState,
-        isReasonError: true,
-      }));
+      dispatch(isLeaveReasonError(true));
       return;
     }
     setTimeout(() => {
       setIsLoading(false);
-      setFormDetails({
-        leaveType: "",
-        isLeaveTypeError: false,
-        requestedDate: undefined,
-        userUniqueId: "",
-        fromDate: undefined,
-        isFromDateError: false,
-        toDate: undefined,
-        isToDateError: false,
-        numberOfDays: undefined,
-        reason: "",
-        isReasonError: false,
-      });
+      dispatch(leaveType(null));
+      dispatch(requestedDate(null));
+      dispatch(fromDate(null));
+      dispatch(toDate(null));
+      dispatch(numberOfDays(null));
+      dispatch(leaveReason(null));
     }, 3000);
   }, [
-    formDetails.fromDate,
-    formDetails.leaveType,
-    formDetails.reason,
-    formDetails.toDate,
+    applyFormData.fromDate,
+    applyFormData.leaveReason,
+    applyFormData.leaveType,
+    applyFormData.toDate,
+    dispatch,
   ]);
 
   return (
@@ -152,22 +115,22 @@ const PrivateApplicationApplyLeavePageTemplate = () => {
       </div>
       <div className="mt-5 w-full">
         <PrivateApplicationApplyFormPageComponent
-          leaveTypeList={leaveType}
-          isDropdownError={formDetails.isLeaveTypeError}
+          leaveTypeList={leaveTypeList}
+          isDropdownError={applyFormData.isLeaveTypeError as boolean}
           onChangeDropdown={(value) => onChangeLeaveType(value as string)}
-          dropdownValue={formDetails.leaveType}
-          requestedDate={formDetails.requestedDate}
-          userUniqueId={formDetails.userUniqueId}
+          dropdownValue={(applyFormData.leaveType as string) ?? ""}
+          requestedDate={applyFormData.requestedDate as Date}
+          userUniqueId={"20SEOCE11091"}
           onChangeFromDate={onChangeFromDate}
-          fromDateValue={formDetails.fromDate}
-          isFromDateError={formDetails.isFromDateError}
+          fromDateValue={applyFormData.fromDate as Date}
+          isFromDateError={applyFormData.isFromDateError as boolean}
           onChangeToDate={onChangeToDate}
-          toDateValue={formDetails.toDate}
-          isToDateError={formDetails.isToDateError}
-          numberOfDays={formDetails.numberOfDays}
+          toDateValue={applyFormData.toDate as Date}
+          isToDateError={applyFormData.isToDateError as boolean}
+          numberOfDays={applyFormData.numberOfDays as number}
           onChangeReason={onChangeReason}
-          isReasonError={formDetails.isReasonError}
-          reasonValue={formDetails.reason}
+          isReasonError={applyFormData.isLeaveReasonError as boolean}
+          reasonValue={(applyFormData.leaveReason as string) ?? ""}
           onClick={handleSubmit}
         />
       </div>
