@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import PrivateApplicationPageTemplate from "../../../templates/private-templates/private-application-template/page.template";
-import PrivateApplicationSideMenuPageComponent from "../../../templates/private-templates/private-application-template/components/page.application-sidemenu.component";
-import PrivateApplicationTopMenuPageComponent from "../../../templates/private-templates/private-application-template/components/page.application-topmenu.component";
+import PrivateApplicationSideMenuPageComponent from "../../../templates/private-templates/private-application-template/components/page.approval-sidemenu.component";
+import PrivateApplicationTopMenuPageComponent from "../../../templates/private-templates/private-application-template/components/page.approval-topmenu.component";
 import { useDispatch, useSelector } from "react-redux";
 import { subApplicationMenuAction } from "../../../redux/actions/private-actions/private.application.action";
 import { RootState } from "../../../redux/redux-index";

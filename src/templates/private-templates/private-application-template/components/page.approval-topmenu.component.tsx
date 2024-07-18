@@ -13,7 +13,7 @@ type props = {
   onClickRegisterQueries?: () => void;
 };
 
-const PrivateApplicationTopMenuPageComponent = ({
+const PrivateApprovalTopMenuPageComponent = ({
   loggedInUserRole,
   applicationMenu,
   onClickMyApproval,
@@ -113,4 +113,4 @@ const PrivateApplicationTopMenuPageComponent = ({
   );
 };
 
-export default PrivateApplicationTopMenuPageComponent;
+export default PrivateApprovalTopMenuPageComponent;

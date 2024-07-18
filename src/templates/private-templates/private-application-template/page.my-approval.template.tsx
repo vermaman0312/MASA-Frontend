@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from "react";
-import PrivateApplicationHeadingOptionPageComponent from "./components/page.application-headingoption.component";
+import PrivateApplicationHeadingOptionPageComponent from "./components/page.approval-headingoption.component";
 import { authenticatedUserRole } from "../../../utils/token/token";
 import { myApprovalType, myLeaveWfhList } from "../../../mock/user-leave-wfh";
-import PrivateApplicationApprovalTablePageComponent from "./components/page.applicationtable.component";
+import PrivateApplicationApprovalTablePageComponent from "./components/page.approval-table.component";
 import "../../../css/scroll-container.css";
 import { useDispatch, useSelector } from "react-redux";
 import {

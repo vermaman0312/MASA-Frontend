@@ -14,7 +14,7 @@ type props = {
   onCancel?: () => void;
 };
 
-const PrivateApplicationHeadingOptionPageComponent = ({
+const PrivateApprovalHeadingOptionPageComponent = ({
   loggedInUserRole,
   userName,
   userUniqueId,
@@ -73,4 +73,4 @@ const PrivateApplicationHeadingOptionPageComponent = ({
   );
 };
 
-export default PrivateApplicationHeadingOptionPageComponent;
+export default PrivateApprovalHeadingOptionPageComponent;

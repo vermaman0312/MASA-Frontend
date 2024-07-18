@@ -18,10 +18,30 @@ import {
   IS_FROM_DATE_ERROR,
   IS_TO_DATE_ERROR,
   IS_LEAVE_REASON_ERROR,
-  AFTER_APPLY_LEAVE,
+  // Apply new leave and work from home request
   APPLY_LEAVE_REQUEST,
   APPLY_LEAVE_SUCCESS,
   APPLY_LEAVE_FAILURE,
+
+  // Application
+  // New Application Form
+  APPLICATION_SUBJECT,
+  APPLICATION_SUBMITED_TO,
+  IS_APPLICATION_SUBJECT_ERROR,
+  IS_APPLICATION_SUBMITED_TO_ERROR,
+  APPLICATION_BODY,
+  // Apply new application request
+  NEW_APPLICATION_REQUEST,
+  NEW_APPLICATION_SUCCESS,
+  NEW_APPLICATION_FAILURE,
+  // My Application list
+  MY_APPLICATION_REQUEST,
+  MY_APPLICATION_SUCCESS,
+  MY_APPLICATION_FAILURE,
+  // My Application details
+  MY_APPLICATION_DETAILS_REQUEST,
+  MY_APPLICATION_DETAILS_SUCCESS,
+  MY_APPLICATION_DETAILS_FAILURE,
 } from "../../constants/private-constants/private-application.constant";
 
 type actionType = {
@@ -81,8 +101,30 @@ export const applicationMenuIntialState = {
       },
     },
     application: {
-      myApplication: {},
-      writeApplication: {},
+      myApplication: {
+        loading: false,
+        data: null,
+        error: null,
+      },
+      myApplicationDetails: {
+        loading: false,
+        data: null,
+        error: null,
+      },
+      writeApplication: {
+        formData: {
+          applicationSubject: null,
+          isApplicationSubjectError: false,
+          applicationSubmittedTo: null,
+          isApplicationSubmittedToError: false,
+          applicationBody: null,
+        },
+        newApplication: {
+          loading: false,
+          data: null,
+          error: null,
+        },
+      },
     },
     forgotIDCard: {
       myApplication: {},
@@ -354,9 +396,6 @@ export const applicationMenu = (
           },
         },
       };
-    // case AFTER_APPLY_LEAVE:
-    //   return applicationMenuIntialState.applicationData.myApproval.applyLeave
-    //     .formData;
     // Apply leave status
     case APPLY_LEAVE_REQUEST:
       return {
@@ -411,6 +450,252 @@ export const applicationMenu = (
                 data: null,
                 error: action.payload,
               },
+            },
+          },
+        },
+      };
+
+    // Application
+    // New Application
+    case APPLICATION_SUBJECT:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            writeApplication: {
+              ...state.applicationData.application.writeApplication,
+              formData: {
+                ...state.applicationData.application.writeApplication.formData,
+                applicationSubject: action.payload,
+              },
+            },
+          },
+        },
+      };
+    case IS_APPLICATION_SUBJECT_ERROR:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            writeApplication: {
+              ...state.applicationData.application.writeApplication,
+              formData: {
+                ...state.applicationData.application.writeApplication.formData,
+                isApplicationSubjectError: action.payload,
+              },
+            },
+          },
+        },
+      };
+    case APPLICATION_SUBMITED_TO:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            writeApplication: {
+              ...state.applicationData.application.writeApplication,
+              formData: {
+                ...state.applicationData.application.writeApplication.formData,
+                applicationSubmittedTo: action.payload,
+              },
+            },
+          },
+        },
+      };
+    case IS_APPLICATION_SUBMITED_TO_ERROR:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            writeApplication: {
+              ...state.applicationData.application.writeApplication,
+              formData: {
+                ...state.applicationData.application.writeApplication.formData,
+                isApplicationSubmittedToError: action.payload,
+              },
+            },
+          },
+        },
+      };
+    case APPLICATION_BODY:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            writeApplication: {
+              ...state.applicationData.application.writeApplication,
+              formData: {
+                ...state.applicationData.application.writeApplication.formData,
+                applicationBody: action.payload,
+              },
+            },
+          },
+        },
+      };
+    case NEW_APPLICATION_REQUEST:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            writeApplication: {
+              ...state.applicationData.application.writeApplication,
+              newApplication: {
+                ...state.applicationData.application.writeApplication
+                  .newApplication,
+                loading: true,
+                data: null,
+                error: null,
+              },
+            },
+          },
+        },
+      };
+    case NEW_APPLICATION_SUCCESS:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            writeApplication: {
+              ...state.applicationData.application.writeApplication,
+              newApplication: {
+                ...state.applicationData.application.writeApplication
+                  .newApplication,
+                loading: false,
+                data: action.payload,
+                error: null,
+              },
+            },
+          },
+        },
+      };
+    case NEW_APPLICATION_FAILURE:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            writeApplication: {
+              ...state.applicationData.application.writeApplication,
+              newApplication: {
+                ...state.applicationData.application.writeApplication
+                  .newApplication,
+                loading: false,
+                data: null,
+                error: action.payload,
+              },
+            },
+          },
+        },
+      };
+    //My application list
+    case MY_APPLICATION_REQUEST:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            myApplication: {
+              ...state.applicationData.application.myApplication,
+              loading: true,
+              data: null,
+              error: null,
+            },
+          },
+        },
+      };
+    case MY_APPLICATION_SUCCESS:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            myApplication: {
+              ...state.applicationData.application.myApplication,
+              loading: false,
+              data: action.payload,
+              error: null,
+            },
+          },
+        },
+      };
+    case MY_APPLICATION_FAILURE:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            myApplication: {
+              ...state.applicationData.application.myApplication,
+              loading: false,
+              data: null,
+              error: action.payload,
+            },
+          },
+        },
+      };
+    // My application details
+    case MY_APPLICATION_DETAILS_REQUEST:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            myApplicationDetails: {
+              ...state.applicationData.application.myApplicationDetails,
+              loading: true,
+              data: null,
+              error: null,
+            },
+          },
+        },
+      };
+    case MY_APPLICATION_DETAILS_SUCCESS:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            myApplicationDetails: {
+              ...state.applicationData.application.myApplicationDetails,
+              loading: false,
+              data: action.payload,
+              error: null,
+            },
+          },
+        },
+      };
+    case MY_APPLICATION_DETAILS_FAILURE:
+      return {
+        ...state,
+        applicationData: {
+          ...state.applicationData,
+          application: {
+            ...state.applicationData.application,
+            myApplicationDetails: {
+              ...state.applicationData.application.myApplicationDetails,
+              loading: false,
+              data: null,
+              error: action.payload,
             },
           },
         },

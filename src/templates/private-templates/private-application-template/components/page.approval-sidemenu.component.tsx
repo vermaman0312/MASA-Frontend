@@ -24,7 +24,7 @@ type props = {
   onClickRegisterQueries?: () => void;
 };
 
-const PrivateApplicationSideMenuPageComponent = ({
+const PrivateApprovalSideMenuPageComponent = ({
   loggedInUserRole,
   applicationMenu,
   onClickMyApproval,
@@ -156,4 +156,4 @@ const PrivateApplicationSideMenuPageComponent = ({
   );
 };
 
-export default PrivateApplicationSideMenuPageComponent;
+export default PrivateApprovalSideMenuPageComponent;

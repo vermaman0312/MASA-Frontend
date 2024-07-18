@@ -1,7 +1,8 @@
 import { myApprovalType } from "../../../mock/user-leave-wfh";
 import {
   APPLICATION_MENU,
-  //My Approval
+  // Approval
+  // My Approval
   MY_APPROVAL_OPTION,
   APPROVAL_SEARCH_INPUT,
   MY_APPROVAL_REQUEST,
@@ -18,10 +19,30 @@ import {
   IS_FROM_DATE_ERROR,
   IS_TO_DATE_ERROR,
   IS_LEAVE_REASON_ERROR,
-  AFTER_APPLY_LEAVE,
+  // Apply new leave and work from home request
   APPLY_LEAVE_REQUEST,
   APPLY_LEAVE_SUCCESS,
   APPLY_LEAVE_FAILURE,
+
+  // Application
+  // New Application Form
+  APPLICATION_SUBJECT,
+  APPLICATION_SUBMITED_TO,
+  APPLICATION_BODY,
+  IS_APPLICATION_SUBJECT_ERROR,
+  IS_APPLICATION_SUBMITED_TO_ERROR,
+  // Apply new application request
+  NEW_APPLICATION_REQUEST,
+  NEW_APPLICATION_SUCCESS,
+  NEW_APPLICATION_FAILURE,
+  // My Application list
+  MY_APPLICATION_REQUEST,
+  MY_APPLICATION_SUCCESS,
+  MY_APPLICATION_FAILURE,
+  // My Application details
+  MY_APPLICATION_DETAILS_REQUEST,
+  MY_APPLICATION_DETAILS_SUCCESS,
+  MY_APPLICATION_DETAILS_FAILURE,
 } from "../../constants/private-constants/private-application.constant";
 
 // Application Menu
@@ -32,7 +53,8 @@ export const subApplicationMenuAction = (subApplicationMenu: string) => {
   };
 };
 
-// My Approval Option and Search
+// My Approval
+// Option and Search
 export const myApprovalOption = (myApprovalOption: boolean) => {
   return {
     type: MY_APPROVAL_OPTION,
@@ -45,7 +67,6 @@ export const approvalSearchInput = (approvalSearchInput: string | null) => {
     payload: approvalSearchInput,
   };
 };
-
 // My Approval List
 export const myApprovalRequest = () => {
   return {
@@ -58,13 +79,12 @@ export const myApprovalSuccess = (myApproval: Array<myApprovalType>) => {
     payload: myApproval,
   };
 };
-export const myApprovalFailure = (error: string) => {
+export const myApprovalFailure = (error: Error) => {
   return {
     type: MY_APPROVAL_FAILURE,
     payload: error,
   };
 };
-
 // Apply Leave Form
 export const leaveType = (leaveType: string | null) => {
   return {
@@ -126,12 +146,6 @@ export const isLeaveReasonError = (isLeaveReasonError: boolean) => {
     payload: isLeaveReasonError,
   };
 };
-export const submitLeaveFormDataInitial = () => {
-  return {
-    type: AFTER_APPLY_LEAVE,
-  };
-};
-
 // Apply Leave
 export const applyLeaveRequest = () => {
   return {
@@ -144,9 +158,102 @@ export const applyLeaveSuccess = (data: string) => {
     payload: data,
   };
 };
-export const applyLeaveFailure = (error: string) => {
+export const applyLeaveFailure = (error: Error) => {
   return {
     type: APPLY_LEAVE_FAILURE,
+    payload: error,
+  };
+};
+
+// Application
+// New Application Form
+export const applicationSubject = (applicationSubject: string | null) => {
+  return {
+    type: APPLICATION_SUBJECT,
+    payload: applicationSubject,
+  };
+};
+export const isApplicationSubjectError = (
+  isApplicationSubjectError: boolean
+) => {
+  return {
+    type: IS_APPLICATION_SUBJECT_ERROR,
+    payload: isApplicationSubjectError,
+  };
+};
+export const applicationSubmittedTo = (
+  applicationSubmitedTo: string | null
+) => {
+  return {
+    type: APPLICATION_SUBMITED_TO,
+    payload: applicationSubmitedTo,
+  };
+};
+export const isApplicationSubmittedToError = (
+  isApplicationSubmittedToError: boolean
+) => {
+  return {
+    type: IS_APPLICATION_SUBMITED_TO_ERROR,
+    payload: isApplicationSubmittedToError,
+  };
+};
+export const applicationBody = (applicationBody: string | null) => {
+  return {
+    type: APPLICATION_BODY,
+    payload: applicationBody,
+  };
+};
+// New Application
+export const newApplicationRequest = () => {
+  return {
+    type: NEW_APPLICATION_REQUEST,
+  };
+};
+export const newApplicationSuccess = (data: string) => {
+  return {
+    type: NEW_APPLICATION_SUCCESS,
+    payload: data,
+  };
+};
+export const newApplicationFailure = (error: Error) => {
+  return {
+    type: NEW_APPLICATION_FAILURE,
+    payload: error,
+  };
+};
+// My application list
+export const myApplicationRequest = () => {
+  return {
+    type: MY_APPLICATION_REQUEST,
+  };
+};
+export const myApplicationSuccess = (data: string) => {
+  return {
+    type: MY_APPLICATION_SUCCESS,
+    payload: data,
+  };
+};
+export const myApplicationFailure = (error: Error) => {
+  return {
+    type: MY_APPLICATION_FAILURE,
+    payload: error,
+  };
+};
+// My Application Detials
+export const myApplicationDetailsRequest = () => {
+  return {
+    type: MY_APPLICATION_DETAILS_REQUEST,
+  };
+};
+export const myApplicationDetailsSuccess = (data: string) => {
+  return {
+    type: MY_APPLICATION_DETAILS_SUCCESS,
+    payload: data,
+  };
+};
+export const myApplicationDetailsFailure = (error: Error) => {
+  return {
+    type: MY_APPLICATION_DETAILS_FAILURE,
     payload: error,
   };
 };

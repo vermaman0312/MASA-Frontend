@@ -1,17 +1,16 @@
 import React from "react";
 import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
+import CustomDropdown from "../../../../components/custom-dropdown/custom-dropdown.component";
 import { CustomInputField } from "../../../../components/custom-input-field/custom-input-field.component";
 import { CustomDatePicker } from "../../../../components/custom-datepicker/custom-datepicker.component";
 import { Textarea } from "../../../../components/custom-textarea/custom-textarea.component";
-import CustomDropdown from "../../../../components/custom-dropdown/custom-dropdown.component";
 
 type props = {
-  leaveTypeList?: Array<string>;
+  dropdownList?: Array<string>;
   onChangeDropdown?: (value: number | string) => void;
   dropdownValue?: string;
   isDropdownError?: boolean;
-  userUniqueId?: string;
-  requestedDate?: Date;
+  requestedDateTime?: Date;
   onChangeFromDate?: (date: Date) => void;
   fromDateValue?: Date;
   isFromDateError?: boolean;
@@ -25,13 +24,12 @@ type props = {
   onClick?: () => void;
 };
 
-const PrivateApplicationApplyFormPageComponent = ({
-  leaveTypeList,
+const PrivateWorkFromHomeFormPageComponent = ({
+  dropdownList,
   onChangeDropdown,
   dropdownValue,
   isDropdownError,
-  requestedDate,
-  userUniqueId,
+  requestedDateTime,
   onChangeFromDate,
   fromDateValue,
   isFromDateError,
@@ -45,53 +43,30 @@ const PrivateApplicationApplyFormPageComponent = ({
   onClick,
 }: props) => {
   return (
-    <div className="w-full">
+    <div>
       <div className="w-full">
         <CustomLabel className="text-xs font-display text-gray-900">
-          Select leave type:
+          Select work from home type:
         </CustomLabel>
         <CustomDropdown
-          title="Select your leave type"
-          list={leaveTypeList}
+          title="Select your WFH type"
+          list={dropdownList}
           onChange={onChangeDropdown}
           value={dropdownValue}
           isError={isDropdownError}
         />
       </div>
-      {(requestedDate || requestedDate) && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-          {requestedDate && (
-            <div className="w-full">
-              <CustomLabel className="text-xs font-display text-gray-900">
-                Requested date:
-              </CustomLabel>
-              <CustomInputField
-                disabled
-                type="text"
-                value={
-                  requestedDate
-                    ? requestedDate.toLocaleDateString()
-                    : new Date().toLocaleDateString()
-                }
-                className="focus:outline-none focus:border-none active:border-none active:outline-none"
-              />
-            </div>
-          )}
-          {userUniqueId && (
-            <div className="w-full">
-              <CustomLabel className="text-xs font-display text-gray-900">
-                User unique ID:
-              </CustomLabel>
-              <CustomInputField
-                disabled
-                type="text"
-                value={userUniqueId}
-                className="focus:outline-none focus:border-none active:border-none active:outline-none"
-              />
-            </div>
-          )}
-        </div>
-      )}
+      <div className="w-full mt-5">
+        <CustomLabel className="text-xs font-display text-gray-900">
+          Requested date and time:
+        </CustomLabel>
+        <CustomInputField
+          disabled
+          type="text"
+          value={requestedDateTime?.toLocaleString()}
+          className="focus:outline-none focus:border-none active:border-none active:outline-none"
+        />
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
         <div className="w-full">
           <CustomLabel className="text-xs font-display text-gray-900">
@@ -158,4 +133,4 @@ const PrivateApplicationApplyFormPageComponent = ({
   );
 };
 
-export default PrivateApplicationApplyFormPageComponent;
+export default PrivateWorkFromHomeFormPageComponent;

@@ -2,6 +2,7 @@ import { myApprovalType } from "../../../../mock/user-leave-wfh";
 import {
   Check,
   EllipsisVertical,
+  Eye,
   FilePenLine,
   SquareX,
   Trash2,
@@ -19,7 +20,7 @@ type props = {
   row?: number;
 };
 
-const PrivateApplicationApprovalTablePageComponent = ({
+const PrivateApprovalTablePageComponent = ({
   optionValue,
   items,
   tablePagination,
@@ -30,7 +31,7 @@ const PrivateApplicationApprovalTablePageComponent = ({
       <table className="w-full leading-normal">
         <thead>
           <tr>
-            <th className="font-display p-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+            <th className="font-display p-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
               S.N
             </th>
             {!optionValue && (
@@ -55,7 +56,7 @@ const PrivateApplicationApprovalTablePageComponent = ({
             <th className="font-display p-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
               To
             </th>
-            <th className="font-display p-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+            <th className="font-display p-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
               Number of days
             </th>
             {optionValue && (
@@ -70,11 +71,11 @@ const PrivateApplicationApprovalTablePageComponent = ({
               Reason
             </th>
             {!optionValue && (
-              <th className="font-display p-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+              <th className="font-display p-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
                 View
               </th>
             )}
-            <th className="font-display p-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+            <th className="font-display p-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
               {optionValue ? "More" : "Action"}
             </th>
           </tr>
@@ -85,58 +86,58 @@ const PrivateApplicationApprovalTablePageComponent = ({
               {items.map((data, index) => {
                 return (
                   <tr>
-                    <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                    <td className="border-b border-gray-200 text-center bg-white text-xs font-display p-2">
                       <span className="relative inline-block font-semibold text-green-900 leading-tight">
                         {index + 1}
                       </span>
                     </td>
                     {!optionValue && (
-                      <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                      <td className="border-b border-gray-200 text-left bg-white text-xs font-display p-2">
                         <span className="relative inline-block text-green-900 leading-tight">
                           {data.userUniqueId}
                         </span>
                       </td>
                     )}
                     {!optionValue && (
-                      <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                      <td className="border-b border-gray-200 bg-white text-xs font-display p-2">
                         <span className="relative inline-block text-green-900 leading-tight">
                           {data.userName}
                         </span>
                       </td>
                     )}
-                    <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                    <td className="border-b border-gray-200 bg-white text-xs font-display p-2">
                       <span className="relative inline-block text-green-900 leading-tight">
                         {data.requestedDate}
                       </span>
                     </td>
-                    <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                    <td className="border-b border-gray-200 bg-white text-xs font-display p-2">
                       <span className="relative inline-block font-semibold text-green-900 leading-tight">
                         <span className="relative">{data.type}</span>
                       </span>
                     </td>
-                    <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                    <td className="border-b border-gray-200 bg-white text-xs font-display p-2">
                       <span className="relative inline-block text-green-900 leading-tight">
                         <span className="relative">{data.FromDate}</span>
                       </span>
                     </td>
-                    <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                    <td className="border-b border-gray-200 bg-white text-xs font-display p-2">
                       <span className="relative inline-block text-green-900 leading-tight">
                         <span className="relative">{data.ToDate}</span>
                       </span>
                     </td>
-                    <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                    <td className="border-b border-gray-200 text-center bg-white text-xs font-display p-2">
                       <span className="relative inline-block text-green-900 leading-tight">
                         <span className="relative">{data.numberOfDays}</span>
                       </span>
                     </td>
                     {optionValue && (
-                      <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                      <td className="border-b border-gray-200 bg-white text-xs font-display p-2">
                         <span className="relative inline-block font-semibold text-green-900 leading-tight">
                           <span className="relative">{data.approvedBy}</span>
                         </span>
                       </td>
                     )}
-                    <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                    <td className="border-b border-gray-200 bg-white text-xs font-display p-2">
                       <span
                         className={`relative inline-block font-semibold ${
                           data.Status === "Cancelled"
@@ -149,15 +150,22 @@ const PrivateApplicationApprovalTablePageComponent = ({
                         <span className="relative">{data.Status}</span>
                       </span>
                     </td>
-                    <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                    <td className="border-b border-gray-200 bg-white text-xs font-display p-2">
                       <span className="relative word-break">{data.reason}</span>
                     </td>
                     {!optionValue && (
-                      <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
-                        <View className="w-4 h-4" />
+                      <td className="border-b border-gray-200 text-center bg-white text-xs font-display p-2">
+                        <span className="relative inline-block font-semibold text-gray-900 leading-tight bg-gray-200 p-1 rounded-lg cursor-pointer">
+                          <button
+                            onClick={() => alert("View Request")}
+                            className="flex items-center justify-center p-1 bg-green-300 rounded-lg"
+                          >
+                            <Eye className="w-4 h-4 text-gray-700" />
+                          </button>
+                        </span>
                       </td>
                     )}
-                    <td className="border-b border-gray-200 bg-white text-xs font-display p-5">
+                    <td className="border-b border-gray-200 text-center bg-white text-xs font-display p-2">
                       {optionValue ? (
                         <CustomMenuDropdown
                           buttonComponent={
@@ -165,14 +173,20 @@ const PrivateApplicationApprovalTablePageComponent = ({
                           }
                           marginRight="mr-6"
                         >
-                          <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 flex p-1.5 rounded-lg">
+                          <DropdownMenuItem
+                            onClick={() => alert("View Request")}
+                            className="hover:bg-gray-100 cursor-pointer gap-2 flex p-1.5 rounded-lg"
+                          >
                             <View className="w-4 h-4" />
                             <span className="font-display text-xs">
                               View Request
                             </span>
                           </DropdownMenuItem>
                           {data.Status === "Pending" && (
-                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 flex p-1.5 rounded-lg">
+                            <DropdownMenuItem
+                              onClick={() => alert("Edit Request")}
+                              className="hover:bg-gray-100 cursor-pointer gap-2 flex p-1.5 rounded-lg"
+                            >
                               <FilePenLine className="w-4 h-4" />
                               <span className="font-display text-xs">
                                 Edit Request
@@ -180,7 +194,10 @@ const PrivateApplicationApprovalTablePageComponent = ({
                             </DropdownMenuItem>
                           )}
                           {data.Status !== "Cancelled" && (
-                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 text-yellow-500 flex p-1.5 rounded-lg">
+                            <DropdownMenuItem
+                              onClick={() => alert("Cancel Request")}
+                              className="hover:bg-gray-100 cursor-pointer gap-2 text-yellow-500 flex p-1.5 rounded-lg"
+                            >
                               <SquareX className="w-4 h-4" />
                               <span className="font-display text-xs">
                                 Cancel Request
@@ -188,7 +205,10 @@ const PrivateApplicationApprovalTablePageComponent = ({
                             </DropdownMenuItem>
                           )}
                           {data.Status === "Pending" && (
-                            <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2 text-red-500 flex p-1.5 rounded-lg">
+                            <DropdownMenuItem
+                              onClick={() => alert("Delete Request")}
+                              className="hover:bg-gray-100 cursor-pointer gap-2 text-red-500 flex p-1.5 rounded-lg"
+                            >
                               <Trash2 className="w-4 h-4" />
                               <span className="font-display text-xs">
                                 Delete Request
@@ -197,14 +217,20 @@ const PrivateApplicationApprovalTablePageComponent = ({
                           )}
                         </CustomMenuDropdown>
                       ) : (
-                        <div className="w-full h-full flex items-center gap-2">
-                          <p className="w-6 h-6 bg-green-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
-                            <Check className="w-4 h-4" />
-                          </p>
-                          <p className="w-6 h-6 bg-red-200 font-display p-1.5 flex items-center justify-center rounded-lg cursor-pointer">
-                            <X className="w-4 h-4" />
-                          </p>
-                        </div>
+                        <span className="font-semibold text-gray-900 leading-tight bg-gray-200 p-1 rounded-lg cursor-pointer flex items-center justify-center gap-2">
+                          <button
+                            onClick={() => alert("Approve Request")}
+                            className="flex items-center justify-center p-1 bg-blue-400 rounded-lg"
+                          >
+                            <Check className="w-4 h-4 text-white" />
+                          </button>
+                          <button
+                            onClick={() => alert("Reject Request")}
+                            className="flex items-center justify-center p-1 bg-red-400 rounded-lg"
+                          >
+                            <X className="w-4 h-4 text-white" />
+                          </button>
+                        </span>
                       )}
                     </td>
                   </tr>
@@ -231,4 +257,4 @@ const PrivateApplicationApprovalTablePageComponent = ({
   );
 };
 
-export default PrivateApplicationApprovalTablePageComponent;
+export default PrivateApprovalTablePageComponent;

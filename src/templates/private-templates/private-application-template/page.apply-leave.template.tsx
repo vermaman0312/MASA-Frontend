@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
-import PrivateApplicationApplyFormPageComponent from "./components/page.application-appyleave-form.component";
+import PrivateApplicationApplyFormPageComponent from "./components/page.approval-appyleave-form.component";
 import CustomLoader from "../../../components/custom-loader/custom-loader.component";
 import { useDispatch, useSelector } from "react-redux";
 import {
