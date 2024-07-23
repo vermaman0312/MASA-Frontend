@@ -1,5 +1,5 @@
 import React from "react";
-import CustomSearchBox from "../../../../components/custom-searchbox/custom-searchbox.component";
+import CustomSearchBox from "../../../../../components/custom-searchbox/custom-searchbox.component";
 
 type props = {
   onChangeSearch?: (event: React.ChangeEvent<HTMLInputElement>) => void;

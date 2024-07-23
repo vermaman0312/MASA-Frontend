@@ -1,6 +1,6 @@
 import { Check, Eye, X } from "lucide-react";
-import { forgotIdCardRequestType } from "../../../../mock/forgotidcard-requests";
-import CustomNotFound from "../../../../components/custom-not-found/custom-not-found.component";
+import { forgotIdCardRequestType } from "../../../../../mock/forgotidcard-requests";
+import CustomNotFound from "../../../../../components/custom-not-found/custom-not-found.component";
 
 type props = {
   items: Array<forgotIdCardRequestType>;

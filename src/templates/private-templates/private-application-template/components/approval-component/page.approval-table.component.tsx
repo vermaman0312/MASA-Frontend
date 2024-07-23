@@ -1,4 +1,4 @@
-import { myApprovalType } from "../../../../mock/user-leave-wfh";
+import { myApprovalType } from "../../../../../mock/user-leave-wfh";
 import {
   Check,
   EllipsisVertical,
@@ -9,9 +9,9 @@ import {
   View,
   X,
 } from "lucide-react";
-import CustomMenuDropdown from "../../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
+import CustomMenuDropdown from "../../../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
-import CustomPagination from "../../../../components/custom-pagination/custom-pagination.component";
+import CustomPagination from "../../../../../components/custom-pagination/custom-pagination.component";
 
 type props = {
   optionValue?: boolean;

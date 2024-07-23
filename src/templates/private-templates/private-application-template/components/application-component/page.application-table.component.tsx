@@ -1,6 +1,6 @@
 import { Check, Eye, FilePenLine, Trash, X } from "lucide-react";
-import { applicationType } from "../../../../mock/application-data";
-import CustomPagination from "../../../../components/custom-pagination/custom-pagination.component";
+import { applicationType } from "../../../../../mock/application-data";
+import CustomPagination from "../../../../../components/custom-pagination/custom-pagination.component";
 
 type props = {
   applicationMenuOption?: string;

@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import "../../../css/scroll-container.css";
-import PrivateChangeTimeTableFormPageComponent from "./components/page.changetimetable-form.component";
-import PrivateChangeTimeTableHeaderOptionPageComponent from "./components/page.changetimetable-headeroption.component";
+import PrivateChangeTimeTableFormPageComponent from "./components/changetimetable-component/page.changetimetable-form.component";
+import PrivateChangeTimeTableHeaderOptionPageComponent from "./components/changetimetable-component/page.changetimetable-headeroption.component";
 import CustomLoader from "../../../components/custom-loader/custom-loader.component";
+import PrivateChangeTimeTableRequestsTablePageComponent from "./components/changetimetable-component/page.changetimetable-requests-table.component";
 
 const changeTimetableTypes = [
   "Change timetable for class",
@@ -155,19 +156,25 @@ const PrivateApplicationChangeTimeTablePageTemplate = () => {
         />
       </div>
       <div>
-        <PrivateChangeTimeTableFormPageComponent
-          requestedDateTime={formData.requestedDateTime}
-          onChangeFromDateTime={handleChangeFromDate}
-          fromDateTimeValue={formData.fromDate}
-          isFromDateTimeError={formData.isFromDateError}
-          onChangeToDateTime={handleChangeToDate}
-          toDateTimeValue={formData.toDate}
-          isToDateTimeError={formData.isToDateError}
-          onChangeReason={handleChangeReason}
-          reasonValue={formData.reason || ""}
-          isReasonError={formData.isReasonError}
-          onClick={handleSubmit}
-        />
+        {isNewRequest ? (
+          <PrivateChangeTimeTableFormPageComponent
+            requestedDateTime={formData.requestedDateTime}
+            onChangeFromDateTime={handleChangeFromDate}
+            fromDateTimeValue={formData.fromDate}
+            isFromDateTimeError={formData.isFromDateError}
+            onChangeToDateTime={handleChangeToDate}
+            toDateTimeValue={formData.toDate}
+            isToDateTimeError={formData.isToDateError}
+            onChangeReason={handleChangeReason}
+            reasonValue={formData.reason || ""}
+            isReasonError={formData.isReasonError}
+            onClick={handleSubmit}
+          />
+        ) : (
+          <div className="w-full mt-5">
+            <PrivateChangeTimeTableRequestsTablePageComponent />
+          </div>
+        )}
       </div>
 
       {isLoading && <CustomLoader />}

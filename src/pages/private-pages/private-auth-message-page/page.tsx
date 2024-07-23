@@ -5,16 +5,17 @@ import { CustomLabel } from "../../../components/custom-label/custom-label.compo
 
 const PrivateAuthMessagePage = () => {
   return (
-    <CustomSideBar>
-      <div className="w-full flex items-center justify-between">
+    <CustomSideBar
+      headerChildren={
         <div className="flex items-center gap-2">
           <MessageCircleMore />
           <CustomLabel className="text-xl font-display font-bold">
             Message
           </CustomLabel>
         </div>
-      </div>
-      <div className="w-full h-full mt-5">
+      }
+    >
+      <div className="w-full mt-5" style={{ height: "calc(100vh - 160px)" }}>
         <PrivateMessagePageLayout />
       </div>
     </CustomSideBar>

@@ -1,9 +1,9 @@
 import React from "react";
-import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
-import CustomDropdown from "../../../../components/custom-dropdown/custom-dropdown.component";
-import { CustomInputField } from "../../../../components/custom-input-field/custom-input-field.component";
-import { CustomDatePicker } from "../../../../components/custom-datepicker/custom-datepicker.component";
-import { Textarea } from "../../../../components/custom-textarea/custom-textarea.component";
+import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
+import CustomDropdown from "../../../../../components/custom-dropdown/custom-dropdown.component";
+import { CustomInputField } from "../../../../../components/custom-input-field/custom-input-field.component";
+import { CustomDatePicker } from "../../../../../components/custom-datepicker/custom-datepicker.component";
+import { Textarea } from "../../../../../components/custom-textarea/custom-textarea.component";
 
 type props = {
   dropdownList?: Array<string>;

@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import store from "./redux/redux-index";
+import '@mantine/tiptap/styles.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

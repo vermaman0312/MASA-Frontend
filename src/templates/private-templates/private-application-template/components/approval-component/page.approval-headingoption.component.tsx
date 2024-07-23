@@ -1,6 +1,6 @@
 import React from "react";
-import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
-import CustomSearchBox from "../../../../components/custom-searchbox/custom-searchbox.component";
+import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
+import CustomSearchBox from "../../../../../components/custom-searchbox/custom-searchbox.component";
 
 type props = {
   loggedInUserRole?: string;

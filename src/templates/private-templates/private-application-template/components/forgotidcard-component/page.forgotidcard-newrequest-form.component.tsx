@@ -1,7 +1,7 @@
 import React from "react";
-import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
-import { Textarea } from "../../../../components/custom-textarea/custom-textarea.component";
-import { CustomInputField } from "../../../../components/custom-input-field/custom-input-field.component";
+import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
+import { Textarea } from "../../../../../components/custom-textarea/custom-textarea.component";
+import { CustomInputField } from "../../../../../components/custom-input-field/custom-input-field.component";
 
 const PrivateForgotIdCardNewRequestFormPageComponent = () => {
   return (

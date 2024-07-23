@@ -1,8 +1,8 @@
 import React from "react";
-import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
-import { CustomInputField } from "../../../../components/custom-input-field/custom-input-field.component";
-import { Textarea } from "../../../../components/custom-textarea/custom-textarea.component";
-import { CustomDatePicker } from "../../../../components/custom-datepicker/custom-datepicker.component";
+import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
+import { CustomInputField } from "../../../../../components/custom-input-field/custom-input-field.component";
+import { Textarea } from "../../../../../components/custom-textarea/custom-textarea.component";
+import CustomTimePicker from "../../../../../components/custom-time-picker/custom-time-picker.component";
 
 type props = {
   requestedDateTime?: Date;
@@ -31,6 +31,13 @@ const PrivateChangeTimeTableFormPageComponent = ({
   isReasonError,
   onClick,
 }: props) => {
+  const fromTimeString = fromDateTimeValue
+    ? fromDateTimeValue.toISOString().slice(11, 16)
+    : "";
+  const toTimeString = toDateTimeValue
+    ? toDateTimeValue.toISOString().slice(11, 16)
+    : "";
+
   return (
     <div className="w-full">
       <div>
@@ -49,13 +56,19 @@ const PrivateChangeTimeTableFormPageComponent = ({
           <CustomLabel className="text-xs font-display text-gray-900">
             From time:
           </CustomLabel>
-          <CustomDatePicker
-            title="Select date"
-            disabled={(date: Date) => date < new Date()}
-            onSelect={(date) =>
-              onChangeFromDateTime && onChangeFromDateTime(date as Date)
-            }
-            selected={fromDateTimeValue}
+          <CustomTimePicker
+            title="Select time"
+            onChange={(time) => {
+              if (onChangeFromDateTime) {
+                const date = time
+                  ? new Date(`1970-01-01T${time}:00`)
+                  : undefined;
+                if (date !== undefined) {
+                  onChangeFromDateTime(date);
+                }
+              }
+            }}
+            value={fromTimeString}
             isError={isFromDateTimeError}
           />
         </div>
@@ -63,13 +76,19 @@ const PrivateChangeTimeTableFormPageComponent = ({
           <CustomLabel className="text-xs font-display text-gray-900">
             To time:
           </CustomLabel>
-          <CustomDatePicker
-            title="Select date"
-            disabled={(date: Date) => date < (fromDateTimeValue || new Date())}
-            onSelect={(date) =>
-              onChangeToDateTime && onChangeToDateTime(date as Date)
-            }
-            selected={toDateTimeValue}
+          <CustomTimePicker
+            title="Select time"
+            onChange={(time) => {
+              if (onChangeToDateTime) {
+                const date = time
+                  ? new Date(`1970-01-01T${time}:00`)
+                  : undefined;
+                if (date !== undefined) {
+                  onChangeToDateTime(date);
+                }
+              }
+            }}
+            value={toTimeString}
             isError={isToDateTimeError}
           />
         </div>

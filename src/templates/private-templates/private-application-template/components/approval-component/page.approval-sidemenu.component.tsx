@@ -9,7 +9,7 @@ import {
   School,
   SquareUser,
 } from "lucide-react";
-import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
+import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
 
 type props = {
   loggedInUserRole?: string;

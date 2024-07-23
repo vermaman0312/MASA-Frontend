@@ -2,9 +2,9 @@ import { useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import { authenticatedUserRole } from "../../../utils/token/token";
 import "../../../css/scroll-container.css";
-import PrivateForgotIdCardHeaderOptionPageComponent from "./components/page.forgotIdCard-headeroption.component";
-import PrivateForgotIdCardNewRequestFormPageComponent from "./components/page.forgotidcard-newrequest-form.component";
-import PrivateForgotIdCardRequestTablePageComponent from "./components/page-forgotidcard-request-table.component";
+import PrivateForgotIdCardHeaderOptionPageComponent from "./components/forgotidcard-component/page.forgotIdCard-headeroption.component";
+import PrivateForgotIdCardNewRequestFormPageComponent from "./components/forgotidcard-component/page.forgotidcard-newrequest-form.component";
+import PrivateForgotIdCardRequestTablePageComponent from "./components/forgotidcard-component/page-forgotidcard-request-table.component";
 import {
   forgotIdCardRequestList,
   forgotIdCardRequestType,

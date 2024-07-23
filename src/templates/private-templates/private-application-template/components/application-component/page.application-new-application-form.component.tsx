@@ -1,9 +1,9 @@
 import React from "react";
-import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
-import { CustomInputField } from "../../../../components/custom-input-field/custom-input-field.component";
-import { allUserList } from "../../../../mock/user-data";
-import CustomDropdown from "../../../../components/custom-dropdown/custom-dropdown.component";
-import CustomMarkDown from "../../../../components/custom-markdown/custom-markdown.component";
+import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
+import { CustomInputField } from "../../../../../components/custom-input-field/custom-input-field.component";
+import { allUserList } from "../../../../../mock/user-data";
+import CustomDropdown from "../../../../../components/custom-dropdown/custom-dropdown.component";
+import CustomMarkDown from "../../../../../components/custom-markdown/custom-markdown.component";
 
 type props = {
   onChangeSubject?: (event: React.ChangeEvent<HTMLInputElement>) => void;

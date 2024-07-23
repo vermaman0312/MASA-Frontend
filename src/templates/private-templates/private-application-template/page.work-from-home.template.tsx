@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
-import PrivateWorkFromHomeFormPageComponent from "./components/page.workfromhome-newform.component";
+import PrivateWorkFromHomeFormPageComponent from "./components/workfromhome-component/page.workfromhome-newform.component";
 
 const workFromHomeList = ["Full WFH", "Half WFH", "Quarter WFH"];
 

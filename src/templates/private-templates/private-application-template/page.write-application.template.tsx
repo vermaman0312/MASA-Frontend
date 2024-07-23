@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
-import PrivateApplicationNewApplicationFormPageComponent from "./components/page.application-new-application-form.component";
+import PrivateApplicationNewApplicationFormPageComponent from "./components/application-component/page.application-new-application-form.component";
 import { authenticatedUserRole } from "../../../utils/token/token";
-import PrivateApplicationHeaderOptionPageTemplate from "./components/page.application-headeroption.component";
-import PrivateApplicationTablePageComponent from "./components/page.application-table.component";
+import PrivateApplicationHeaderOptionPageTemplate from "./components/application-component/page.application-headeroption.component";
+import PrivateApplicationTablePageComponent from "./components/application-component/page.application-table.component";
 import { useDispatch, useSelector } from "react-redux";
 import {
   applicationBody,

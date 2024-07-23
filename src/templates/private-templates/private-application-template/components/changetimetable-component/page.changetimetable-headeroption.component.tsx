@@ -1,5 +1,5 @@
 import React from "react";
-import CustomDropdown from "../../../../components/custom-dropdown/custom-dropdown.component";
+import CustomDropdown from "../../../../../components/custom-dropdown/custom-dropdown.component";
 
 type props = {
   items?: Array<string>;
