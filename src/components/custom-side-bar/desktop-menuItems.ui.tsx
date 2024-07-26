@@ -171,15 +171,15 @@ const DesktopMenuItems = () => {
       </div>
       <div
         onClick={() =>
-          handleSelect("onlinemeet", `/user/auth/online-meet?token=${token}`)
+          handleSelect("vmeet", `/user/auth/v-meet?token=${token}`)
         }
         className={`w-full flex items-center justify-start gap-4 cursor-pointer ${
-          url === `/user/auth/online-meet?token=${token}` && "bg-gray-700"
+          url === `/user/auth/v-meet?token=${token}` && "bg-gray-700"
         } hover:bg-gray-700 p-2 rounded-lg hover:transition-all`}
       >
         <Radio className="text-white w-5 h-5" />
         <CustomLabel className="text-white font-display font-light text-md cursor-pointer">
-          Online Meet
+          V.MEET
         </CustomLabel>
       </div>
       <div

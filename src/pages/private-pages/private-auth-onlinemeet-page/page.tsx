@@ -1,20 +1,25 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateOnlineMeetPageLayout from "../../../layouts/private-layouts/private-online-meet-layout/page.common.layout";
+import PrivateOnlineMeetPageLayout from "../../../layouts/private-layouts/private-online-meet-layout/page.layout";
 import { Radio } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
+import "../../../css/scroll-container.css";
 
 const PrivateAuthOnlineMeetPage = () => {
   return (
-    <CustomSideBar>
-      <div className="flex items-center justify-between">
+    <CustomSideBar
+      headerChildren={
         <div className="flex items-center gap-2">
           <Radio />
           <CustomLabel className="text-xl font-display font-bold">
-            Online Meet
+            V.MEET
           </CustomLabel>
         </div>
-      </div>
-      <div className="border w-full h-full mt-5">
+      }
+    >
+      <div
+        className="w-full mt-5 scroll-container"
+        style={{ height: "calc(100vh - 160px)" }}
+      >
         <PrivateOnlineMeetPageLayout />
       </div>
     </CustomSideBar>

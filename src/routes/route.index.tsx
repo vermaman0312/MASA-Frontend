@@ -73,7 +73,7 @@ const RouteIndex = () => {
             element={<PrivateAuthOnlineExamPage />}
           />
           <Route
-            path="/user/auth/online-meet"
+            path="/user/auth/v-meet"
             element={<PrivateAuthOnlineMeetPage />}
           />
           <Route
