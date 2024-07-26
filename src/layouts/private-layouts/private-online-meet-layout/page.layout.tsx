@@ -4,6 +4,7 @@ import { EventClickArg } from "@fullcalendar/common";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useRef, useState } from "react";
+import { X } from "lucide-react";
 
 interface eventType {
   id: string;
@@ -48,16 +49,16 @@ const PrivateOnlineMeetPageLayout = () => {
   const renderEventContent = (eventInfo: any) => {
     return (
       <>
-        <div className="flex items-start justify-between gap-2">
-          <span className="">{eventInfo.event.title}</span>
+        <div className="flex items-start justify-between gap-2 overflow-hidden">
+          <span className="truncate">{eventInfo.event.title}</span>
           <button
             onClick={(e) => {
               e.stopPropagation();
               handleCancelClick(eventInfo.event.id);
             }}
-            className="text-xs font-display p-1 bg-red-500 text-white rounded-lg"
+            className="text-xs font-display p-1 bg-red-500 text-white rounded-full"
           >
-            Cancel
+            <X className="w-3 h-3" />
           </button>
         </div>
       </>
