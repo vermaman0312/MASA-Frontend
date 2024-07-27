@@ -1,11 +1,12 @@
 import { X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import CustomFileInputField from "../../../components/custom-file-input-field/custom-file-input-field.component";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import * as XLSX from "xlsx";
 
 interface eventType {
   id: string;
@@ -17,55 +18,76 @@ interface eventType {
   url?: string | null;
 }
 
-const timetable = [
-  {
-    id: "1",
-    class: "7th",
-    title: "Math",
-    start: "2024-07-26T08:00:00",
-    end: "2024-07-26T09:00:00",
-    teacherName: "Satish Kumar",
-    roomNo: "Room-101",
-    url: null,
-  },
-  {
-    id: "2",
-    class: "7th",
-    title: "Science",
-    start: "2024-07-26T09:00:00",
-    end: "2024-07-26T10:00:00",
-    teacherName: "Satish Kumar",
-    roomNo: "Lab-11",
-    url: null,
-  },
-  {
-    id: "3",
-    class: "7th",
-    title: "Socail Studies",
-    start: "2024-07-26T10:00:00",
-    end: "2024-07-26T11:00:00",
-    teacherName: "Satish Kumar",
-    roomNo: "Room-05",
-    url: null,
-  },
-  {
-    id: "4",
-    class: "7th",
-    title: "Socail Studies",
-    start: "2024-07-26T11:00:00",
-    end: "2024-07-26T12:00:00",
-    teacherName: "Satish Kumar",
-    roomNo: "Room-05",
-    url: null,
-  },
-];
-
 const PrivateTimeTablePageLayout = () => {
   const calendarRef = useRef<FullCalendar>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
-  const [events, setEvents] = useState<Array<eventType>>(
-    timetable as Array<eventType>
+  const [events, setEvents] = useState<Array<eventType>>([]);
+
+  const readExcelFile = (file: File) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target) {
+          const binaryStr = event.target.result;
+          const workbook = XLSX.read(binaryStr, { type: "binary" });
+          const worksheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[worksheetName];
+          const jsonData: Array<eventType> =
+            XLSX.utils.sheet_to_json(worksheet);
+          const fromExcelDate = (serial: number) => {
+            const utc_days = Math.floor(serial - 25569);
+            const utc_value = utc_days * 86400;
+            const date_info = new Date(utc_value * 1000);
+            const fractional_day = serial - Math.floor(serial) + 0.0000001;
+            let total_seconds = Math.floor(86400 * fractional_day);
+            const seconds = total_seconds % 60;
+            total_seconds -= seconds;
+            const hours = Math.floor(total_seconds / (60 * 60));
+            const minutes = Math.floor(total_seconds / 60) % 60;
+            return new Date(
+              Date.UTC(
+                date_info.getFullYear(),
+                date_info.getMonth(),
+                date_info.getDate(),
+                hours,
+                minutes,
+                seconds
+              )
+            ).toISOString();
+          };
+          jsonData.forEach((item) => {
+            if (typeof item.start === "number") {
+              item.start = fromExcelDate(item.start);
+            }
+            if (typeof item.end === "number") {
+              item.end = fromExcelDate(item.end);
+            }
+          });
+          resolve(jsonData);
+        } else {
+          reject(new Error("Event target is null"));
+        }
+      };
+      reader.onerror = (event) => {
+        reject(event);
+      };
+      reader.readAsBinaryString(file);
+    });
+  };
+
+  const handleChangeExcelData = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target?.files) {
+        const file = event.target.files[0];
+        if (file) {
+          const data = await readExcelFile(file);
+          setEvents(data as Array<eventType>);
+          setIsOpen(false);
+        }
+      }
+    },
+    []
   );
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -88,18 +110,6 @@ const PrivateTimeTablePageLayout = () => {
       document.body.classList.remove("no-scroll");
     };
   }, [isOpen]);
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     document.body.classList.add("no-scroll");
-  //   } else {
-  //     document.body.classList.remove("no-scroll");
-  //   }
-
-  //   // Clean up the class when the component unmounts
-  //   return () => {
-  //     document.body.classList.remove("no-scroll");
-  //   };
-  // }, [isOpen]);
 
   const renderEventContent = (eventInfo: any) => {
     return (
@@ -117,8 +127,6 @@ const PrivateTimeTablePageLayout = () => {
       </div>
     );
   };
-
-  const handleDateClick = (arg: any) => {};
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -141,9 +149,8 @@ const PrivateTimeTablePageLayout = () => {
           events={events as any}
           height="auto"
           eventContent={renderEventContent}
-          dateClick={handleDateClick}
-          selectable={true}
-          selectMirror={true}
+          selectable={false}
+          selectMirror={false}
           dayMaxEvents={true}
           slotMinTime="08:00:00"
           slotMaxTime="17:00:00"
@@ -179,12 +186,10 @@ const PrivateTimeTablePageLayout = () => {
               </CustomLabel>
             </div>
             <div className="mt-5">
-              <CustomFileInputField placeholder="upload excel file" />
-            </div>
-            <div className="mt-5 w-full flex items-center justify-end">
-              <button className="text-xs font-display font-medium bg-gray-700 p-2 text-white rounded-lg w-32">
-                Upload
-              </button>
+              <CustomFileInputField
+                placeholder="upload excel file"
+                onChange={handleChangeExcelData}
+              />
             </div>
           </div>
         </div>
