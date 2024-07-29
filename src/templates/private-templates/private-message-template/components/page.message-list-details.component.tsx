@@ -18,13 +18,15 @@ import {
 
 type props = {
   isMessageSelected?: Array<string>;
+  onClick?: () => void;
 };
 
 const PrivateMessageListDetailsPageComponent = ({
   isMessageSelected,
+  onClick,
 }: props) => {
   return (
-    <div className="cursor-pointer">
+    <div onClick={onClick} className="cursor-pointer">
       <ContextMenu>
         <ContextMenuTrigger>
           <div className="border w-full rounded-lg p-2 bg-gray-100">

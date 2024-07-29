@@ -12,7 +12,8 @@ import MDEditor from "@uiw/react-md-editor";
 const PrivateMessagePageTemplate = () => {
   const [isNewMessageOpen, setIsNewMessageOpen] = useState<boolean>(false);
   const [isUnread, setIsUnread] = useState<boolean>(false);
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState<string | null>(null);
+
   return (
     <div className="w-full h-full border rounded-lg flex flex-col items-center justify-between">
       <div className="w-full">
@@ -24,7 +25,11 @@ const PrivateMessagePageTemplate = () => {
         />
       </div>
       <div className="w-full h-full flex items-center justify-between">
-        <div className="h-full w-full md:w-[30%] md:border-r flex flex-col items-center justify-start">
+        <div
+          className={`h-full w-full md:w-[30%] md:border-r ${
+            message && "hidden"
+          } md:flex flex-col items-center justify-start`}
+        >
           <div className="w-full">
             <PrivateMessageListHeadingPageComponent />
           </div>
@@ -32,10 +37,12 @@ const PrivateMessagePageTemplate = () => {
             className="w-full flex-1 p-2 flex flex-col gap-2 scroll-container"
             style={{
               minHeight: "calc(100vh - 500px)",
-              maxHeight: "calc(100vh - 256px)",
+              maxHeight: "calc(100vh - 273px)",
             }}
           >
-            <PrivateMessageListDetailsPageComponent />
+            <PrivateMessageListDetailsPageComponent
+              onClick={() => setMessage("Data")}
+            />
             <PrivateMessageListDetailsPageComponent />
             <PrivateMessageListDetailsPageComponent />
             <PrivateMessageListDetailsPageComponent />
@@ -49,8 +56,12 @@ const PrivateMessagePageTemplate = () => {
             <PrivateMessageListDetailsPageComponent />
           </div>
         </div>
-        {!message ? (
-          <div className="h-full w-full md:w-[70%] hidden md:flex flex-col items-center justify-start">
+        {message ? (
+          <div
+            className={`h-full w-full md:w-[70%] ${
+              !message && "hidden"
+            } md:flex flex-col items-center justify-start`}
+          >
             <div className="w-full">
               <PrivateMessageBoxHeadingPageComponent />
             </div>
