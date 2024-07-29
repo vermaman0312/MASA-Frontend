@@ -3,9 +3,9 @@ import { CustomLabel } from "../../../../components/custom-label/custom-label.co
 import { EllipsisVertical, Search } from "lucide-react";
 import CustomMenuDropdown from "../../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
 import { DropdownMenuItem } from "../../../../components/custom-menu-dropdown/custom-menu-dropdown.ui";
+import CustomSearchBox from "../../../../components/custom-searchbox/custom-searchbox.component";
 
 type props = {
-  isCompose?: boolean;
   onClickAllMessage?: () => void;
   onClickUnRead?: () => void;
   onClickCompose?: () => void;
@@ -13,7 +13,6 @@ type props = {
 };
 
 const PrivateMessageHeadingPageComponent = ({
-  isCompose,
   onClickAllMessage,
   onClickUnRead,
   onClickCompose,
@@ -23,52 +22,39 @@ const PrivateMessageHeadingPageComponent = ({
     <div className="w-full border-b p-2 flex items-center justify-between">
       <div>
         <CustomLabel className="font-display font-bold text-xl">
-          {isCompose ? "New Message" : "Inbox"}
+          Inbox
         </CustomLabel>
       </div>
       <div className="flex items-center gap-2">
-        {!isCompose && (
-          <div className="border flex items-center gap-1 p-2 rounded-full">
-            <input
-              type="text"
-              className="outline-none border-none text-xs ml-1 font-display"
-              placeholder="Search..."
-            />
-            <Search className="w-4 h-4" />
-          </div>
-        )}
-        {!isCompose && (
-          <div className="p-1 flex items-center justify-between rounded-md bg-gray-200 gap-1 hidden md:flex">
-            <CustomLabel
-              onClick={onClickAllMessage}
-              className={`w-24 flex items-center justify-center font-display text-xs p-1 ${
-                !isUnread && "bg-white rounded-md shadow-md"
-              } cursor-pointer ${
-                !isUnread ? "text-gray-700" : "text-gray-500"
-              }`}
-            >
-              All Message
-            </CustomLabel>
-            <CustomLabel
-              onClick={onClickUnRead}
-              className={`w-24 flex items-center justify-center font-display text-xs p-1 ${
-                isUnread && "bg-white rounded-md shadow-md"
-              } cursor-pointer ${isUnread ? "text-gray-700" : "text-gray-500"}`}
-            >
-              Unread
-            </CustomLabel>
-          </div>
-        )}
-        {!isCompose && (
-          <div
-            onClick={onClickCompose}
-            className="w-24 bg-[#222222] flex items-center justify-center gap-1 p-2 rounded-lg hidden md:flex cursor-pointer"
+        <div className="flex items-center gap-1 p-2 rounded-full">
+          <CustomSearchBox placeholder="Search..." />
+        </div>
+        <div className="p-1 flex items-center justify-between rounded-md bg-gray-200 gap-1 hidden md:flex">
+          <CustomLabel
+            onClick={onClickAllMessage}
+            className={`w-24 flex items-center justify-center font-display text-xs p-1 ${
+              !isUnread && "bg-white rounded-md shadow-md"
+            } cursor-pointer ${!isUnread ? "text-gray-700" : "text-gray-500"}`}
           >
-            <CustomLabel className="font-display text-xs text-white cursor-pointer">
-              Compose
-            </CustomLabel>
-          </div>
-        )}
+            All Message
+          </CustomLabel>
+          <CustomLabel
+            onClick={onClickUnRead}
+            className={`w-24 flex items-center justify-center font-display text-xs p-1 ${
+              isUnread && "bg-white rounded-md shadow-md"
+            } cursor-pointer ${isUnread ? "text-gray-700" : "text-gray-500"}`}
+          >
+            Unread
+          </CustomLabel>
+        </div>
+        <div
+          onClick={onClickCompose}
+          className="w-24 bg-[#222222] flex items-center justify-center gap-1 p-2 rounded-lg hidden md:flex cursor-pointer"
+        >
+          <CustomLabel className="font-display text-xs text-white cursor-pointer">
+            Compose
+          </CustomLabel>
+        </div>
         <div className="md:hidden flex items-center">
           <CustomMenuDropdown
             buttonComponent={<EllipsisVertical />}

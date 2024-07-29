@@ -11,12 +11,16 @@ import MDEditor from "@uiw/react-md-editor";
 
 const PrivateMessagePageTemplate = () => {
   const [isNewMessageOpen, setIsNewMessageOpen] = useState<boolean>(false);
+  const [isUnread, setIsUnread] = useState<boolean>(false);
   const [message, setMessage] = useState(null);
   return (
     <div className="w-full h-full border rounded-lg flex flex-col items-center justify-between">
       <div className="w-full">
         <PrivateMessageHeadingPageComponent
           onClickCompose={() => setIsNewMessageOpen(true)}
+          onClickAllMessage={() => setIsUnread(false)}
+          onClickUnRead={() => setIsUnread(true)}
+          isUnread={isUnread}
         />
       </div>
       <div className="w-full h-full flex items-center justify-between">
