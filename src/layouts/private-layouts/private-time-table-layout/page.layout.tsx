@@ -99,15 +99,11 @@ const PrivateTimeTablePageLayout = () => {
   useEffect(() => {
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
-      document.body.classList.add("no-scroll");
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
-      document.body.classList.remove("no-scroll");
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-      document.body.classList.remove("no-scroll");
     };
   }, [isOpen]);
 

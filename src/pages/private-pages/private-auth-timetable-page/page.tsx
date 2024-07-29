@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateTimeTablePageLayout from "../../../layouts/private-layouts/private-time-table-layout/page.common.layout";
+import PrivateTimeTablePageLayout from "../../../layouts/private-layouts/private-time-table-layout/page.layout";
 import { Timer } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import "../../../css/scroll-container.css";

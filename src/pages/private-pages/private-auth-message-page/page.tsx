@@ -1,5 +1,5 @@
 import CustomSideBar from "../../../components/custom-side-bar/custom-sidebar.component";
-import PrivateMessagePageLayout from "../../../layouts/private-layouts/private-message-layout/page.common.layout";
+import PrivateMessagePageLayout from "../../../layouts/private-layouts/private-message-layout/page.layout";
 import { MessageCircleMore } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 
