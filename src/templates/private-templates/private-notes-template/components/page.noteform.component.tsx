@@ -67,7 +67,7 @@ const PrivateNoteFormPageComponent = ({
       <div className="w-full bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] mt-5" />
       <div className="mt-5">
         {!value || isEdited ? (
-          <CustomMarkDown value={value} setValue={setValue} height={550} />
+          <CustomMarkDown value={value} setValue={setValue} />
         ) : (
           <MDEditor.Markdown
             source={value}

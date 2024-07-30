@@ -74,7 +74,7 @@ const PrivateMessageFormPageComponent = ({ onClose }: props) => {
           </div>
         </div>
         <div className="w-full h-full">
-          <CustomMarkDown height={520} />
+          <CustomMarkDown />
         </div>
       </div>
     </div>

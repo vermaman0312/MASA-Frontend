@@ -1,6 +1,7 @@
 import MDEditor from "@uiw/react-md-editor";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import rehypeSanitize from "rehype-sanitize";
+import "./style.css";
 
 type props = {
   setValue?: (
@@ -12,12 +13,12 @@ type props = {
   height?: number;
 };
 
-const CustomMarkDown = ({ value, setValue, height }: props) => {
+const CustomMarkDown = ({ value, setValue }: props) => {
   return (
-    <div className="w-full h-full">
+    <div className="md-editor-container">
       <MDEditor
         value={value}
-        height={height ?? 650}
+        height="85%"
         preview="edit"
         onChange={(newValue, event, state) => {
           setValue && setValue(newValue);

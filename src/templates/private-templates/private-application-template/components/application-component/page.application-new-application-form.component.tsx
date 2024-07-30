@@ -70,7 +70,7 @@ const PrivateApplicationFormPageComponent = ({
           isError={isDropdownError}
         />
       </div>
-      <div className="mt-5">
+      <div className="mt-5 h-full">
         <CustomMarkDown height={450} setValue={setValue} value={value} />
       </div>
       <div className="mt-3 w-full flex items-center justify-end">
