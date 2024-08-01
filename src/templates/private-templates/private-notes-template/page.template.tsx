@@ -123,8 +123,8 @@ const PrivateNotePadPageTemplate = ({ items }: props) => {
     );
   }, [isNoteDetails?.description, noteId]);
   return (
-    <div className="w-full h-full">
-      <div>
+    <div className="w-full h-full flex flex-col items-center justify-start">
+      <div className="w-full">
         <PrivateNotesHeadingPageComponent
           isOpen={isCreateNoteOpen}
           onOpenChange={setIsCreateNoteOpen}
@@ -136,7 +136,7 @@ const PrivateNotePadPageTemplate = ({ items }: props) => {
           isHidden={isHidden}
         />
       </div>
-      <div>
+      <div className="w-full">
         {!isNotePadOpen && (
           <div>
             {notes && notes.length > 0 ? (
@@ -228,45 +228,41 @@ const PrivateNotePadPageTemplate = ({ items }: props) => {
         )}
       </div>
 
-      <div>
-        <div>
-          {isNotePadOpen && (
-            <div className="h-[50px] w-full mt-5">
-              <PrivateNoteFormPageComponent
-                onClickBack={() => setIsNotePadOpen(false)}
-                value={isNoteDetails?.description}
-                title={isNoteDetails?.title}
-                timeStamp={isNoteDetails?.timeStamp}
-                setValue={(value) =>
-                  setIsNoteDetails((prevState) => ({
-                    ...prevState,
-                    description: value,
-                    id: prevState?.id ?? "",
-                    title: prevState?.title ?? "",
-                    isSelected: prevState?.isSelected ?? false,
-                    isHide: prevState?.isHide ?? false,
-                    isPinned: prevState?.isPinned ?? false,
-                    isDeleted: prevState?.isDeleted ?? false,
-                    timeStamp: new Date(),
-                  }))
-                }
-                onClick={handleUpdateNote}
-              />
-            </div>
-          )}
-        </div>
-        <div>
-          <CustomAlertDialogBox
-            isDeleteOpen={isDeletedNoteOpen}
-            onOpenChange={setIsDeletedNoteOpen}
-            title="Are you absolutely sure?"
-            description="This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers."
-            buttonTitle1="Cancel"
-            buttonTitle2="Delete"
-            onClick={handleNoteDelete}
+      <div className="w-full h-full">
+        {isNotePadOpen && (
+          <PrivateNoteFormPageComponent
+            onClickBack={() => setIsNotePadOpen(false)}
+            value={isNoteDetails?.description}
+            title={isNoteDetails?.title}
+            timeStamp={isNoteDetails?.timeStamp}
+            setValue={(value) =>
+              setIsNoteDetails((prevState) => ({
+                ...prevState,
+                description: value,
+                id: prevState?.id ?? "",
+                title: prevState?.title ?? "",
+                isSelected: prevState?.isSelected ?? false,
+                isHide: prevState?.isHide ?? false,
+                isPinned: prevState?.isPinned ?? false,
+                isDeleted: prevState?.isDeleted ?? false,
+                timeStamp: new Date(),
+              }))
+            }
+            onClick={handleUpdateNote}
           />
-        </div>
+        )}
+
+        <CustomAlertDialogBox
+          isDeleteOpen={isDeletedNoteOpen}
+          onOpenChange={setIsDeletedNoteOpen}
+          title="Are you absolutely sure?"
+          description="This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers."
+          buttonTitle1="Cancel"
+          buttonTitle2="Delete"
+          onClick={handleNoteDelete}
+        />
+
         <div>{isLoading && <CustomLoader />}</div>
       </div>
     </div>

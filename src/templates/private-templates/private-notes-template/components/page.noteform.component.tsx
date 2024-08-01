@@ -32,7 +32,7 @@ const PrivateNoteFormPageComponent = ({
 }: props) => {
   const [isEdited, setIsEdited] = useState<boolean>(false);
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full flex flex-col gap-8">
       <div className="flex items-start md:items-center justify-between gap-3">
         <div className="flex items-start md:items-center gap-5">
           <div
@@ -50,49 +50,23 @@ const PrivateNoteFormPageComponent = ({
             </CustomLabel>
           </div>
         </div>
-        <div>
-          <CustomMenuDropdown
-            buttonComponent={<EllipsisVertical />}
-            marginRight="mr-6"
-          >
-            <DropdownMenuItem
-              onClick={() => setIsEdited(true)}
-              className="hover:bg-gray-100 cursor-pointer"
-            >
-              <span className="font-display text-xs">Edit Note</span>
-            </DropdownMenuItem>
-          </CustomMenuDropdown>
-        </div>
       </div>
-      <div className="w-full bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] mt-5" />
-      <div className="mt-5">
-        {!value || isEdited ? (
-          <CustomMarkDown value={value} setValue={setValue} />
-        ) : (
-          <MDEditor.Markdown
-            source={value}
-            className="font-display"
-            style={{
-              whiteSpace: "pre-wrap",
-              fontSize: 12,
-              fontFamily: "Poppins",
-            }}
-          />
-        )}
+      <div
+        className="mt-5 w-full h-full"
+        style={{ height: "calc(100vh - 410px)" }}
+      >
+        <CustomMarkDown value={value} setValue={setValue} />
       </div>
-      {isEdited && (
-        <div className="mt-5 p-2 w-full flex items-center justify-end">
-          <button
-            onClick={() => {
-              onClick && onClick();
-              setIsEdited(false);
-            }}
-            className="p-2 w-full md:w-16 bg-gray-900 rounded-lg text-xs text-white font-display"
-          >
-            Save
-          </button>
-        </div>
-      )}
+      <div className="mt-10 p-2 w-full flex items-center justify-end">
+        <button
+          onClick={() => {
+            onClick && onClick();
+          }}
+          className="p-2 w-full md:w-32 bg-gray-900 rounded-lg text-xs text-white font-display"
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 };
