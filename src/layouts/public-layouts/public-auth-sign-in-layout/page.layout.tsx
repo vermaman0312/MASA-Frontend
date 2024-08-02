@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import PublicAuthSignInPageTemplate from "../../../templates/public-templates/public-auth-sign-in-template/page.template";
 import PublicAuthForgotPasswordPageTemplate from "../../../templates/public-templates/public-auth-forgot-password-template/page.template";
@@ -7,17 +7,25 @@ import { useNavigate } from "react-router-dom";
 import CustomToast from "../../../components/custom-toast/custom-toast.component";
 import CustomToastBody from "../../../components/custom-toast/custom-toast-body";
 import Cookies from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  isUserEmailAddressErrorAction,
+  isUserPasswordErrorAction,
+  userEmailAddressAction,
+  userPasswordAction,
+} from "../../../redux/actions/public-actions/public-authentication-login.action";
+import { RootState } from "../../../redux/redux-index";
 
 const PublicAuthSignInPageLayout = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = "123";
+  const loginFormData = useSelector(
+    (state: RootState) => state.publicAuthState.loginDetails.formData
+  );
   const [isPageLoading, setIsPageLoading] = useState<boolean>(false);
   const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [userEmailAddress, setUserEmailAddress] = useState<string>("");
-  const [isEmailError, setIsEmailError] = useState<boolean>(false);
-  const [userPassword, setUserPassword] = useState<string>("");
-  const [isPasswordError, setIsPasswordError] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [isCheckError, setIsCheckError] = useState<boolean>(false);
   const [rememberMe, setRememberMe] = useState<boolean>(false);
@@ -32,17 +40,17 @@ const PublicAuthSignInPageLayout = () => {
 
   const onChangeEmail = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setUserEmailAddress(event.target.value);
-      setIsEmailError(false);
+      dispatch(userEmailAddressAction(event.target.value));
+      dispatch(isUserEmailAddressErrorAction(false));
     },
-    [setUserEmailAddress, setIsEmailError]
+    [dispatch]
   );
   const onChangePassword = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setUserPassword(event.target.value);
-      setIsPasswordError(false);
+      dispatch(userPasswordAction(event.target.value));
+      dispatch(isUserPasswordErrorAction(false));
     },
-    [setUserPassword, setIsPasswordError]
+    [dispatch]
   );
   const onChangeChecked = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,33 +67,37 @@ const PublicAuthSignInPageLayout = () => {
   );
   const onSubmitLogin = useCallback(() => {
     setIsLoading(true);
-    if (!userEmailAddress) {
-      setIsEmailError(true);
+    if (!loginFormData.userEmailAddress) {
+      dispatch(isUserEmailAddressErrorAction(true));
       setIsLoading(false);
       return;
     }
-    if (!userPassword) {
-      setIsPasswordError(true);
+    if (!loginFormData.userPassword) {
+      dispatch(isUserPasswordErrorAction(true));
       setIsLoading(false);
       return;
     }
     setTimeout(() => {
       if (rememberMe) {
-        Cookies.set("userEmailAddress", userEmailAddress, { expires: 7 });
-        Cookies.set("userPassword", userPassword, { expires: 7 });
+        Cookies.set("userEmailAddress", `Aman`, { expires: 7 });
+        Cookies.set("userPassword", `userPassword`, { expires: 7 });
       }
       setIsLoading(false);
-      setUserEmailAddress("");
       setRememberMe(false);
-      setUserPassword("");
       navigate(`/user/auth/2FA?token=${token}`);
     }, 5000);
-  }, [navigate, rememberMe, userEmailAddress, userPassword]);
+  }, [
+    dispatch,
+    loginFormData.userEmailAddress,
+    loginFormData.userPassword,
+    navigate,
+    rememberMe,
+  ]);
 
   const onSubmitForgotPassword = useCallback(() => {
     setIsLoading(true);
-    if (!userEmailAddress) {
-      setIsEmailError(true);
+    if (!loginFormData.userEmailAddress) {
+      dispatch(isUserEmailAddressErrorAction(true));
       setIsLoading(false);
       return;
     }
@@ -96,11 +108,10 @@ const PublicAuthSignInPageLayout = () => {
     }
     setTimeout(() => {
       setIsLoading(false);
-      setUserEmailAddress("");
       setIsChecked(false);
       setIsForgotPassword(false);
     }, 5000);
-  }, [isChecked, userEmailAddress]);
+  }, [dispatch, isChecked, loginFormData.userEmailAddress]);
 
   return (
     <div className="w-full h-screen grid lg:grid-cols-2 md:grid-cols-1 sm:grid-cols-1 gap-4 overflow-hidden">
@@ -136,8 +147,8 @@ const PublicAuthSignInPageLayout = () => {
             <PublicAuthForgotPasswordPageTemplate
               isLoading={isLoading}
               onChangeEmail={onChangeEmail}
-              emailValue={userEmailAddress}
-              isEmailError={isEmailError}
+              emailValue={loginFormData.userEmailAddress as string}
+              isEmailError={loginFormData.isUserEmailAddressError as boolean}
               onChangeCheck={onChangeChecked}
               isChecked={isChecked}
               isCheckError={isCheckError}
@@ -159,11 +170,11 @@ const PublicAuthSignInPageLayout = () => {
             <PublicAuthSignInPageTemplate
               isLoading={isLoading}
               onChangeEmail={onChangeEmail}
-              emailValue={userEmailAddress}
-              isEmailError={isEmailError}
+              emailValue={loginFormData.userEmailAddress as string}
+              isEmailError={loginFormData.isUserEmailAddressError as boolean}
               onChangePassword={onChangePassword}
-              passwordValue={userPassword}
-              isPasswordError={isPasswordError}
+              passwordValue={loginFormData.userPassword as string}
+              isPasswordError={loginFormData.isUserPasswordError as boolean}
               onClick={onSubmitLogin}
               onClickForgot={handleClickForgotPassword}
               onChangeCheck={onChangeRememberMe}

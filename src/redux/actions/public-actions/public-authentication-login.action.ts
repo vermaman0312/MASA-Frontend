@@ -1,21 +1,39 @@
 import {
   USER_EMAIL_ADDRESS,
   USER_PASSWORD,
+  IS_USER_EMAIL_ADDRESS_ERROR,
+  IS_USER_PASSWORD_ERROR,
   PUBLIC_AUTH_LOGIN_REQUEST,
   PUBLIC_AUTH_LOGIN_SUCCESS,
   PUBLIC_AUTH_LOGIN_FAILURE,
 } from "../../constants/public-constants/public-authentication.constant";
 
-export const userEmailAddress = (userEmailAddress: string | null) => {
+export const userEmailAddressAction = (userEmailAddress: string | null) => {
   return {
     type: USER_EMAIL_ADDRESS,
     payload: userEmailAddress,
   };
 };
-export const userPassword = (userPassword: string | null) => {
+export const isUserEmailAddressErrorAction = (
+  isUserEmailAddressErrorAction: boolean
+) => {
+  return {
+    type: IS_USER_EMAIL_ADDRESS_ERROR,
+    payload: isUserEmailAddressErrorAction,
+  };
+};
+export const userPasswordAction = (userPassword: string | null) => {
   return {
     type: USER_PASSWORD,
     payload: userPassword,
+  };
+};
+export const isUserPasswordErrorAction = (
+  isUserPasswordErrorAction: boolean
+) => {
+  return {
+    type: IS_USER_PASSWORD_ERROR,
+    payload: isUserPasswordErrorAction,
   };
 };
 

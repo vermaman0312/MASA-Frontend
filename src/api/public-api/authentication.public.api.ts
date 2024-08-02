@@ -33,3 +33,10 @@ export const userLogin = (
       });
   };
 };
+
+// Check enable two factor authenticatin
+export const checkValid2FA = (token: string) => {
+  return async (dispatch: Dispatch) => {
+    
+  }
+}

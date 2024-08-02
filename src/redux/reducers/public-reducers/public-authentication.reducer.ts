@@ -1,6 +1,8 @@
 import {
   USER_EMAIL_ADDRESS,
   USER_PASSWORD,
+  IS_USER_EMAIL_ADDRESS_ERROR,
+  IS_USER_PASSWORD_ERROR,
   PUBLIC_AUTH_LOGIN_REQUEST,
   PUBLIC_AUTH_LOGIN_SUCCESS,
   PUBLIC_AUTH_LOGIN_FAILURE,
@@ -16,7 +18,9 @@ const publicAuthenticationInitialState = {
   loginDetails: {
     formData: {
       userEmailAddress: null,
+      isUserEmailAddressError: false,
       userPassword: null,
+      isUserPasswordError: false,
     },
     loginState: {
       loading: false,
@@ -42,6 +46,17 @@ export const publicAuthState = (
           },
         },
       };
+    case IS_USER_EMAIL_ADDRESS_ERROR:
+      return {
+        ...state,
+        loginDetails: {
+          ...state.loginDetails,
+          formData: {
+            ...state.loginDetails.formData,
+            isUserEmailAddressError: action.payload,
+          },
+        },
+      };
     case USER_PASSWORD:
       return {
         ...state,
@@ -50,6 +65,17 @@ export const publicAuthState = (
           formData: {
             ...state.loginDetails.formData,
             userPassword: action.payload,
+          },
+        },
+      };
+    case IS_USER_PASSWORD_ERROR:
+      return {
+        ...state,
+        loginDetails: {
+          ...state.loginDetails,
+          formData: {
+            ...state.loginDetails.formData,
+            isUserPasswordError: action.payload,
           },
         },
       };
