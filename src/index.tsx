@@ -8,30 +8,35 @@ import { Provider } from "react-redux";
 import store from "./redux/redux-index";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/tiptap/styles.css";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+const queryClient = new QueryClient();
+
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <MantineProvider>
-        <App />
-        <ToastContainer
-          stacked
-          position="bottom-right"
-          autoClose={5000}
-          hideProgressBar={true}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          icon={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-      </MantineProvider>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <MantineProvider>
+          <App />
+          <ToastContainer
+            stacked
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            icon={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+        </MantineProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
   </Provider>
 );

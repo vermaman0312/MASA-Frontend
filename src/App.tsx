@@ -2,7 +2,6 @@ import { useCallback, useEffect } from "react";
 import "./App.css";
 import RouteIndex from "./routes/route.index";
 import { useDispatch } from "react-redux";
-import { getDeviceDetails } from "./utils/device-details/get-device-details";
 import {
   browserEngine,
   browserId,
@@ -14,9 +13,10 @@ import {
   longitude,
   macAddress,
 } from "./redux/actions/public-actions/public-component-device-details.action";
-
+import { getDeviceDetails } from "./utils/device-details/get-device-details";
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     const handleContextMenu = (event: MouseEvent) => {
       event.preventDefault();
@@ -26,18 +26,29 @@ function App() {
       document.removeEventListener("contextmenu", handleContextMenu);
     };
   }, []);
-
   const fetchDetails = useCallback(async () => {
-    const deviceDetails = await getDeviceDetails();
-    dispatch(browserName(deviceDetails.browserName));
-    dispatch(browserVersion(deviceDetails.browserVersion));
-    dispatch(browserId(deviceDetails.browserId));
-    dispatch(browserOs(deviceDetails.browserOS));
-    dispatch(browserEngine(deviceDetails.browserEngine));
-    dispatch(ipAddress(deviceDetails.ipAddress));
-    dispatch(macAddress(deviceDetails.macAddress));
-    dispatch(longitude(deviceDetails.location.longitude));
-    dispatch(latitude(deviceDetails.location.latitude));
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          dispatch(longitude(position.coords.longitude));
+          dispatch(latitude(position.coords.latitude));
+        },
+        (error) => {
+          console.error("Error occurred while retrieving location: ", error);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+    await getDeviceDetails().then((response) => {
+      dispatch(browserName(response.browserName));
+      dispatch(browserVersion(response.browserVersion));
+      dispatch(browserId(response.browserId));
+      dispatch(browserOs(response.browserOS));
+      dispatch(browserEngine(response.browserEngine));
+      dispatch(ipAddress(response.ipAddress));
+      dispatch(macAddress(response.macAddress));
+    });
   }, [dispatch]);
   useEffect(() => {
     fetchDetails();

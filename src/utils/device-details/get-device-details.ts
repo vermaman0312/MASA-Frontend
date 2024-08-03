@@ -1,8 +1,3 @@
-interface ILocationType {
-  latitude: number;
-  longitude: number;
-}
-
 interface DeviceDetails {
   browserName: string;
   browserVersion: string;
@@ -11,7 +6,6 @@ interface DeviceDetails {
   browserEngine: string;
   ipAddress: string;
   macAddress: string;
-  location: ILocationType;
 }
 
 const getPublicIpAddress = async (): Promise<string> => {
@@ -31,22 +25,25 @@ export const getDeviceDetails = async (): Promise<DeviceDetails> => {
   const browserId = navigator.userAgent;
   const browserOS = navigator.platform;
   const browserEngine = navigator.product;
-
   const ipAddress = await getPublicIpAddress();
   let macAddress = "";
-  let location = {
-    longitude: 0,
-    latitude: 0,
-  };
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      location.latitude = position.coords.latitude;
-      location.longitude = position.coords.longitude;
-    });
-  } else {
-    console.log("Geolocation is not supported by this browser.");
-  }
+  chrome.runtime.sendMessage(
+    "abcdefghijklmnopabcdefghijklmnop",
+    { message: "version 1.0" },
+    (response) => {
+      if (chrome.runtime.lastError) {
+        console.error("Error:", chrome.runtime.lastError.message);
+        console.log("No extension or unable to connect");
+        return;
+      }
+      if (!response) {
+        console.log("No extension");
+        return;
+      }
+      console.log("Extension found", response);
+    }
+  );
 
   return {
     browserName,
@@ -56,6 +53,5 @@ export const getDeviceDetails = async (): Promise<DeviceDetails> => {
     browserEngine,
     ipAddress,
     macAddress,
-    location,
   };
 };

@@ -15,6 +15,7 @@ import {
   userPasswordAction,
 } from "../../../redux/actions/public-actions/public-authentication-login.action";
 import { RootState } from "../../../redux/redux-index";
+import { useUserLoginMutation } from "../../../mutation/public-mutation/authentication.public.mutation";
 
 const PublicAuthSignInPageLayout = () => {
   const dispatch = useDispatch();
@@ -23,12 +24,15 @@ const PublicAuthSignInPageLayout = () => {
   const loginFormData = useSelector(
     (state: RootState) => state.publicAuthState.loginDetails.formData
   );
+
   const [isPageLoading, setIsPageLoading] = useState<boolean>(false);
   const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [isCheckError, setIsCheckError] = useState<boolean>(false);
   const [rememberMe, setRememberMe] = useState<boolean>(false);
+
+  const mutation = useUserLoginMutation();
 
   const handleClickForgotPassword = useCallback(() => {
     setIsPageLoading(true);
@@ -82,6 +86,11 @@ const PublicAuthSignInPageLayout = () => {
         Cookies.set("userEmailAddress", `Aman`, { expires: 7 });
         Cookies.set("userPassword", `userPassword`, { expires: 7 });
       }
+      mutation.mutate({
+        userEmailAddress: "amanverma@gmail.com",
+        userPassword: "Aman@1998",
+        token,
+      });
       setIsLoading(false);
       setRememberMe(false);
       navigate(`/user/auth/2FA?token=${token}`);
@@ -90,6 +99,7 @@ const PublicAuthSignInPageLayout = () => {
     dispatch,
     loginFormData.userEmailAddress,
     loginFormData.userPassword,
+    mutation,
     navigate,
     rememberMe,
   ]);
