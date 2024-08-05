@@ -4,7 +4,7 @@ export interface loginFormAPIInterface {
   verifyToken: string;
 }
 
-type loginResponseType = {
+type ResponseType = {
   Type: string;
   Success: boolean;
   Status: number;
@@ -14,6 +14,6 @@ type loginResponseType = {
 
 export interface loginResponseAPIInterface {
   loading: boolean;
-  data: loginResponseType | null;
-  error: loginResponseType | null;
+  data: ResponseType | null;
+  error: ResponseType | null;
 }
