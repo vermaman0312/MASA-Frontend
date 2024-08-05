@@ -4,13 +4,18 @@ export interface loginFormAPIInterface {
   verifyToken: string;
 }
 
-type ResponseType = {
+export interface check2FAInterface {
+  verifyToken: string;
+  token: string;
+}
+
+export interface ResponseType {
   Type: string;
   Success: boolean;
   Status: number;
   Message: string;
   Data?: string;
-};
+}
 
 export interface loginResponseAPIInterface {
   loading: boolean;

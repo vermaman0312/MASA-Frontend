@@ -8,7 +8,7 @@ export const userLoginApi = async ({
 }: loginFormAPIInterface) => {
   try {
     const response = await fetch(
-      `http://localhost:7005/api/v1/public/auth/user/login?token=${verifyToken}`,
+      `${process.env.REACT_APP_PUBLIC_LOCAL_API_URL}user/login?token=${verifyToken}`,
       {
         method: "POST",
         headers: {
