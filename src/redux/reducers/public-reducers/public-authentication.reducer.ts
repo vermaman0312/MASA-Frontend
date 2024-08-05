@@ -1,4 +1,6 @@
+import { loginResponseAPIInterface } from "../../../api-models/public-api-models/public-authentication-login-api.model";
 import {
+  // Login
   USER_EMAIL_ADDRESS,
   USER_PASSWORD,
   IS_USER_EMAIL_ADDRESS_ERROR,
@@ -6,6 +8,8 @@ import {
   PUBLIC_AUTH_LOGIN_REQUEST,
   PUBLIC_AUTH_LOGIN_SUCCESS,
   PUBLIC_AUTH_LOGIN_FAILURE,
+  // Check 2FA
+  IS_2FA_AUTHENTICATION,
 } from "../../constants/public-constants/public-authentication.constant";
 
 type Action = {
@@ -26,8 +30,9 @@ const publicAuthenticationInitialState = {
       loading: false,
       data: null,
       error: null,
-    },
+    } as loginResponseAPIInterface,
   },
+  is2FAOn: false,
 };
 
 export const publicAuthState = (
@@ -35,6 +40,7 @@ export const publicAuthState = (
   action: Action
 ) => {
   switch (action.type) {
+    // Login state
     case USER_EMAIL_ADDRESS:
       return {
         ...state,
@@ -117,6 +123,12 @@ export const publicAuthState = (
             error: action.payload,
           },
         },
+      };
+    // Check 2FA state
+    case IS_2FA_AUTHENTICATION:
+      return {
+        ...state,
+        is2FAOn: action.payload,
       };
     default:
       return state;

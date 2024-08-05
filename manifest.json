@@ -13,7 +13,7 @@
     "default_icon": "icon.png"
   },
   "externally_connectable": {
-       "matches": ["202.131.103.131"],
+       "matches": ["*://*.google.com/*"],
        "accept_tls_channel_id": true
    }
 }

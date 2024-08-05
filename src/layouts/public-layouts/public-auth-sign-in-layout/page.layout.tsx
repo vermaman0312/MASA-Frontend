@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import PublicAuthSignInPageTemplate from "../../../templates/public-templates/public-auth-sign-in-template/page.template";
 import PublicAuthForgotPasswordPageTemplate from "../../../templates/public-templates/public-auth-forgot-password-template/page.template";
 import CustomLoader from "../../../components/custom-loader/custom-loader.component";
-import { useNavigate } from "react-router-dom";
 import CustomToast from "../../../components/custom-toast/custom-toast.component";
 import CustomToastBody from "../../../components/custom-toast/custom-toast-body";
 import Cookies from "js-cookie";
@@ -15,12 +14,10 @@ import {
   userPasswordAction,
 } from "../../../redux/actions/public-actions/public-authentication-login.action";
 import { RootState } from "../../../redux/redux-index";
-import { useUserLoginMutation } from "../../../mutation/public-mutation/authentication.public.mutation";
+import { useUserLoginMutation } from "../../../mutation/public-mutation/authentication-login.public.mutation";
 
 const PublicAuthSignInPageLayout = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const token = "123";
   const loginFormData = useSelector(
     (state: RootState) => state.publicAuthState.loginDetails.formData
   );
@@ -32,7 +29,11 @@ const PublicAuthSignInPageLayout = () => {
   const [isCheckError, setIsCheckError] = useState<boolean>(false);
   const [rememberMe, setRememberMe] = useState<boolean>(false);
 
-  const mutation = useUserLoginMutation();
+  const mutation = useUserLoginMutation({
+    userEmailAddress: loginFormData.userEmailAddress as string,
+    userPassword: loginFormData.userPassword as string,
+    verifyToken: "123",
+  });
 
   const handleClickForgotPassword = useCallback(() => {
     setIsPageLoading(true);
@@ -86,21 +87,15 @@ const PublicAuthSignInPageLayout = () => {
         Cookies.set("userEmailAddress", `Aman`, { expires: 7 });
         Cookies.set("userPassword", `userPassword`, { expires: 7 });
       }
-      mutation.mutate({
-        userEmailAddress: "amanverma@gmail.com",
-        userPassword: "Aman@1998",
-        token,
-      });
+      mutation.mutate();
       setIsLoading(false);
       setRememberMe(false);
-      navigate(`/user/auth/2FA?token=${token}`);
-    }, 5000);
+    }, 3000);
   }, [
     dispatch,
     loginFormData.userEmailAddress,
     loginFormData.userPassword,
     mutation,
-    navigate,
     rememberMe,
   ]);
 
@@ -120,7 +115,7 @@ const PublicAuthSignInPageLayout = () => {
       setIsLoading(false);
       setIsChecked(false);
       setIsForgotPassword(false);
-    }, 5000);
+    }, 3000);
   }, [dispatch, isChecked, loginFormData.userEmailAddress]);
 
   return (

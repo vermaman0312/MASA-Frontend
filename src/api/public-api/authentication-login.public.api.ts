@@ -1,16 +1,14 @@
+import { loginFormAPIInterface } from "../../api-models/public-api-models/public-authentication-login-api.model";
+
 // Login api function
 export const userLoginApi = async ({
   userEmailAddress,
   userPassword,
-  token,
-}: {
-  userEmailAddress: string;
-  userPassword: string;
-  token: string;
-}) => {
+  verifyToken,
+}: loginFormAPIInterface) => {
   try {
     const response = await fetch(
-      `http://localhost:7005/api/v1/public/auth/user/login?token=${token}`,
+      `http://localhost:7005/api/v1/public/auth/user/login?token=${verifyToken}`,
       {
         method: "POST",
         headers: {
@@ -19,9 +17,6 @@ export const userLoginApi = async ({
         body: JSON.stringify({ userEmailAddress, userPassword }),
       }
     );
-    if (response.status !== 200) {
-      throw new Error("HTTP error!");
-    }
     const data = await response.json();
     return data;
   } catch (error) {

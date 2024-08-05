@@ -7,4 +7,7 @@ export const PUBLIC_AUTH_LOGIN_REQUEST = "PUBLIC_AUTH_LOGIN_REQUEST";
 export const PUBLIC_AUTH_LOGIN_SUCCESS = "PUBLIC_AUTH_LOGIN_SUCCESS";
 export const PUBLIC_AUTH_LOGIN_FAILURE = "PUBLIC_AUTH_LOGIN_FAILURE";
 
+// Check two factor authentication
+export const IS_2FA_AUTHENTICATION = "IS_2FA_AUTHENTICATION";
+
 // Remember password
