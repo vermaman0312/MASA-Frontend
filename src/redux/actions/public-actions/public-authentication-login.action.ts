@@ -1,4 +1,4 @@
-import { loginResponseAPIInterface } from "../../../api-models/public-api-models/public-authentication-login-api.model";
+import { loginResponseAPIInterface } from "../../../api/models/public-api-models/public-authentication-login-api.model";
 import {
   // Login
   USER_EMAIL_ADDRESS,

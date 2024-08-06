@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
+import { deviceDetailsApiInterface } from "../../models/private-api-models/private-device-details-api.model";
 import { updateDeviceDetailsApi } from "../../api/public-api/authentication-update-device-details.public.api";
-import { deviceDetailsApiInterface } from "../../api-models/private-api-models/private-device-details-api.model";
 
 export const useDeviceDetailsMutation = () => {
   return useMutation(

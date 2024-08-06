@@ -14,7 +14,7 @@ import {
   userPasswordAction,
 } from "../../../redux/actions/public-actions/public-authentication-login.action";
 import { RootState } from "../../../redux/redux-index";
-import { useUserLoginMutation } from "../../../mutation/public-mutation/authentication-login.public.mutation";
+import { useUserLoginMutation } from "../../../api/mutations/public-mutation/authentication-login.public.mutation";
 
 const PublicAuthSignInPageLayout = () => {
   const dispatch = useDispatch();

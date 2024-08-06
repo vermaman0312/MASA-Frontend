@@ -1,7 +1,7 @@
 import { useMutation } from "react-query";
-import { userCheck2FA } from "../../api/public-api/authentication-check-2FA-public.api";
 import { useNavigate } from "react-router-dom";
-import { check2FAInterface } from "../../api-models/public-api-models/public-authentication-login-api.model";
+import { check2FAInterface } from "../../models/public-api-models/public-authentication-login-api.model";
+import { userCheck2FA } from "../../api/public-api/authentication-check-2FA-public.api";
 
 export const useUserCheck2FAMutation = () => {
   const navigate = useNavigate();

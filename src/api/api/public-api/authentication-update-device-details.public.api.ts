@@ -1,4 +1,4 @@
-import { deviceDetailsApiInterface } from "../../api-models/private-api-models/private-device-details-api.model";
+import { deviceDetailsApiInterface } from "../../models/private-api-models/private-device-details-api.model";
 
 export const updateDeviceDetailsApi = async ({
   verifyToken,

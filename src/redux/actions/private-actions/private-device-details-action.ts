@@ -19,6 +19,7 @@ import {
   DEVICE_DETAILS_FAILURE,
 } from "../../constants/private-constants/private-device-details-constant";
 
+// Device details
 export const browserName = (browserName: string | null) => {
   return {
     type: BROWSER_NAME,
@@ -71,5 +72,43 @@ export const latitude = (latitude: number | null) => {
   return {
     type: LOCATION_LATITUDE,
     payload: latitude,
+  };
+};
+
+// Update device details
+export const updateDeviceDetailsRequest = () => {
+  return {
+    type: UPDATE_DEVICE_DETAILS_REQUEST,
+  };
+};
+export const updateDeviceDetailsSuccess = (data: string) => {
+  return {
+    type: UPDATE_DEVICE_DETAILS_SUCCESS,
+    payload: data,
+  };
+};
+export const updateDeviceDetailsFailure = (error: string) => {
+  return {
+    type: UPDATE_DEVICE_DETAILS_FAILURE,
+    payload: error,
+  };
+};
+
+// Get device details
+export const getDeviceDetailsRequest = () => {
+  return {
+    type: DEVICE_DETAILS_REQUEST,
+  };
+};
+export const getDeviceDetailsSuccess = (data: string) => {
+  return {
+    type: DEVICE_DETAILS_SUCCESS,
+    payload: data,
+  };
+};
+export const getDeviceDetailsFailure = (error: string) => {
+  return {
+    type: DEVICE_DETAILS_FAILURE,
+    payload: error,
   };
 };
