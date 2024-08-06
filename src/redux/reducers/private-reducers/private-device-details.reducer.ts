@@ -1,3 +1,4 @@
+import { deviceDetailsReducerType } from "../../../api/models/private-api-models/private-device-details-api.model";
 import {
   // Device details
   BROWSER_NAME,
@@ -48,7 +49,7 @@ const deviceDetailsInitialState = {
     loading: false,
     error: null,
     data: null,
-  },
+  } as deviceDetailsReducerType,
 };
 
 export const deviceDetailsState = (

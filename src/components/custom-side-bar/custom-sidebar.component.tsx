@@ -10,6 +10,7 @@ import "../../css/scroll-container.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/redux-index";
 import CustomNotificationBody from "./custom-notification-body.ui";
+import { deviceDetailsReducerType } from "../../api/models/private-api-models/private-device-details-api.model";
 
 type props = {
   headerChildren?: ReactNode;
@@ -21,12 +22,16 @@ const CustomSideBar = ({ headerChildren, children }: props) => {
   const IpAddress = useSelector(
     (state: RootState) => state.deviceDetailsState.deviceDetails.ipAddress
   );
+  const getDeviceDetails = useSelector(
+    (state: RootState) => state.deviceDetailsState.getDeviceDetails
+  );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
     navigate("/login");
     return;
   }, [navigate]);
+
   return (
     <div className="w-screen h-screen flex">
       <div className="w-[15rem] bg-[#0d1b2a] flex-col items-center justify-between gap-2 hidden md:flex">
@@ -60,17 +65,25 @@ const CustomSideBar = ({ headerChildren, children }: props) => {
           <div className="w-full flex items-center justify-start">
             <MobileMenuItems />
           </div>
-          <div className="w-full flex items-center justify-end gap-5">
+          <div className="w-full flex items-center justify-end md:gap-8 gap-5">
             <div className="flex flex-col">
               <CustomLabel className="text-white font-display font-light text-xs border-b">
-                Last login
+                {`${new Date(
+                  (getDeviceDetails as deviceDetailsReducerType).data?.Data
+                    ?.timeStamps as Date
+                ).toLocaleDateString()} | ${new Date(
+                  (getDeviceDetails as deviceDetailsReducerType).data?.Data
+                    ?.timeStamps as Date
+                ).toLocaleTimeString()}`}
               </CustomLabel>
               <CustomLabel className="text-white font-display font-light text-xs">
                 {IpAddress as string}
               </CustomLabel>
             </div>
-            <NotificationNavBar onClick={() => setIsOpen((prev) => !prev)} />
-            <UserProfileMenuItems />
+            <div className="flex items-center justify-end gap-5">
+              <NotificationNavBar onClick={() => setIsOpen((prev) => !prev)} />
+              <UserProfileMenuItems />
+            </div>
           </div>
         </div>
         <div className="w-full">

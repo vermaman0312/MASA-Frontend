@@ -44,9 +44,6 @@ export const useUserLoginMutation = ({
           dispatch(userPasswordAction(null));
         }
       },
-      onError: (error) => {
-        dispatch(userLoginFailure(error as loginResponseAPIInterface));
-      },
     }
   );
 };

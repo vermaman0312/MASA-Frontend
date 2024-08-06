@@ -1,3 +1,4 @@
+import { deviceDetailsInterface } from "../../../api/models/private-api-models/private-device-details-api.model";
 import {
   // Device details
   BROWSER_NAME,
@@ -100,13 +101,13 @@ export const getDeviceDetailsRequest = () => {
     type: DEVICE_DETAILS_REQUEST,
   };
 };
-export const getDeviceDetailsSuccess = (data: string) => {
+export const getDeviceDetailsSuccess = (data: deviceDetailsInterface) => {
   return {
     type: DEVICE_DETAILS_SUCCESS,
     payload: data,
   };
 };
-export const getDeviceDetailsFailure = (error: string) => {
+export const getDeviceDetailsFailure = (error: deviceDetailsInterface) => {
   return {
     type: DEVICE_DETAILS_FAILURE,
     payload: error,
