@@ -14,8 +14,11 @@ import {
   macAddress,
 } from "./redux/actions/private-actions/private-device-details-action";
 import { getDeviceDetails } from "./utils/device-details/get-device-details";
+import { useGetUserNameMutation } from "./api/mutations/public-mutation/authentication-get-username-public.mutation";
+
 function App() {
   const dispatch = useDispatch();
+  const getPublicUserDetails = useGetUserNameMutation();
 
   useEffect(() => {
     const handleContextMenu = (event: MouseEvent) => {
@@ -48,6 +51,10 @@ function App() {
       dispatch(browserEngine(response.browserEngine));
       dispatch(ipAddress(response.ipAddress));
       dispatch(macAddress(response.macAddress));
+      getPublicUserDetails.mutate({
+        verifyToken: "123",
+        ipAddress: response.ipAddress as string,
+      });
     });
   }, [dispatch]);
   useEffect(() => {

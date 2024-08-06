@@ -15,11 +15,15 @@ import {
 } from "../../../redux/actions/public-actions/public-authentication-login.action";
 import { RootState } from "../../../redux/redux-index";
 import { useUserLoginMutation } from "../../../api/mutations/public-mutation/authentication-login.public.mutation";
+import { getUserNameResponseAPIInterface } from "../../../api/models/public-api-models/public-get-username-api.model";
 
 const PublicAuthSignInPageLayout = () => {
   const dispatch = useDispatch();
   const loginFormData = useSelector(
     (state: RootState) => state.publicAuthState.loginDetails.formData
+  );
+  const publicUserName = useSelector(
+    (state: RootState) => state.publicComponentState.publicUserDetails
   );
 
   const [isPageLoading, setIsPageLoading] = useState<boolean>(false);
@@ -165,7 +169,13 @@ const PublicAuthSignInPageLayout = () => {
         <div className="w-full flex flex-col items-center justify-center p-4">
           <div className="flex flex-col items-center justify-center gap-2">
             <CustomLabel className="text-3xl font-medium font-display text-[#0d1b2a]">
-              Welcome back, Aman
+              {(publicUserName as getUserNameResponseAPIInterface).data?.Data
+                ?.userFirstName
+                ? `Welcome back, ${
+                    (publicUserName as getUserNameResponseAPIInterface).data
+                      ?.Data?.userFirstName
+                  }`
+                : `Welcome to MASA`}
             </CustomLabel>
             <CustomLabel className="sm:text-lg md:text-xl lg:text-xl font-light font-display text-[#0d1b2a] text-center">
               Enter your email below to login your account
