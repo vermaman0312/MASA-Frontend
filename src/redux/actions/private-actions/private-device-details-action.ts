@@ -1,4 +1,5 @@
 import {
+  // Device details
   BROWSER_NAME,
   BROWSER_VERSION,
   BROWSER_ID,
@@ -8,7 +9,15 @@ import {
   MAC_ADDRESS,
   LOCATION_LOGINTUDE,
   LOCATION_LATITUDE,
-} from "../../constants/public-constants/public-component.constant";
+  // Update device details
+  UPDATE_DEVICE_DETAILS_REQUEST,
+  UPDATE_DEVICE_DETAILS_SUCCESS,
+  UPDATE_DEVICE_DETAILS_FAILURE,
+  // Get device details
+  DEVICE_DETAILS_REQUEST,
+  DEVICE_DETAILS_SUCCESS,
+  DEVICE_DETAILS_FAILURE,
+} from "../../constants/private-constants/private-device-details-constant";
 
 export const browserName = (browserName: string | null) => {
   return {

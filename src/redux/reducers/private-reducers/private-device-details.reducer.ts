@@ -1,4 +1,5 @@
 import {
+  // Device details
   BROWSER_NAME,
   BROWSER_VERSION,
   BROWSER_ID,
@@ -8,15 +9,23 @@ import {
   MAC_ADDRESS,
   LOCATION_LOGINTUDE,
   LOCATION_LATITUDE,
-} from "../../constants/public-constants/public-component.constant";
+  // Update device details
+  UPDATE_DEVICE_DETAILS_REQUEST,
+  UPDATE_DEVICE_DETAILS_SUCCESS,
+  UPDATE_DEVICE_DETAILS_FAILURE,
+  // Get device details
+  DEVICE_DETAILS_REQUEST,
+  DEVICE_DETAILS_SUCCESS,
+  DEVICE_DETAILS_FAILURE,
+} from "../../constants/private-constants/private-device-details-constant";
 
 type Action = {
   type: string;
-  action: string;
-  payload: string;
+  action: unknown;
+  payload: unknown;
 };
 
-const publicComponentInitialState = {
+const deviceDetailsInitialState = {
   deviceDetails: {
     browserName: null,
     browserVersion: null,
@@ -30,10 +39,20 @@ const publicComponentInitialState = {
       latitude: null,
     },
   },
+  updateDeviceDetails: {
+    loading: false,
+    error: null,
+    data: null,
+  },
+  getDeviceDetails: {
+    loading: false,
+    error: null,
+    data: null,
+  },
 };
 
-export const publicComponentState = (
-  state = publicComponentInitialState,
+export const deviceDetailsState = (
+  state = deviceDetailsInitialState,
   action: Action
 ) => {
   switch (action.type) {
@@ -113,6 +132,66 @@ export const publicComponentState = (
             ...state.deviceDetails.location,
             latitude: action.payload,
           },
+        },
+      };
+    case UPDATE_DEVICE_DETAILS_REQUEST:
+      return {
+        ...state,
+        updateDeviceDetails: {
+          ...state.updateDeviceDetails,
+          loading: true,
+          error: null,
+          data: null,
+        },
+      };
+    case UPDATE_DEVICE_DETAILS_SUCCESS:
+      return {
+        ...state,
+        updateDeviceDetails: {
+          ...state.updateDeviceDetails,
+          loading: false,
+          error: null,
+          data: action.payload,
+        },
+      };
+    case UPDATE_DEVICE_DETAILS_FAILURE:
+      return {
+        ...state,
+        updateDeviceDetails: {
+          ...state.updateDeviceDetails,
+          loading: false,
+          error: action.payload,
+          data: null,
+        },
+      };
+    case DEVICE_DETAILS_REQUEST:
+      return {
+        ...state,
+        getDeviceDetails: {
+          ...state.getDeviceDetails,
+          loading: true,
+          error: null,
+          data: null,
+        },
+      };
+    case DEVICE_DETAILS_SUCCESS:
+      return {
+        ...state,
+        getDeviceDetails: {
+          ...state.getDeviceDetails,
+          loading: false,
+          error: null,
+          data: action.payload,
+        },
+      };
+    case DEVICE_DETAILS_FAILURE:
+      return {
+        ...state,
+        getDeviceDetails: {
+          ...state.getDeviceDetails,
+          loading: false,
+          error: action.payload,
+          data: null,
         },
       };
     default:

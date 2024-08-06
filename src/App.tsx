@@ -12,7 +12,7 @@ import {
   latitude,
   longitude,
   macAddress,
-} from "./redux/actions/public-actions/public-component-device-details.action";
+} from "./redux/actions/private-actions/private-device-details-action";
 import { getDeviceDetails } from "./utils/device-details/get-device-details";
 function App() {
   const dispatch = useDispatch();
