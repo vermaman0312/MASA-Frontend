@@ -35,15 +35,6 @@ const UserProfileMenuItems = () => {
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
-            navigate(`/user/auth/edit-profile?token=${token}`);
-          }}
-          className="hover:bg-gray-100 rounded-lg cursor-pointer"
-        >
-          <FilePenLine className="mr-2 h-4 w-4" />
-          <span className="font-display text-xs">Edit Profile</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => {
             navigate(`/user/auth/settings?token=${token}`);
           }}
           className="hover:bg-gray-100 cursor-pointer"

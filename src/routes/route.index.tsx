@@ -18,7 +18,6 @@ import PrivateAuthTimeTablePage from "../pages/private-pages/private-auth-timeta
 import PrivateAuthResultPage from "../pages/private-pages/private-auth-result-page/page";
 import PrivateAuthMessagePage from "../pages/private-pages/private-auth-message-page/page";
 import PrivateAuthContactPage from "../pages/private-pages/private-auth-contact-page/page";
-import PrivateAuthEditProfilePage from "../pages/private-pages/private-auth-editprofile-page/page";
 import PrivateAuthProfilePage from "../pages/private-pages/private-auth-profile-page/page";
 import PrivateAuthSettingPage from "../pages/private-pages/private-auth-setting-page/page";
 import PrivateAuthVNXTPage from "../pages/private-pages/private-auth-vnxt-page/page";
@@ -101,10 +100,6 @@ const RouteIndex = () => {
           <Route
             path="/user/auth/profile"
             element={<PrivateAuthProfilePage />}
-          />
-          <Route
-            path="/user/auth/edit-profile"
-            element={<PrivateAuthEditProfilePage />}
           />
         </Route>
       </Route>

@@ -40,7 +40,14 @@ const PrivateSettingSetup2FAPageTemplate = () => {
           </CustomLabel>
         </div>
         <div className="mt-2">
-          <CustomDropdown />
+          <CustomDropdown
+            list={[
+              "Google authenticator app",
+              "Microsoft authenticator app",
+              "SMS/Text",
+            ]}
+            value="Google authenticator app"
+          />
         </div>
       </div>
 

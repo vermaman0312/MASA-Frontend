@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import CustomMenuDropdown from "../custom-menu-dropdown/custom-menu-dropdown.component";
 import {
   AlignJustify,
@@ -7,7 +7,6 @@ import {
   CalendarDays,
   ClipboardList,
   Contact,
-  FilePenLine,
   GalleryVertical,
   Layers3,
   LayoutDashboard,
@@ -24,8 +23,7 @@ import {
   Users,
 } from "lucide-react";
 import { DropdownMenuItem } from "../custom-menu-dropdown/custom-menu-dropdown.ui";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/redux-index";
+import { useDispatch } from "react-redux";
 import { menuAction } from "../../redux/actions/private-actions/private-menuItems.action";
 import { useNavigate } from "react-router-dom";
 import { authenticatedUserRole } from "../../utils/token/token";
@@ -35,7 +33,6 @@ const MobileMenuItems = () => {
   const token = "123";
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const menuItem = useSelector((state: RootState) => state.menuItem.menuItem);
   const handleSelect = useCallback(
     (value: string, url: string) => {
       dispatch(menuAction(value));
@@ -71,18 +68,6 @@ const MobileMenuItems = () => {
         >
           <User className="mr-2 h-4 w-4" />
           <span className="font-display text-xs">Profile</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() =>
-            handleSelect(
-              "editprofile",
-              `/user/auth/edit-profile?token=${token}`
-            )
-          }
-          className="hover:bg-gray-100 cursor-pointer"
-        >
-          <FilePenLine className="mr-2 h-4 w-4" />
-          <span className="font-display text-xs">Edit Profile</span>
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() =>
