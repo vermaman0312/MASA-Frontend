@@ -15,10 +15,17 @@ import {
 } from "./redux/actions/private-actions/private-device-details-action";
 import { getDeviceDetails } from "./utils/device-details/get-device-details";
 import { useGetUserNameMutation } from "./api/mutations/public-mutation/authentication-get-username-public.mutation";
+import { useGetDeviceDetailsMutation } from "./api/mutations/private-mutation/authentication-device-details.private.mutation";
 
 function App() {
   const dispatch = useDispatch();
   const getPublicUserDetails = useGetUserNameMutation();
+  const token = localStorage.getItem("token");
+  const deviceDetails = useGetDeviceDetailsMutation();
+
+  useEffect(() => {
+    deviceDetails.mutate({ verifyToken: "123", token: token as string });
+  }, []);
 
   useEffect(() => {
     const handleContextMenu = (event: MouseEvent) => {

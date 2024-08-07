@@ -40,14 +40,14 @@ const PrivateUserTablePageComponent = ({
       <table className="w-full leading-normal">
         <thead>
           <tr>
-            <th className="font-display px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+            <th className="font-display px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
               S.N
             </th>
-            <th className="font-display px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+            <th className="font-display px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
               Unique ID
             </th>
             <th className="font-display px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
-              Name
+              User Details
             </th>
             <th className="font-display px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
               Contact
@@ -75,7 +75,7 @@ const PrivateUserTablePageComponent = ({
             <th className="font-display px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
               Role
             </th>
-            <th className="font-display px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider">
+            <th className="font-display px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">
               More
             </th>
           </tr>
@@ -89,21 +89,21 @@ const PrivateUserTablePageComponent = ({
                 .map((user, index) => {
                   return (
                     <tr key={index}>
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-xs font-display">
+                      <td className="border-b border-gray-200 text-center bg-white text-xs font-display">
                         <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                           <span aria-hidden className="absolute inset-0"></span>
                           <span className="relative">{index + 1}</span>
                         </span>
                       </td>
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-xs font-display">
+                      <td className="border-b border-gray-200 text-center bg-white text-xs font-display">
                         <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                           <span aria-hidden className="absolute inset-0"></span>
                           <span className="relative">{user.uniqueId}</span>
                         </span>
                       </td>
-                      <td className="px-5 py-3 border-b border-gray-200 bg-white text-sm">
+                      <td className="border-b border-gray-200 text-left bg-white text-sm">
                         <div className="flex">
-                          <div className="flex-shrink-0 w-10 h-10">
+                          <div className="flex-shrink-0 w-8 h-8">
                             <img
                               className="w-full h-full rounded-full"
                               src={user.userProfileImage}
@@ -111,7 +111,7 @@ const PrivateUserTablePageComponent = ({
                             />
                           </div>
                           <div className="ml-3">
-                            <p className="text-gray-500 whitespace-no-wrap font-display font-bold text-xs">
+                            <p className="text-gray-500 whitespace-no-wrap text-left font-display font-bold text-xs">
                               {`${user.userFirstName} ${user.userLastName}`}
                             </p>
                             <p className="text-gray-600 whitespace-no-wrap font-display text-xs">
@@ -120,7 +120,7 @@ const PrivateUserTablePageComponent = ({
                           </div>
                         </div>
                       </td>
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-xs font-display">
+                      <td className="border-b border-gray-200 text-left bg-white text-xs font-display">
                         <p className="text-gray-900 whitespace-no-wrap">
                           {user.userEmailAddress}
                         </p>
@@ -129,14 +129,14 @@ const PrivateUserTablePageComponent = ({
                         </p>
                       </td>
                       {role.toLowerCase() !== "student" && (
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-xs font-display">
+                        <td className="border-b border-gray-200 bg-white text-xs font-display">
                           <p className="text-gray-900 whitespace-no-wrap">
                             {user.userDepartment}
                           </p>
                         </td>
                       )}
                       {role.toLowerCase() !== "student" && (
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-xs font-display">
+                        <td className="border-b border-gray-200 bg-white text-xs font-display">
                           <p className="text-gray-900 whitespace-no-wrap">
                             {user.userDesignation}
                           </p>
@@ -146,7 +146,7 @@ const PrivateUserTablePageComponent = ({
                         </td>
                       )}
                       {role.toLowerCase() === "student" && (
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-xs font-display">
+                        <td className="border-b border-gray-200 bg-white text-xs font-display">
                           <p className="text-gray-900 whitespace-no-wrap">
                             {`${getAcademicYear(
                               currentYear,
@@ -163,7 +163,7 @@ const PrivateUserTablePageComponent = ({
                         </td>
                       )}
                       {role.toLowerCase() === "student" && (
-                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-xs font-display">
+                        <td className="border-b border-gray-200 bg-white text-xs font-display">
                           <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                             <span
                               aria-hidden
@@ -175,7 +175,7 @@ const PrivateUserTablePageComponent = ({
                           </span>
                         </td>
                       )}
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-xs font-display">
+                      <td className="border-b border-gray-200 bg-white text-xs font-display">
                         <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                           <span
                             aria-hidden
@@ -184,7 +184,7 @@ const PrivateUserTablePageComponent = ({
                           <span className="relative">{user.userRole}</span>
                         </span>
                       </td>
-                      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
+                      <td className="border-b border-gray-200 bg-white text-sm text-center">
                         <button
                           type="button"
                           className="inline-block text-gray-500 hover:text-gray-700"
