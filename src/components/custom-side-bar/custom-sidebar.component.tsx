@@ -20,10 +20,10 @@ type props = {
 const CustomSideBar = ({ headerChildren, children }: props) => {
   const navigate = useNavigate();
   const IpAddress = useSelector(
-    (state: RootState) => state.deviceDetailsState.deviceDetails.ipAddress
+    (state: RootState) => state.privateComponentState.device.deviceDetails.ipAddress
   );
   const getDeviceDetails = useSelector(
-    (state: RootState) => state.deviceDetailsState.getDeviceDetails
+    (state: RootState) => state.privateComponentState.device.getDeviceDetails
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleLogout = useCallback(() => {

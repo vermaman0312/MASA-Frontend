@@ -24,9 +24,9 @@ import {
 } from "lucide-react";
 import { DropdownMenuItem } from "../custom-menu-dropdown/custom-menu-dropdown.ui";
 import { useDispatch } from "react-redux";
-import { menuAction } from "../../redux/actions/private-actions/private-menuItems.action";
 import { useNavigate } from "react-router-dom";
 import { authenticatedUserRole } from "../../utils/token/token";
+import { menuAction } from "../../redux/actions/private-actions/private.component.action";
 
 const MobileMenuItems = () => {
   const role = authenticatedUserRole();

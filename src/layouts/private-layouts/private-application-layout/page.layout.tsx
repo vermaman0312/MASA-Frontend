@@ -9,7 +9,7 @@ import { RootState } from "../../../redux/redux-index";
 const PrivateApplicationPageLayout = () => {
   const dispatch = useDispatch();
   const applicationMenu = useSelector(
-    (state: RootState) => state.applicationMenu.subApplicationMenu
+    (state: RootState) => state.privateApplicationState.subApplicationMenu
   ) as string | undefined;
   const handleSelectApplicationMenu = useCallback(
     (value: string) => {

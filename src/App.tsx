@@ -2,6 +2,9 @@ import { useCallback, useEffect } from "react";
 import "./App.css";
 import RouteIndex from "./routes/route.index";
 import { useDispatch } from "react-redux";
+import { getDeviceDetails } from "./utils/device-details/get-device-details";
+import { useGetUserNameMutation } from "./api/mutations/public-mutation/authentication-get-username-public.mutation";
+import { useGetDeviceDetailsMutation } from "./api/mutations/private-mutation/authentication-device-details.private.mutation";
 import {
   browserEngine,
   browserId,
@@ -12,10 +15,7 @@ import {
   latitude,
   longitude,
   macAddress,
-} from "./redux/actions/private-actions/private-device-details-action";
-import { getDeviceDetails } from "./utils/device-details/get-device-details";
-import { useGetUserNameMutation } from "./api/mutations/public-mutation/authentication-get-username-public.mutation";
-import { useGetDeviceDetailsMutation } from "./api/mutations/private-mutation/authentication-device-details.private.mutation";
+} from "./redux/actions/private-actions/private.component.action";
 
 function App() {
   const dispatch = useDispatch();

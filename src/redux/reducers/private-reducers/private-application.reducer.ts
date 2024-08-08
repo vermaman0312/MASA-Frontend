@@ -69,7 +69,7 @@ interface myApproval {
   error: string | null;
 }
 
-export const applicationMenuIntialState = {
+export const privateApplicationStateIntialState = {
   subApplicationMenu: "myApproval",
   applicationData: {
     myApproval: {
@@ -147,8 +147,8 @@ export const applicationMenuIntialState = {
   },
 };
 
-export const applicationMenu = (
-  state = applicationMenuIntialState,
+export const privateApplicationState = (
+  state = privateApplicationStateIntialState,
   action: actionType
 ) => {
   switch (action.type) {

@@ -1,3 +1,6 @@
+// Menu option
+export const PRIVATE_MENU_OPTION = "PRIVATE_MENU_OPTION";
+
 // Device details
 export const BROWSER_NAME = "BROWSER_NAME";
 export const BROWSER_VERSION = "BROWSER_VERSION";

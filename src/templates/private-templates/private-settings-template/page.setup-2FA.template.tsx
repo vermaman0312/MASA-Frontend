@@ -41,12 +41,13 @@ const PrivateSettingSetup2FAPageTemplate = () => {
         </div>
         <div className="mt-2">
           <CustomDropdown
+            title="Select preffered 2FA method"
             list={[
               "Google authenticator app",
               "Microsoft authenticator app",
               "SMS/Text",
             ]}
-            value="Google authenticator app"
+            // value="Google authenticator app"
           />
         </div>
       </div>

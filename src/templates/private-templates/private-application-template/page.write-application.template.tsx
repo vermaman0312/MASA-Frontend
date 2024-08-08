@@ -25,7 +25,7 @@ const PrivateApplicationWriteApplicationPageTemplate = () => {
   const role = authenticatedUserRole();
   const newApplicationFormData = useSelector(
     (state: RootState) =>
-      state.applicationMenu.applicationData.application.writeApplication
+      state.privateApplicationState.applicationData.application.writeApplication
         .formData
   );
   const [applicationOption, setApplicationOption] =

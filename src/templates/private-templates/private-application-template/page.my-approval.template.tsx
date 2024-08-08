@@ -16,7 +16,7 @@ const PrivateApplicationMyApprovalPageTemplate = () => {
   const dispatch = useDispatch();
   const role = authenticatedUserRole();
   const approval = useSelector(
-    (state: RootState) => state?.applicationMenu?.applicationData?.myApproval
+    (state: RootState) => state?.privateApplicationState?.applicationData?.myApproval
   );
   const handleSelectApproval = useCallback(
     (value: boolean) => {

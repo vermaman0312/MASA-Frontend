@@ -23,7 +23,7 @@ const PrivateApplicationApplyLeavePageTemplate = () => {
   const dispatch = useDispatch();
   const applyFormData = useSelector(
     (state: RootState) =>
-      state.applicationMenu.applicationData.myApproval.applyLeave.formData
+      state.privateApplicationState.applicationData.myApproval.applyLeave.formData
   );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const onChangeLeaveType = useCallback(

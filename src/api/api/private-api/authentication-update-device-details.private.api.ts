@@ -51,7 +51,7 @@ export const getDeviceDetailsApi = async ({
 }: {
   verifyToken: string;
   token: string;
-}) => {
+}): Promise<deviceDetailsInterface> => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/fetch/device-details?token=${verifyToken}`,

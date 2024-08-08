@@ -19,12 +19,11 @@ import {
   Timer,
   Users,
 } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/redux-index";
-import { menuAction } from "../../redux/actions/private-actions/private-menuItems.action";
+import { useDispatch } from "react-redux";
 import "../../css/scroll-container.css";
 import { authenticatedUserRole } from "../../utils/token/token";
 import { useNavigate, useLocation } from "react-router-dom";
+import { menuAction } from "../../redux/actions/private-actions/private.component.action";
 
 const DesktopMenuItems = () => {
   const location = useLocation();
@@ -33,7 +32,6 @@ const DesktopMenuItems = () => {
   const token = "123";
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const menuItem = useSelector((state: RootState) => state.menuItem.menuItem);
   const handleSelect = useCallback(
     (value: string, url: string) => {
       dispatch(menuAction(value));

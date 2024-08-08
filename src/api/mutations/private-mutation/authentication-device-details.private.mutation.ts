@@ -1,5 +1,8 @@
 import { useMutation } from "react-query";
-import { deviceDetailsApiInterface, deviceDetailsInterface } from "../../models/private-api-models/private-device-details-api.model";
+import {
+  deviceDetailsApiInterface,
+  deviceDetailsInterface,
+} from "../../models/private-api-models/private-device-details-api.model";
 import {
   getDeviceDetailsApi,
   updateDeviceDetailsApi,
@@ -12,7 +15,7 @@ import {
   updateDeviceDetailsFailure,
   updateDeviceDetailsRequest,
   updateDeviceDetailsSuccess,
-} from "../../../redux/actions/private-actions/private-device-details-action";
+} from "../../../redux/actions/private-actions/private.component.action";
 
 export const useDeviceDetailsMutation = () => {
   const dispatch = useDispatch();

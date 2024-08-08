@@ -1,5 +1,7 @@
 import { deviceDetailsInterface } from "../../../api/models/private-api-models/private-device-details-api.model";
 import {
+  // Menu option
+  PRIVATE_MENU_OPTION,
   // Device details
   BROWSER_NAME,
   BROWSER_VERSION,
@@ -18,8 +20,17 @@ import {
   DEVICE_DETAILS_REQUEST,
   DEVICE_DETAILS_SUCCESS,
   DEVICE_DETAILS_FAILURE,
-} from "../../constants/private-constants/private-device-details-constant";
+} from "../../constants/private-constants/private.component.constant";
 
+// Menu option
+export const menuAction = (menuItem: string) => {
+  return {
+    type: PRIVATE_MENU_OPTION,
+    payload: menuItem,
+  };
+};
+
+// Device
 // Device details
 export const browserName = (browserName: string | null) => {
   return {
