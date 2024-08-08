@@ -1,13 +1,13 @@
 import {
-  userDetailsResponseType,
-  userDetailsType,
-} from "../../models/private-api-models/private-user-details-api.model";
+  profileDetailsResponseType,
+  profileDetailsType,
+} from "../../models/private-api-models/private-profile-details-api.model";
 
 export const userDetailsAPI = async ({
   verifyToken,
   token,
   userId,
-}: userDetailsType): Promise<userDetailsResponseType> => {
+}: profileDetailsType): Promise<profileDetailsResponseType> => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/fetch/user-details?token=${verifyToken}`,
@@ -21,7 +21,7 @@ export const userDetailsAPI = async ({
       }
     );
     const data = await response.json();
-    return data as userDetailsResponseType;
+    return data as profileDetailsResponseType;
   } catch (error) {
     throw error;
   }

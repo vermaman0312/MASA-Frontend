@@ -21,12 +21,7 @@ import {
   DEVICE_DETAILS_SUCCESS,
   DEVICE_DETAILS_FAILURE,
 } from "../../constants/private-constants/private.component.constant";
-
-type Action = {
-  type: string;
-  action: unknown;
-  payload: unknown;
-};
+import { Action } from "../TReducerType";
 
 const privateComponentInitialState = {
   menuItem: "dashboard",

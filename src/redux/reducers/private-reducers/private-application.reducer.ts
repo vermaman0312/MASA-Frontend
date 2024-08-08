@@ -43,12 +43,7 @@ import {
   MY_APPLICATION_DETAILS_SUCCESS,
   MY_APPLICATION_DETAILS_FAILURE,
 } from "../../constants/private-constants/private-application.constant";
-
-type actionType = {
-  type: string;
-  action: unknown;
-  payload: unknown;
-};
+import { Action } from "../TReducerType";
 
 export interface appylLeaveFormType {
   leaveType: string | null;
@@ -149,7 +144,7 @@ export const privateApplicationStateIntialState = {
 
 export const privateApplicationState = (
   state = privateApplicationStateIntialState,
-  action: actionType
+  action: Action
 ) => {
   switch (action.type) {
     case APPLICATION_MENU:

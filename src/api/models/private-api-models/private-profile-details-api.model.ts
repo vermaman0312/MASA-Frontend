@@ -1,10 +1,10 @@
-export type userDetailsType = {
+export type profileDetailsType = {
   verifyToken: string;
   token: string;
   userId?: string;
 };
 
-export type userDetailsAPIResponseType = {
+export type profileDetailsAPIResponseType = {
   userId?: string;
   userUniqueId?: string;
   userFirstName?: string;
@@ -36,16 +36,16 @@ export type userDetailsAPIResponseType = {
   userRole?: string;
 };
 
-export type userDetailsResponseType = {
+export type profileDetailsResponseType = {
   Type: string;
   Success: boolean;
   Status: number;
   Message: string;
-  Data?: userDetailsAPIResponseType;
+  Data?: profileDetailsAPIResponseType;
 };
 
-export interface userDetailsResponseInterface {
+export interface profileDetailsResponseInterface {
   loading: boolean;
-  error: userDetailsResponseType | null;
-  data: userDetailsResponseType | null;
+  error: profileDetailsResponseType | null;
+  data: profileDetailsResponseType | null;
 }

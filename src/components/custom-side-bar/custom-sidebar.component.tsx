@@ -1,7 +1,7 @@
 import { LogOut, Search } from "lucide-react";
 import { CustomLabel } from "../custom-label/custom-label.component";
 import { useNavigate } from "react-router-dom";
-import { ReactNode, useCallback, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import DesktopMenuItem from "./desktop-menuItems.ui";
 import MobileMenuItems from "./mobile-menuItems.ui";
 import UserProfileMenuItems from "./user-profile-menuItems.ui";
@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/redux-index";
 import CustomNotificationBody from "./custom-notification-body.ui";
 import { deviceDetailsReducerType } from "../../api/models/private-api-models/private-device-details-api.model";
+import { useProfileDetailsMutation } from "../../api/mutations/private-mutation/authentication-profile-details.private.mutation";
 
 type props = {
   headerChildren?: ReactNode;
@@ -19,8 +20,10 @@ type props = {
 
 const CustomSideBar = ({ headerChildren, children }: props) => {
   const navigate = useNavigate();
+  const profileDetails = useProfileDetailsMutation();
   const IpAddress = useSelector(
-    (state: RootState) => state.privateComponentState.device.deviceDetails.ipAddress
+    (state: RootState) =>
+      state.privateComponentState.device.deviceDetails.ipAddress
   );
   const getDeviceDetails = useSelector(
     (state: RootState) => state.privateComponentState.device.getDeviceDetails
@@ -31,6 +34,13 @@ const CustomSideBar = ({ headerChildren, children }: props) => {
     navigate("/login");
     return;
   }, [navigate]);
+
+  useEffect(() => {
+    profileDetails.mutate({
+      verifyToken: "123",
+      token: localStorage.getItem("token") as string,
+    });
+  }, []);
 
   return (
     <div className="w-screen h-screen flex">
