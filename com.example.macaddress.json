@@ -1,7 +1,0 @@
-{
-  "name": "com.example.macaddress",
-  "description": "Fetch MAC address",
-  "path": "./get-mac-address.py",
-  "type": "stdio",
-  "allowed_origins": ["chrome-extension://abcdefghijklmnopabcdefghijklmnop/"]
-}
