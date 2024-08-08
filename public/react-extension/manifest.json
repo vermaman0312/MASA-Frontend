@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "React App Extension",
+  "version": "1.0",
+  "description": "This is a React app extension",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [],
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}

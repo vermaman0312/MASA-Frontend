@@ -20,12 +20,17 @@ const PrivateProfilePageLayout = () => {
             <div className="w-full h-full bg-white rounded-xl shadow-md shadow-gray-500">
               <CustomSignatureName userName="Aman Verma" />
             </div>
-            <div className="w-[5rem] h-[5rem] bg-gray-200 rounded-full relative -top-8 left-[5%] shadow-md shadow-gray-500 z-50">
+            <div className="w-[5rem] h-[5rem] bg-gray-200 rounded-full relative -top-8 left-[5%] shadow-md shadow-gray-500 z-1">
               <img
                 className="w-full h-full rounded-full"
                 src={
-                  profileData?.userProfileImage ??
-                  "https://randomuser.me/api/portraits/men/1.jpg"
+                  profileData?.userGender?.toLowerCase() === "male"
+                    ? profileData?.userProfileImage
+                      ? profileData?.userProfileImage
+                      : "https://randomuser.me/api/portraits/men/1.jpg"
+                    : profileData?.userProfileImage
+                    ? profileData?.userProfileImage
+                    : "https://randomuser.me/api/portraits/women/18.jpg"
                 }
                 alt=""
               />

@@ -16,6 +16,7 @@ import {
   longitude,
   macAddress,
 } from "./redux/actions/private-actions/private.component.action";
+import ExtensionPrompt from "./components/custom-react-extension/custom-react-extension";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,12 +65,14 @@ function App() {
       });
     });
   }, [dispatch]);
+
   useEffect(() => {
     fetchDetails();
   }, [dispatch, fetchDetails]);
 
   return (
     <div className="flex items-center flex-col justify-center h-screen w-screen">
+      {/* <ExtensionPrompt /> */}
       <RouteIndex />
     </div>
   );
