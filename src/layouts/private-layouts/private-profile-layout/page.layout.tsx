@@ -3,14 +3,13 @@ import { CustomInputField } from "../../../components/custom-input-field/custom-
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import CustomSignatureName from "../../../components/custom-signature-name/custom-signature-name.component";
 import { RootState } from "../../../redux/redux-index";
-import { profileDetailsResponseInterface } from "../../../api/models/private-api-models/private-profile-details-api.model";
+import { TStateResponseApiType } from "../../../api/models/api.state.response.model";
 
 const PrivateProfilePageLayout = () => {
   const profileDetails = useSelector(
     (state: RootState) => state.privateProfileState.profileDetails
   );
-  const profileData = (profileDetails as profileDetailsResponseInterface).data
-    ?.Data;
+  const profileData = (profileDetails as TStateResponseApiType).data?.Data;
 
   return (
     <div className="w-full h-full">

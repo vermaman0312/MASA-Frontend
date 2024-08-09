@@ -14,9 +14,9 @@ import {
   userPasswordAction,
 } from "../../../redux/actions/public-actions/public-authentication-login.action";
 import { RootState } from "../../../redux/redux-index";
-import { getUserNameResponseAPIInterface } from "../../../api/models/public-api-models/public-get-username-api.model";
 import { useUserLoginMutation } from "../../../api/mutations/public-mutation/authentication/login.mutation";
 import { TBodyApiType } from "../../../api/models/api.body.model";
+import { TStateResponseApiType } from "../../../api/models/api.state.response.model";
 
 const PublicAuthSignInPageLayout = () => {
   const dispatch = useDispatch();
@@ -170,11 +170,11 @@ const PublicAuthSignInPageLayout = () => {
         <div className="w-full flex flex-col items-center justify-center p-4">
           <div className="flex flex-col items-center justify-center gap-2">
             <CustomLabel className="text-3xl font-medium font-display text-[#0d1b2a]">
-              {(publicUserName as getUserNameResponseAPIInterface).data?.Data
+              {(publicUserName as TStateResponseApiType).data?.Data
                 ?.userFirstName
                 ? `Welcome back, ${
-                    (publicUserName as getUserNameResponseAPIInterface).data
-                      ?.Data?.userFirstName
+                    (publicUserName as TStateResponseApiType).data?.Data
+                      ?.userFirstName
                   }`
                 : `Welcome to MASA`}
             </CustomLabel>

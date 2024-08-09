@@ -1,4 +1,4 @@
-import { profileDetailsResponseType } from "../../../api/models/private-api-models/private-profile-details-api.model";
+import { TResponseApiType } from "../../../api/models/api.response.model";
 import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -11,13 +11,13 @@ export const profileDetailsRequest = () => {
     type: USER_DETAILS_REQUEST,
   };
 };
-export const profileDetailsSuccess = (data: profileDetailsResponseType) => {
+export const profileDetailsSuccess = (data: TResponseApiType) => {
   return {
     type: USER_DETAILS_SUCCESS,
     payload: data,
   };
 };
-export const profileDetailsFailure = (error: profileDetailsResponseType) => {
+export const profileDetailsFailure = (error: TResponseApiType) => {
   return {
     type: USER_DETAILS_FAILURE,
     payload: error,

@@ -1,4 +1,4 @@
-import { loginResponseAPIInterface } from "../../../api/models/public-api-models/public-authentication-login-api.model";
+import { TStateResponseApiType } from "../../../api/models/api.state.response.model";
 import {
   // Login
   USER_EMAIL_ADDRESS,
@@ -30,7 +30,7 @@ const publicAuthenticationInitialState = {
       loading: false,
       data: null,
       error: null,
-    } as loginResponseAPIInterface,
+    } as TStateResponseApiType,
   },
   is2FAOn: false,
 };

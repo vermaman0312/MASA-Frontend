@@ -6,8 +6,8 @@ import {
   getUserNamePublicViaIpRequest,
   getUserNamePublicViaIpSuccess,
 } from "../../../../redux/actions/public-actions/public-component.action";
-import { ResponseType } from "../../../models/public-api-models/public-get-username-api.model";
 import { TBodyApiType } from "../../../models/api.body.model";
+import { TResponseApiType } from "../../../models/api.response.model";
 
 export const useGetUserNameMutation = () => {
   const dispatch = useDispatch();
@@ -24,9 +24,9 @@ export const useGetUserNameMutation = () => {
       },
       onSuccess: (data) => {
         if (data.Success) {
-          dispatch(getUserNamePublicViaIpSuccess(data as ResponseType));
+          dispatch(getUserNamePublicViaIpSuccess(data as TResponseApiType));
         } else {
-          dispatch(getUserNamePublicViaIpFailure(data as ResponseType));
+          dispatch(getUserNamePublicViaIpFailure(data as TResponseApiType));
         }
       },
     }

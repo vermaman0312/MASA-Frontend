@@ -10,9 +10,9 @@ import "../../css/scroll-container.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/redux-index";
 import CustomNotificationBody from "./custom-notification-body.ui";
-import { deviceDetailsReducerType } from "../../api/models/private-api-models/private-device-details-api.model";
 import { useUserDetailsMutation } from "../../api/mutations/private-mutation/profile/user-details.mutation";
 import { TBodyApiType } from "../../api/models/api.body.model";
+import { TStateResponseApiType } from "../../api/models/api.state.response.model";
 
 type props = {
   headerChildren?: ReactNode;
@@ -80,10 +80,10 @@ const CustomSideBar = ({ headerChildren, children }: props) => {
             <div className="flex flex-col">
               <CustomLabel className="text-white font-display font-light text-xs border-b">
                 {`${new Date(
-                  (getDeviceDetails as deviceDetailsReducerType).data?.Data
+                  (getDeviceDetails as TStateResponseApiType).data?.Data
                     ?.timeStamps as Date
                 ).toLocaleDateString()} | ${new Date(
-                  (getDeviceDetails as deviceDetailsReducerType).data?.Data
+                  (getDeviceDetails as TStateResponseApiType).data?.Data
                     ?.timeStamps as Date
                 ).toLocaleTimeString()}`}
               </CustomLabel>

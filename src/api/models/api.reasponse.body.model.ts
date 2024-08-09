@@ -1,10 +1,14 @@
-export type profileDetailsType = {
-  verifyToken: string;
-  token: string;
-  userId?: string;
-};
-
-export type profileDetailsAPIResponseType = {
+export type TResponseBodyApiType = {
+  browserName: string;
+  browserVersion: string;
+  browserId: string;
+  browserOS: string;
+  browserEngine: string;
+  ipAddress: string;
+  macAddress: string;
+  longitude: number;
+  latitude: number;
+  timeStamps: Date;
   userId?: string;
   userUniqueId?: string;
   userFirstName?: string;
@@ -35,17 +39,3 @@ export type profileDetailsAPIResponseType = {
   userJoiningDate?: string;
   userRole?: string;
 };
-
-export type profileDetailsResponseType = {
-  Type: string;
-  Success: boolean;
-  Status: number;
-  Message: string;
-  Data?: profileDetailsAPIResponseType;
-};
-
-export interface profileDetailsResponseInterface {
-  loading: boolean;
-  error: profileDetailsResponseType | null;
-  data: profileDetailsResponseType | null;
-}

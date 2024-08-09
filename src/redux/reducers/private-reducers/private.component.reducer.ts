@@ -1,4 +1,4 @@
-import { deviceDetailsReducerType } from "../../../api/models/private-api-models/private-device-details-api.model";
+import { TStateResponseApiType } from "../../../api/models/api.state.response.model";
 import {
   // Menu option
   PRIVATE_MENU_OPTION,
@@ -48,7 +48,7 @@ const privateComponentInitialState = {
       loading: false,
       error: null,
       data: null,
-    } as deviceDetailsReducerType,
+    } as TStateResponseApiType,
   },
 };
 

@@ -1,10 +1,10 @@
 import { TBodyApiType } from "../../../models/api.body.model";
-import { ResponseType } from "../../../models/public-api-models/public-get-username-api.model";
+import { TResponseApiType } from "../../../models/api.response.model";
 
 export const getUserNamePublicApi = async ({
   verifyToken,
   ipAddress,
-}: TBodyApiType) => {
+}: TBodyApiType): Promise<TResponseApiType> => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_PUBLIC_LOCAL_API_URL}user/fetch/user-details?token=${verifyToken}`,
@@ -19,7 +19,7 @@ export const getUserNamePublicApi = async ({
       }
     );
     const data = await response.json();
-    return data as ResponseType;
+    return data as TResponseApiType;
   } catch (error) {
     throw error;
   }

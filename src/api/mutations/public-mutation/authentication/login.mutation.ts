@@ -9,9 +9,9 @@ import {
   userLoginSuccess,
   userPasswordAction,
 } from "../../../../redux/actions/public-actions/public-authentication-login.action";
-import { loginResponseAPIInterface } from "../../../models/public-api-models/public-authentication-login-api.model";
 import { useUserCheck2FAMutation } from "../component/check-2FA.mutation";
 import { TBodyApiType } from "../../../models/api.body.model";
+import { TResponseApiType } from "../../../models/api.response.model";
 
 // Login
 export const useUserLoginMutation = ({
@@ -35,7 +35,7 @@ export const useUserLoginMutation = ({
       },
       onSuccess: (data) => {
         if (!data.Success) {
-          dispatch(userLoginFailure(data as loginResponseAPIInterface));
+          dispatch(userLoginFailure(data as TResponseApiType));
           toast(data.Message, {
             className: "error",
             icon: false,
@@ -45,7 +45,7 @@ export const useUserLoginMutation = ({
             verifyToken: verifyToken,
             token: data.Data,
           } as TBodyApiType);
-          dispatch(userLoginSuccess(data as loginResponseAPIInterface));
+          dispatch(userLoginSuccess(data as TResponseApiType));
           dispatch(userEmailAddressAction(null));
           dispatch(userPasswordAction(null));
         }

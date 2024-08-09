@@ -1,10 +1,10 @@
 import { TBodyApiType } from "../../../models/api.body.model";
-import { deviceDetailsInterface } from "../../../models/private-api-models/private-device-details-api.model";
+import { TResponseApiType } from "../../../models/api.response.model";
 
 export const getDeviceDetailsApi = async ({
   verifyToken,
   token,
-}: TBodyApiType): Promise<deviceDetailsInterface> => {
+}: TBodyApiType): Promise<TResponseApiType> => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/fetch/device-details?token=${verifyToken}`,
@@ -17,7 +17,7 @@ export const getDeviceDetailsApi = async ({
       }
     );
     const data = await response.json();
-    return data as deviceDetailsInterface;
+    return data as TResponseApiType;
   } catch (error) {
     throw error;
   }

@@ -4,14 +4,14 @@ import {
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAILURE,
 } from "../../constants/private-constants/private.profile.constant";
-import { profileDetailsResponseInterface } from "../../../api/models/private-api-models/private-profile-details-api.model";
+import { TStateResponseApiType } from "../../../api/models/api.state.response.model";
 
 const privateProfileStateInitialState = {
   profileDetails: {
     loading: false,
     error: null,
     data: null,
-  } as profileDetailsResponseInterface,
+  } as TStateResponseApiType,
 };
 
 export const privateProfileState = (

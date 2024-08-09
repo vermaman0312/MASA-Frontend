@@ -1,4 +1,4 @@
-import { getUserNameResponseAPIInterface } from "../../../api/models/public-api-models/public-get-username-api.model";
+import { TStateResponseApiType } from "../../../api/models/api.state.response.model";
 import {
   IP_GET_USER_NAME_REQUEST,
   IP_GET_USER_NAME_SUCCESS,
@@ -16,7 +16,7 @@ const publicComponentInitialState = {
     loading: false,
     error: null,
     data: null,
-  } as getUserNameResponseAPIInterface,
+  } as TStateResponseApiType,
 };
 
 export const publicComponentState = (

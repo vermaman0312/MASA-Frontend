@@ -1,4 +1,4 @@
-import { loginResponseAPIInterface } from "../../../api/models/public-api-models/public-authentication-login-api.model";
+import { TResponseApiType } from "../../../api/models/api.response.model";
 import {
   // Login
   USER_EMAIL_ADDRESS,
@@ -46,13 +46,13 @@ export const userLoginRequest = () => {
     type: PUBLIC_AUTH_LOGIN_REQUEST,
   };
 };
-export const userLoginSuccess = (data: loginResponseAPIInterface) => {
+export const userLoginSuccess = (data: TResponseApiType) => {
   return {
     type: PUBLIC_AUTH_LOGIN_SUCCESS,
     payload: data,
   };
 };
-export const userLoginFailure = (error: loginResponseAPIInterface) => {
+export const userLoginFailure = (error: TResponseApiType) => {
   return {
     type: PUBLIC_AUTH_LOGIN_FAILURE,
     payload: error,

@@ -1,4 +1,4 @@
-import { deviceDetailsInterface } from "../../../api/models/private-api-models/private-device-details-api.model";
+import { TResponseApiType } from "../../../api/models/api.response.model";
 import {
   // Menu option
   PRIVATE_MENU_OPTION,
@@ -112,13 +112,13 @@ export const getDeviceDetailsRequest = () => {
     type: DEVICE_DETAILS_REQUEST,
   };
 };
-export const getDeviceDetailsSuccess = (data: deviceDetailsInterface) => {
+export const getDeviceDetailsSuccess = (data: TResponseApiType) => {
   return {
     type: DEVICE_DETAILS_SUCCESS,
     payload: data,
   };
 };
-export const getDeviceDetailsFailure = (error: deviceDetailsInterface) => {
+export const getDeviceDetailsFailure = (error: TResponseApiType) => {
   return {
     type: DEVICE_DETAILS_FAILURE,
     payload: error,

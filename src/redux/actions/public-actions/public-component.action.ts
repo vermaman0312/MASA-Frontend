@@ -1,4 +1,4 @@
-import { ResponseType } from "../../../api/models/public-api-models/public-get-username-api.model";
+import { TResponseApiType } from "../../../api/models/api.response.model";
 import {
   IP_GET_USER_NAME_REQUEST,
   IP_GET_USER_NAME_SUCCESS,
@@ -10,17 +10,13 @@ export const getUserNamePublicViaIpRequest = () => {
     type: IP_GET_USER_NAME_REQUEST,
   };
 };
-export const getUserNamePublicViaIpSuccess = (
-  data: ResponseType
-) => {
+export const getUserNamePublicViaIpSuccess = (data: TResponseApiType) => {
   return {
     type: IP_GET_USER_NAME_SUCCESS,
     payload: data,
   };
 };
-export const getUserNamePublicViaIpFailure = (
-  error: ResponseType
-) => {
+export const getUserNamePublicViaIpFailure = (error: TResponseApiType) => {
   return {
     type: IP_GET_USER_NAME_FAILURE,
     payload: error,

@@ -6,8 +6,8 @@ import {
   profileDetailsRequest,
   profileDetailsSuccess,
 } from "../../../../redux/actions/private-actions/private.profile.action";
-import { profileDetailsResponseType } from "../../../models/private-api-models/private-profile-details-api.model";
 import { TBodyApiType } from "../../../models/api.body.model";
+import { TResponseApiType } from "../../../models/api.response.model";
 
 export const useUserDetailsMutation = () => {
   const dispatch = useDispatch();
@@ -22,11 +22,11 @@ export const useUserDetailsMutation = () => {
       onMutate: () => {
         dispatch(profileDetailsRequest());
       },
-      onSuccess: (data: profileDetailsResponseType) => {
+      onSuccess: (data: TResponseApiType) => {
         if (data.Success) {
-          dispatch(profileDetailsSuccess(data as profileDetailsResponseType));
+          dispatch(profileDetailsSuccess(data as TResponseApiType));
         } else {
-          dispatch(profileDetailsFailure(data as profileDetailsResponseType));
+          dispatch(profileDetailsFailure(data as TResponseApiType));
         }
       },
     }
