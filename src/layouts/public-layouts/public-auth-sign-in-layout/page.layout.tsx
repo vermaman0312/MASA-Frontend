@@ -16,6 +16,7 @@ import {
 import { RootState } from "../../../redux/redux-index";
 import { getUserNameResponseAPIInterface } from "../../../api/models/public-api-models/public-get-username-api.model";
 import { useUserLoginMutation } from "../../../api/mutations/public-mutation/authentication/login.mutation";
+import { TBodyApiType } from "../../../api/models/api.body.model";
 
 const PublicAuthSignInPageLayout = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const PublicAuthSignInPageLayout = () => {
     userEmailAddress: loginFormData.userEmailAddress as string,
     userPassword: loginFormData.userPassword as string,
     verifyToken: "123",
-  });
+  } as TBodyApiType);
 
   const handleClickForgotPassword = useCallback(() => {
     setIsPageLoading(true);

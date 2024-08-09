@@ -9,23 +9,26 @@ import {
   userLoginSuccess,
   userPasswordAction,
 } from "../../../../redux/actions/public-actions/public-authentication-login.action";
-import {
-  loginFormAPIInterface,
-  loginResponseAPIInterface,
-} from "../../../models/public-api-models/public-authentication-login-api.model";
+import { loginResponseAPIInterface } from "../../../models/public-api-models/public-authentication-login-api.model";
 import { useUserCheck2FAMutation } from "../component/check-2FA.mutation";
+import { TBodyApiType } from "../../../models/api.body.model";
 
 // Login
 export const useUserLoginMutation = ({
   userEmailAddress,
   userPassword,
   verifyToken,
-}: loginFormAPIInterface) => {
+}: TBodyApiType) => {
   const dispatch = useDispatch();
   const check2FA = useUserCheck2FAMutation();
 
   return useMutation(
-    () => userLoginApi({ userEmailAddress, userPassword, verifyToken }),
+    () =>
+      userLoginApi({
+        userEmailAddress: userEmailAddress,
+        userPassword: userPassword,
+        verifyToken: verifyToken,
+      } as TBodyApiType),
     {
       onMutate: () => {
         dispatch(userLoginRequest());
@@ -38,7 +41,10 @@ export const useUserLoginMutation = ({
             icon: false,
           });
         } else {
-          check2FA.mutate({ verifyToken: verifyToken, token: data.Data });
+          check2FA.mutate({
+            verifyToken: verifyToken,
+            token: data.Data,
+          } as TBodyApiType);
           dispatch(userLoginSuccess(data as loginResponseAPIInterface));
           dispatch(userEmailAddressAction(null));
           dispatch(userPasswordAction(null));

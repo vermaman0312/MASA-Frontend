@@ -1,4 +1,4 @@
-import { deviceDetailsApiInterface } from "../../../models/private-api-models/private-device-details-api.model";
+import { TBodyApiType } from "../../../models/api.body.model";
 
 export const updateDeviceDetailsApi = async ({
   verifyToken,
@@ -12,7 +12,7 @@ export const updateDeviceDetailsApi = async ({
   macAddress,
   longitude,
   latitude,
-}: deviceDetailsApiInterface) => {
+}: TBodyApiType) => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/update/device-details?token=${verifyToken}`,

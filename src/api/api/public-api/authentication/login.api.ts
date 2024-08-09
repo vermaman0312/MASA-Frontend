@@ -1,10 +1,10 @@
-import { loginFormAPIInterface } from "../../../models/public-api-models/public-authentication-login-api.model";
+import { TBodyApiType } from "../../../models/api.body.model";
 
 export const userLoginApi = async ({
   userEmailAddress,
   userPassword,
   verifyToken,
-}: loginFormAPIInterface) => {
+}: TBodyApiType) => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_PUBLIC_LOCAL_API_URL}user/login?token=${verifyToken}`,

@@ -6,17 +6,18 @@ import {
   getUserNamePublicViaIpRequest,
   getUserNamePublicViaIpSuccess,
 } from "../../../../redux/actions/public-actions/public-component.action";
-import {
-  getUserNameInterface,
-  ResponseType,
-} from "../../../models/public-api-models/public-get-username-api.model";
+import { ResponseType } from "../../../models/public-api-models/public-get-username-api.model";
+import { TBodyApiType } from "../../../models/api.body.model";
 
 export const useGetUserNameMutation = () => {
   const dispatch = useDispatch();
 
   return useMutation(
-    ({ verifyToken, ipAddress }: getUserNameInterface) =>
-      getUserNamePublicApi({ verifyToken: verifyToken, ipAddress: ipAddress }),
+    ({ verifyToken, ipAddress }: TBodyApiType) =>
+      getUserNamePublicApi({
+        verifyToken: verifyToken,
+        ipAddress: ipAddress,
+      } as TBodyApiType),
     {
       onMutate: () => {
         dispatch(getUserNamePublicViaIpRequest());

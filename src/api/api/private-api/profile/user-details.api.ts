@@ -1,13 +1,11 @@
-import {
-  profileDetailsResponseType,
-  profileDetailsType,
-} from "../../../models/private-api-models/private-profile-details-api.model";
+import { TBodyApiType } from "../../../models/api.body.model";
+import { profileDetailsResponseType } from "../../../models/private-api-models/private-profile-details-api.model";
 
 export const userDetailsAPI = async ({
   verifyToken,
   token,
   userId,
-}: profileDetailsType): Promise<profileDetailsResponseType> => {
+}: TBodyApiType): Promise<profileDetailsResponseType> => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/fetch/user-details?token=${verifyToken}`,

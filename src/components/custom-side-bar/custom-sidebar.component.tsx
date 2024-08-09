@@ -12,6 +12,7 @@ import { RootState } from "../../redux/redux-index";
 import CustomNotificationBody from "./custom-notification-body.ui";
 import { deviceDetailsReducerType } from "../../api/models/private-api-models/private-device-details-api.model";
 import { useUserDetailsMutation } from "../../api/mutations/private-mutation/profile/user-details.mutation";
+import { TBodyApiType } from "../../api/models/api.body.model";
 
 type props = {
   headerChildren?: ReactNode;
@@ -39,7 +40,7 @@ const CustomSideBar = ({ headerChildren, children }: props) => {
     profileDetails.mutate({
       verifyToken: "123",
       token: localStorage.getItem("token") as string,
-    });
+    } as TBodyApiType);
   }, []);
 
   return (

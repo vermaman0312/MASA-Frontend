@@ -17,6 +17,7 @@ import {
 import ExtensionPrompt from "./components/custom-react-extension/custom-react-extension";
 import { useGetUserNameMutation } from "./api/mutations/public-mutation/component/get-username.mutation";
 import { useDeviceDetailsMutation } from "./api/mutations/private-mutation/component/device-details.mutation";
+import { TBodyApiType } from "./api/models/api.body.model";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ function App() {
   const deviceDetails = useDeviceDetailsMutation();
 
   useEffect(() => {
-    deviceDetails.mutate({ verifyToken: "123", token: token as string });
+    deviceDetails.mutate({ verifyToken: "123", token: token as string } as TBodyApiType);
   }, []);
 
   useEffect(() => {
@@ -62,7 +63,7 @@ function App() {
       getPublicUserDetails.mutate({
         verifyToken: "123",
         ipAddress: response.ipAddress as string,
-      });
+      } as TBodyApiType);
     });
   }, [dispatch]);
 

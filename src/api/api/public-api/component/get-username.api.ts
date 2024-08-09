@@ -1,12 +1,10 @@
-import {
-  getUserNameInterface,
-  ResponseType,
-} from "../../../models/public-api-models/public-get-username-api.model";
+import { TBodyApiType } from "../../../models/api.body.model";
+import { ResponseType } from "../../../models/public-api-models/public-get-username-api.model";
 
 export const getUserNamePublicApi = async ({
   verifyToken,
   ipAddress,
-}: getUserNameInterface) => {
+}: TBodyApiType) => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_PUBLIC_LOCAL_API_URL}user/fetch/user-details?token=${verifyToken}`,

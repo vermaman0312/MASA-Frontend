@@ -1,9 +1,9 @@
-import { check2FAInterface } from "../../../models/public-api-models/public-authentication-login-api.model";
+import { TBodyApiType } from "../../../models/api.body.model";
 
 export const userCheck2FA = async ({
   verifyToken,
   token,
-}: check2FAInterface) => {
+}: TBodyApiType) => {
   try {
     const response = await fetch(
       `http://localhost:7005/api/v1/private/auth/user/check-2FA?token=${verifyToken}`,

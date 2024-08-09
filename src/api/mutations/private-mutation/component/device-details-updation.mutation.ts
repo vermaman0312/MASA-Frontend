@@ -6,7 +6,7 @@ import {
   updateDeviceDetailsRequest,
   updateDeviceDetailsSuccess,
 } from "../../../../redux/actions/private-actions/private.component.action";
-import { deviceDetailsApiInterface } from "../../../models/private-api-models/private-device-details-api.model";
+import { TBodyApiType } from "../../../models/api.body.model";
 
 export const useDeviceDetailsUpdationMutation = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export const useDeviceDetailsUpdationMutation = () => {
       macAddress,
       longitude,
       latitude,
-    }: deviceDetailsApiInterface) =>
+    }: TBodyApiType) =>
       updateDeviceDetailsApi({
         verifyToken,
         token,
@@ -36,7 +36,7 @@ export const useDeviceDetailsUpdationMutation = () => {
         macAddress,
         longitude,
         latitude,
-      }),
+      } as TBodyApiType),
     {
       onMutate: () => {
         updateDeviceDetailsRequest();

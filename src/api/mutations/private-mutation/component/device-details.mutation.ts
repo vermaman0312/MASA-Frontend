@@ -7,12 +7,13 @@ import {
   getDeviceDetailsSuccess,
 } from "../../../../redux/actions/private-actions/private.component.action";
 import { deviceDetailsInterface } from "../../../models/private-api-models/private-device-details-api.model";
+import { TBodyApiType } from "../../../models/api.body.model";
 
 export const useDeviceDetailsMutation = () => {
   const dispatch = useDispatch();
   return useMutation(
-    ({ verifyToken, token }: { verifyToken: string; token: string }) =>
-      getDeviceDetailsApi({ verifyToken: verifyToken, token: token }),
+    ({ verifyToken, token }: TBodyApiType) =>
+      getDeviceDetailsApi({ verifyToken: verifyToken, token: token } as TBodyApiType),
     {
       onMutate: () => {
         dispatch(getDeviceDetailsRequest());

@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { userCheck2FA } from "../../../api/public-api/component/check-2FA.api";
 import { RootState } from "../../../../redux/redux-index";
-import { check2FAInterface } from "../../../models/public-api-models/public-authentication-login-api.model";
 import { useDeviceDetailsMutation } from "../../private-mutation/component/device-details.mutation";
 import { useDeviceDetailsUpdationMutation } from "../../private-mutation/component/device-details-updation.mutation";
+import { TBodyApiType } from "../../../models/api.body.model";
 
 export const useUserCheck2FAMutation = () => {
   const navigate = useNavigate();
@@ -15,8 +15,8 @@ export const useUserCheck2FAMutation = () => {
   );
   const getDeviceDetails = useDeviceDetailsMutation();
   return useMutation(
-    ({ verifyToken, token }: check2FAInterface) =>
-      userCheck2FA({ verifyToken: verifyToken, token: token }),
+    ({ verifyToken, token }: TBodyApiType) =>
+      userCheck2FA({ verifyToken: verifyToken, token: token } as TBodyApiType),
     {
       onMutate: () => {},
       onSuccess: (data, context) => {
@@ -37,11 +37,11 @@ export const useUserCheck2FAMutation = () => {
             macAddress: deviceDetails.macAddress as string,
             longitude: deviceDetails.location.longitude as number,
             latitude: deviceDetails.location.latitude as number,
-          });
+          } as TBodyApiType);
           getDeviceDetails.mutate({
             verifyToken: context.verifyToken,
             token: context.token,
-          });
+          } as TBodyApiType);
         }
       },
     }
