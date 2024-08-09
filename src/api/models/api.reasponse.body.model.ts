@@ -1,14 +1,14 @@
 export type TResponseBodyApiType = {
-  browserName: string;
-  browserVersion: string;
-  browserId: string;
-  browserOS: string;
-  browserEngine: string;
-  ipAddress: string;
-  macAddress: string;
-  longitude: number;
-  latitude: number;
-  timeStamps: Date;
+  browserName?: string;
+  browserVersion?: string;
+  browserId?: string;
+  browserOS?: string;
+  browserEngine?: string;
+  ipAddress?: string;
+  macAddress?: string;
+  longitude?: number;
+  latitude?: number;
+  timeStamps?: Date;
   userId?: string;
   userUniqueId?: string;
   userFirstName?: string;
@@ -38,4 +38,11 @@ export type TResponseBodyApiType = {
   userDesignation?: string;
   userJoiningDate?: string;
   userRole?: string;
+  user2FAId?: string;
+  userIs2FA?: boolean;
+  userPassKey?: Array<string>;
+  userPreffered2FAApp?: string;
+  user2FAMethod?: Array<string>;
+  userSecurityKey?: string;
+  userRecoveryCode?: string;
 };
