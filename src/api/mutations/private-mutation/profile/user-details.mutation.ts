@@ -1,17 +1,17 @@
 import { useMutation } from "react-query";
-import { userDetailsAPI } from "../../api/private-api/authentication-profile-details.private.api";
-import {
-  profileDetailsResponseType,
-  profileDetailsType,
-} from "../../models/private-api-models/private-profile-details-api.model";
 import { useDispatch } from "react-redux";
+import { userDetailsAPI } from "../../../api/private-api/profile/user-details.api";
 import {
   profileDetailsFailure,
   profileDetailsRequest,
   profileDetailsSuccess,
-} from "../../../redux/actions/private-actions/private.profile.action";
+} from "../../../../redux/actions/private-actions/private.profile.action";
+import {
+  profileDetailsResponseType,
+  profileDetailsType,
+} from "../../../models/private-api-models/private-profile-details-api.model";
 
-export const useProfileDetailsMutation = () => {
+export const useUserDetailsMutation = () => {
   const dispatch = useDispatch();
   return useMutation(
     ({ verifyToken, token, userId }: profileDetailsType) =>

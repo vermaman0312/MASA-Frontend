@@ -1,6 +1,5 @@
-import { loginFormAPIInterface } from "../../models/public-api-models/public-authentication-login-api.model";
+import { loginFormAPIInterface } from "../../../models/public-api-models/public-authentication-login-api.model";
 
-// Login api function
 export const userLoginApi = async ({
   userEmailAddress,
   userPassword,

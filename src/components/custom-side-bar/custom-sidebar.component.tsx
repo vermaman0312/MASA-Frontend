@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/redux-index";
 import CustomNotificationBody from "./custom-notification-body.ui";
 import { deviceDetailsReducerType } from "../../api/models/private-api-models/private-device-details-api.model";
-import { useProfileDetailsMutation } from "../../api/mutations/private-mutation/authentication-profile-details.private.mutation";
+import { useUserDetailsMutation } from "../../api/mutations/private-mutation/profile/user-details.mutation";
 
 type props = {
   headerChildren?: ReactNode;
@@ -20,7 +20,7 @@ type props = {
 
 const CustomSideBar = ({ headerChildren, children }: props) => {
   const navigate = useNavigate();
-  const profileDetails = useProfileDetailsMutation();
+  const profileDetails = useUserDetailsMutation();
   const IpAddress = useSelector(
     (state: RootState) =>
       state.privateComponentState.device.deviceDetails.ipAddress

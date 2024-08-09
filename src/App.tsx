@@ -3,8 +3,6 @@ import "./App.css";
 import RouteIndex from "./routes/route.index";
 import { useDispatch } from "react-redux";
 import { getDeviceDetails } from "./utils/device-details/get-device-details";
-import { useGetUserNameMutation } from "./api/mutations/public-mutation/authentication-get-username-public.mutation";
-import { useGetDeviceDetailsMutation } from "./api/mutations/private-mutation/authentication-device-details.private.mutation";
 import {
   browserEngine,
   browserId,
@@ -17,12 +15,14 @@ import {
   macAddress,
 } from "./redux/actions/private-actions/private.component.action";
 import ExtensionPrompt from "./components/custom-react-extension/custom-react-extension";
+import { useGetUserNameMutation } from "./api/mutations/public-mutation/component/get-username.mutation";
+import { useDeviceDetailsMutation } from "./api/mutations/private-mutation/component/device-details.mutation";
 
 function App() {
   const dispatch = useDispatch();
   const getPublicUserDetails = useGetUserNameMutation();
   const token = localStorage.getItem("token");
-  const deviceDetails = useGetDeviceDetailsMutation();
+  const deviceDetails = useDeviceDetailsMutation();
 
   useEffect(() => {
     deviceDetails.mutate({ verifyToken: "123", token: token as string });

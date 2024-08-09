@@ -1,15 +1,15 @@
 import { useMutation } from "react-query";
-import { getUserNamePublicApi } from "../../api/public-api/authentication-get-username.public.api";
 import { useDispatch } from "react-redux";
+import { getUserNamePublicApi } from "../../../api/public-api/component/get-username.api";
 import {
   getUserNamePublicViaIpFailure,
   getUserNamePublicViaIpRequest,
   getUserNamePublicViaIpSuccess,
-} from "../../../redux/actions/public-actions/public-component.action";
+} from "../../../../redux/actions/public-actions/public-component.action";
 import {
   getUserNameInterface,
   ResponseType,
-} from "../../models/public-api-models/public-get-username-api.model";
+} from "../../../models/public-api-models/public-get-username-api.model";
 
 export const useGetUserNameMutation = () => {
   const dispatch = useDispatch();

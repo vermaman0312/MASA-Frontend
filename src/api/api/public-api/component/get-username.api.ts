@@ -1,7 +1,7 @@
 import {
   getUserNameInterface,
   ResponseType,
-} from "../../models/public-api-models/public-get-username-api.model";
+} from "../../../models/public-api-models/public-get-username-api.model";
 
 export const getUserNamePublicApi = async ({
   verifyToken,

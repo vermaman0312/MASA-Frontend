@@ -1,19 +1,19 @@
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import {
-  loginFormAPIInterface,
-  loginResponseAPIInterface,
-} from "../../models/public-api-models/public-authentication-login-api.model";
-import { useUserCheck2FAMutation } from "./authentication-check-2FA.public.mutation";
-import { userLoginApi } from "../../api/public-api/authentication-login.public.api";
+import { userLoginApi } from "../../../api/public-api/authentication/login.api";
 import {
   userEmailAddressAction,
   userLoginFailure,
   userLoginRequest,
   userLoginSuccess,
   userPasswordAction,
-} from "../../../redux/actions/public-actions/public-authentication-login.action";
+} from "../../../../redux/actions/public-actions/public-authentication-login.action";
+import {
+  loginFormAPIInterface,
+  loginResponseAPIInterface,
+} from "../../../models/public-api-models/public-authentication-login-api.model";
+import { useUserCheck2FAMutation } from "../component/check-2FA.mutation";
 
 // Login
 export const useUserLoginMutation = ({

@@ -14,8 +14,8 @@ import {
   userPasswordAction,
 } from "../../../redux/actions/public-actions/public-authentication-login.action";
 import { RootState } from "../../../redux/redux-index";
-import { useUserLoginMutation } from "../../../api/mutations/public-mutation/authentication-login.public.mutation";
 import { getUserNameResponseAPIInterface } from "../../../api/models/public-api-models/public-get-username-api.model";
+import { useUserLoginMutation } from "../../../api/mutations/public-mutation/authentication/login.mutation";
 
 const PublicAuthSignInPageLayout = () => {
   const dispatch = useDispatch();

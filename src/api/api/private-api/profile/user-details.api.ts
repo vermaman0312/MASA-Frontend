@@ -1,7 +1,7 @@
 import {
   profileDetailsResponseType,
   profileDetailsType,
-} from "../../models/private-api-models/private-profile-details-api.model";
+} from "../../../models/private-api-models/private-profile-details-api.model";
 
 export const userDetailsAPI = async ({
   verifyToken,
