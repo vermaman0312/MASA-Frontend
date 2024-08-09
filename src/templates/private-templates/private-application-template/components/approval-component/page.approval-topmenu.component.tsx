@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
 
 type props = {
@@ -25,10 +26,56 @@ const PrivateApprovalTopMenuPageComponent = ({
   onClickComplaint,
   onClickRegisterQueries,
 }: props) => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleScrollToCenter = (event: MouseEvent) => {
+    const element = event.currentTarget as HTMLElement;
+    const container = scrollContainerRef.current;
+    if (!container || !element) {
+      console.error("Scroll container is not available");
+      return;
+    }
+    const containerWidth = container.offsetWidth;
+    const elementLeft = element.offsetLeft;
+    const elementWidth = element.offsetWidth;
+    const targetScrollLeft =
+      elementLeft - containerWidth / 2 + elementWidth / 2;
+    const duration = 500;
+    animateScroll(container, targetScrollLeft, duration);
+  };
+
+  const animateScroll = (
+    container: HTMLElement,
+    target: number,
+    duration: number
+  ) => {
+    const start = container.scrollLeft;
+    const change = target - start;
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      container.scrollLeft = start + change * easeInOutQuad(progress);
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animate);
+      }
+    };
+    requestAnimationFrame(animate);
+  };
+
+  const easeInOutQuad = (t: number) => {
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  };
   return (
-    <div className="w-full md:hidden rounded-lg flex items-center justify-start gap-2 scroll-container">
+    <div
+      ref={scrollContainerRef}
+      className="w-full md:hidden rounded-lg flex items-center justify-start gap-2 scroll-container"
+    >
       <CustomLabel
-        onClick={onClickMyApproval}
+        onClick={(e) => {
+          handleScrollToCenter(e as unknown as MouseEvent);
+          onClickMyApproval && onClickMyApproval();
+        }}
         className={`cursor-pointer font-display text-xs whitespace-nowrap p-2 rounded-lg ${
           applicationMenu === "myApproval"
             ? "bg-gray-700 text-white"
@@ -38,7 +85,10 @@ const PrivateApprovalTopMenuPageComponent = ({
         My approval
       </CustomLabel>
       <CustomLabel
-        onClick={onClickWriteApplication}
+        onClick={(e) => {
+          handleScrollToCenter(e as unknown as MouseEvent);
+          onClickWriteApplication && onClickWriteApplication();
+        }}
         className={`cursor-pointer font-display text-xs whitespace-nowrap p-2 rounded-lg ${
           applicationMenu === "writeApplication"
             ? "bg-gray-700 text-white"
@@ -48,7 +98,10 @@ const PrivateApprovalTopMenuPageComponent = ({
         Write application
       </CustomLabel>
       <CustomLabel
-        onClick={onClickApplyLeave}
+        onClick={(e) => {
+          handleScrollToCenter(e as unknown as MouseEvent);
+          onClickApplyLeave && onClickApplyLeave();
+        }}
         className={`cursor-pointer font-display text-xs whitespace-nowrap p-2 rounded-lg ${
           applicationMenu === "applyLeave"
             ? "bg-gray-700 text-white"
@@ -58,7 +111,10 @@ const PrivateApprovalTopMenuPageComponent = ({
         Apply leave
       </CustomLabel>
       <CustomLabel
-        onClick={onClickForgotIdCard}
+        onClick={(e) => {
+          handleScrollToCenter(e as unknown as MouseEvent);
+          onClickForgotIdCard && onClickForgotIdCard();
+        }}
         className={`cursor-pointer font-display text-xs whitespace-nowrap p-2 rounded-lg ${
           applicationMenu === "forgotIdCard"
             ? "bg-gray-700 text-white"
@@ -69,7 +125,10 @@ const PrivateApprovalTopMenuPageComponent = ({
       </CustomLabel>
       {loggedInUserRole?.toLocaleLowerCase() !== "student" && (
         <CustomLabel
-          onClick={onClickWorkFromHome}
+          onClick={(e) => {
+            handleScrollToCenter(e as unknown as MouseEvent);
+            onClickWorkFromHome && onClickWorkFromHome();
+          }}
           className={`cursor-pointer font-display text-xs whitespace-nowrap p-2 rounded-lg ${
             applicationMenu === "workFromHome"
               ? "bg-gray-700 text-white"
@@ -80,7 +139,10 @@ const PrivateApprovalTopMenuPageComponent = ({
         </CustomLabel>
       )}
       <CustomLabel
-        onClick={onClickChangeTimeTable}
+        onClick={(e) => {
+          handleScrollToCenter(e as unknown as MouseEvent);
+          onClickChangeTimeTable && onClickChangeTimeTable();
+        }}
         className={`cursor-pointer font-display text-xs whitespace-nowrap p-2 rounded-lg ${
           applicationMenu === "changeTimeTable"
             ? "bg-gray-700 text-white"
@@ -90,7 +152,10 @@ const PrivateApprovalTopMenuPageComponent = ({
         Change time table
       </CustomLabel>
       <CustomLabel
-        onClick={onClickComplaint}
+        onClick={(e) => {
+          handleScrollToCenter(e as unknown as MouseEvent);
+          onClickComplaint && onClickComplaint();
+        }}
         className={`cursor-pointer font-display text-xs whitespace-nowrap p-2 rounded-lg ${
           applicationMenu === "complaint"
             ? "bg-gray-700 text-white"
@@ -100,7 +165,10 @@ const PrivateApprovalTopMenuPageComponent = ({
         Complaint
       </CustomLabel>
       <CustomLabel
-        onClick={onClickRegisterQueries}
+        onClick={(e) => {
+          handleScrollToCenter(e as unknown as MouseEvent);
+          onClickRegisterQueries && onClickRegisterQueries();
+        }}
         className={`cursor-pointer font-display text-xs whitespace-nowrap p-2 rounded-lg ${
           applicationMenu === "registerQueries"
             ? "bg-gray-700 text-white"
