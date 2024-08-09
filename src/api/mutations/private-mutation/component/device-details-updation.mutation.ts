@@ -7,6 +7,7 @@ import {
   updateDeviceDetailsSuccess,
 } from "../../../../redux/actions/private-actions/private.component.action";
 import { TBodyApiType } from "../../../models/api.body.model";
+import { TResponseApiType } from "../../../models/api.response.model";
 
 export const useDeviceDetailsUpdationMutation = () => {
   const dispatch = useDispatch();
@@ -43,9 +44,9 @@ export const useDeviceDetailsUpdationMutation = () => {
       },
       onSuccess: (data) => {
         if (data.Success) {
-          dispatch(updateDeviceDetailsSuccess(data));
+          dispatch(updateDeviceDetailsSuccess(data as TResponseApiType));
         } else {
-          dispatch(updateDeviceDetailsFailure(data));
+          dispatch(updateDeviceDetailsFailure(data as TResponseApiType));
         }
       },
     }

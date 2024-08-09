@@ -1,9 +1,10 @@
 import { TBodyApiType } from "../../../models/api.body.model";
+import { TResponseApiType } from "../../../models/api.response.model";
 
 export const userCheck2FA = async ({
   verifyToken,
   token,
-}: TBodyApiType) => {
+}: TBodyApiType): Promise<TResponseApiType> => {
   try {
     const response = await fetch(
       `http://localhost:7005/api/v1/private/auth/user/check-2FA?token=${verifyToken}`,
@@ -16,7 +17,7 @@ export const userCheck2FA = async ({
       }
     );
     const data = await response.json();
-    return data;
+    return data as TResponseApiType;
   } catch (error) {
     throw error;
   }

@@ -1,4 +1,5 @@
 import { TBodyApiType } from "../../../models/api.body.model";
+import { TResponseApiType } from "../../../models/api.response.model";
 
 export const updateDeviceDetailsApi = async ({
   verifyToken,
@@ -12,7 +13,7 @@ export const updateDeviceDetailsApi = async ({
   macAddress,
   longitude,
   latitude,
-}: TBodyApiType) => {
+}: TBodyApiType): Promise<TResponseApiType> => {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/update/device-details?token=${verifyToken}`,
@@ -35,8 +36,8 @@ export const updateDeviceDetailsApi = async ({
         }),
       }
     );
-    const data = response.json();
-    return data;
+    const data = await response.json();
+    return data as TResponseApiType;
   } catch (error) {
     throw error;
   }

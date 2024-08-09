@@ -44,7 +44,7 @@ export const useUserLoginMutation = ({
           check2FA.mutate({
             verifyToken: verifyToken,
             token: data.Data,
-          } as TBodyApiType);
+          } as unknown as TBodyApiType);
           dispatch(userLoginSuccess(data as TResponseApiType));
           dispatch(userEmailAddressAction(null));
           dispatch(userPasswordAction(null));

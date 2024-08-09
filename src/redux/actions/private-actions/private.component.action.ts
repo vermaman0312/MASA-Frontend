@@ -93,13 +93,13 @@ export const updateDeviceDetailsRequest = () => {
     type: UPDATE_DEVICE_DETAILS_REQUEST,
   };
 };
-export const updateDeviceDetailsSuccess = (data: string) => {
+export const updateDeviceDetailsSuccess = (data: TResponseApiType) => {
   return {
     type: UPDATE_DEVICE_DETAILS_SUCCESS,
     payload: data,
   };
 };
-export const updateDeviceDetailsFailure = (error: string) => {
+export const updateDeviceDetailsFailure = (error: TResponseApiType) => {
   return {
     type: UPDATE_DEVICE_DETAILS_FAILURE,
     payload: error,
