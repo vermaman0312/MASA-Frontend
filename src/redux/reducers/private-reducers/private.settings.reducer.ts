@@ -16,6 +16,7 @@ import {
 
   // Privacy policies
 } from "../../constants/private-constants/private.settings.constant";
+import { TStateResponseApiType } from "../../../api/models/api.state.response.model";
 
 const privateSettingStateInitialState = {
   dashboardSetting: {},
@@ -25,7 +26,7 @@ const privateSettingStateInitialState = {
       loading: false,
       error: null,
       data: null,
-    },
+    } as TStateResponseApiType,
   },
   changePassword: {},
   privacyPolicies: {},

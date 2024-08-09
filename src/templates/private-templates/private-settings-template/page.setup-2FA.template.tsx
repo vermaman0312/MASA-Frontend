@@ -8,8 +8,27 @@ import {
   Smartphone,
 } from "lucide-react";
 import CustomDropdown from "../../../components/custom-dropdown/custom-dropdown.component";
+import { useDetails2FAMutation } from "../../../api/mutations/private-mutation/settings/details-2FA.mutation";
+import { useEffect } from "react";
+import { TBodyApiType } from "../../../api/models/api.body.model";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/redux-index";
+import { TStateResponseApiType } from "../../../api/models/api.state.response.model";
+import CustomMenuDropdown from "../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
+import { DropdownMenuItem } from "../../../components/custom-menu-dropdown/custom-menu-dropdown.ui";
 
 const PrivateSettingSetup2FAPageTemplate = () => {
+  const mutate = useDetails2FAMutation();
+  useEffect(() => {
+    mutate.mutate({
+      verifyToken: "123",
+      token: localStorage.getItem("token"),
+    } as TBodyApiType);
+  }, []);
+  const details2FA = useSelector(
+    (state: RootState) => state.privateSettingState.setup2FA.getDetails2FA
+  );
+  const data2FA = (details2FA as TStateResponseApiType).data?.Data;
   return (
     <div className="w-full h-full flex flex-col gap-2">
       <div className="w-full mt-3 md:mt-1">
@@ -47,7 +66,7 @@ const PrivateSettingSetup2FAPageTemplate = () => {
               "Microsoft authenticator app",
               "SMS/Text",
             ]}
-            // value="Google authenticator app"
+            value={data2FA?.userPreffered2FAApp}
           />
         </div>
       </div>
@@ -86,26 +105,77 @@ const PrivateSettingSetup2FAPageTemplate = () => {
               <CustomLabel className="text-xs font-display text-gray-500">
                 Authenticator app
               </CustomLabel>
-              <CustomLabel className="text-xs font-light font-display text-white bg-blue-400 p-1 pl-4 pr-4 rounded-full flex items-center justify-center">
-                Configured
-              </CustomLabel>
+              {(data2FA?.user2FAMethod?.includes("Google authenticator app") ||
+                data2FA?.user2FAMethod?.includes(
+                  "Microsoft authenticator app"
+                )) && (
+                <CustomLabel className="text-xs font-light font-display text-white bg-blue-400 p-1 pl-4 pr-4 rounded-full flex items-center justify-center">
+                  Configured
+                </CustomLabel>
+              )}
             </div>
             <div>
-              <Ellipsis className="text-gray-500" />
+              <CustomMenuDropdown
+                buttonComponent={
+                  <Ellipsis className="text-gray-500 cursor-pointer" />
+                }
+                marginRight="mr-6"
+              >
+                {data2FA?.user2FAMethod?.includes("authenticator app") ? (
+                  <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                    <span className="font-display text-xs text-red-500">
+                      Disable
+                    </span>
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                    <span className="font-display text-xs text-blue-500">
+                      Enable
+                    </span>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                  <span className="font-display text-xs">Edit</span>
+                </DropdownMenuItem>
+              </CustomMenuDropdown>
             </div>
           </div>
           <div className="w-full p-2 border-b border-l border-r flex items-center justify-between">
             <div className="flex items-center gap-2">
               <MessageSquareMore className="text-gray-500" />
               <CustomLabel className="text-xs font-display text-gray-500">
-                Text/SMS Messages
+                SMS/Text Messages
               </CustomLabel>
-              <CustomLabel className="text-xs font-light font-display text-white bg-blue-400 p-1 pl-4 pr-4 rounded-full flex items-center justify-center">
-                Configured
-              </CustomLabel>
+              {data2FA?.user2FAMethod?.includes("SMS/Text") && (
+                <CustomLabel className="text-xs font-light font-display text-white bg-blue-400 p-1 pl-4 pr-4 rounded-full flex items-center justify-center">
+                  Configured
+                </CustomLabel>
+              )}
             </div>
             <div>
-              <Ellipsis className="text-gray-500" />
+              <CustomMenuDropdown
+                buttonComponent={
+                  <Ellipsis className="text-gray-500 cursor-pointer" />
+                }
+                marginRight="mr-6"
+              >
+                {data2FA?.user2FAMethod?.includes("SMS/Text") ? (
+                  <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                    <span className="font-display text-xs text-red-500">
+                      Disable
+                    </span>
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                    <span className="font-display text-xs text-blue-500">
+                      Enable
+                    </span>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                  <span className="font-display text-xs">Edit</span>
+                </DropdownMenuItem>
+              </CustomMenuDropdown>
             </div>
           </div>
           <div className="w-full p-2 border-b border-l border-r flex items-center justify-between">
@@ -114,13 +184,38 @@ const PrivateSettingSetup2FAPageTemplate = () => {
               <CustomLabel className="text-xs font-display text-gray-500">
                 Security keys
               </CustomLabel>
-              <CustomLabel className="text-xs font-light font-display text-white bg-blue-400 p-1 pl-4 pr-4 rounded-full flex items-center justify-center">
-                Configured
-              </CustomLabel>
+              {data2FA?.userSecurityKey && (
+                <CustomLabel className="text-xs font-light font-display text-white bg-blue-400 p-1 pl-4 pr-4 rounded-full flex items-center justify-center">
+                  Configured
+                </CustomLabel>
+              )}
             </div>
-            <div>
-              <Ellipsis className="text-gray-500" />
-            </div>
+            {data2FA?.userPassKey && data2FA?.userPassKey?.length > 0 && (
+              <div>
+                <CustomMenuDropdown
+                  buttonComponent={
+                    <Ellipsis className="text-gray-500 cursor-pointer" />
+                  }
+                  marginRight="mr-6"
+                >
+                  <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                    <span className="font-display text-xs">
+                      View security code
+                    </span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                    <span className="font-display text-xs">
+                      Download security code
+                    </span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                    <span className="font-display text-xs">
+                      Change security code
+                    </span>
+                  </DropdownMenuItem>
+                </CustomMenuDropdown>
+              </div>
+            )}
           </div>
           <div className="w-full p-2 border-b border-l border-r flex items-center justify-between bg-gray-100">
             <CustomLabel className="font-display">Recovery options</CustomLabel>
@@ -139,12 +234,40 @@ const PrivateSettingSetup2FAPageTemplate = () => {
               <CustomLabel className="text-xs font-display text-gray-500">
                 Recovery codes
               </CustomLabel>
-              <CustomLabel className="text-xs font-light font-display text-white bg-blue-400 p-1 pl-4 pr-4 rounded-full flex items-center justify-center">
-                Viewed
-              </CustomLabel>
+              {data2FA?.userRecoveryCode && (
+                <CustomLabel className="text-xs font-light font-display text-white bg-blue-400 p-1 pl-4 pr-4 rounded-full flex items-center justify-center">
+                  Configured
+                </CustomLabel>
+              )}
             </div>
             <div>
-              <Ellipsis className="text-gray-500" />
+              <CustomMenuDropdown
+                buttonComponent={
+                  <Ellipsis className="text-gray-500 cursor-pointer" />
+                }
+                marginRight="mr-6"
+              >
+                <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                  <span className="font-display text-xs">
+                    Generate recovery code
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                  <span className="font-display text-xs">
+                    View recovery code
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                  <span className="font-display text-xs">
+                    Download recovery code
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer gap-2">
+                  <span className="font-display text-xs">
+                    Change recovery code
+                  </span>
+                </DropdownMenuItem>
+              </CustomMenuDropdown>
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { TResponseApiType } from "../../../api/models/api.response.model";
 import {
   // Dashboard setting
 
@@ -29,13 +30,13 @@ export const getDetails2FARequest = () => {
     type: GET_DETAILS_2FA_REQUEST,
   };
 };
-export const getDetails2FASuccess = (data: string) => {
+export const getDetails2FASuccess = (data: TResponseApiType) => {
   return {
     type: GET_DETAILS_2FA_SUCCESS,
     payload: data,
   };
 };
-export const getDetails2FAFailure = (error: string) => {
+export const getDetails2FAFailure = (error: TResponseApiType) => {
   return {
     type: GET_DETAILS_2FA_FAILURE,
     payload: error,
