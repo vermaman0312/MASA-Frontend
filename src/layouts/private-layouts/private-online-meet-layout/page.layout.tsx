@@ -5,6 +5,12 @@ import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useRef, useState } from "react";
 import { X } from "lucide-react";
+import { CustomLabel } from "../../../components/custom-label/custom-label.component";
+import CustomDialogBox2 from "../../../components/custom-dialogbox/customDialogBox2.component";
+import { CustomInputField } from "../../../components/custom-input-field/custom-input-field.component";
+import { Textarea } from "../../../components/custom-textarea/custom-textarea.component";
+import { CustomDatePicker } from "../../../components/custom-datepicker/custom-datepicker.component";
+import CustomTimePicker from "../../../components/custom-time-picker/custom-time-picker.component";
 
 interface eventType {
   id: string;
@@ -18,10 +24,13 @@ const PrivateOnlineMeetPageLayout = () => {
   const [isNewMeeting, setIsNewMeeting] = useState<boolean>(false);
   const calendarRef = useRef<FullCalendar>(null);
   const [events, setEvents] = useState<Array<eventType>>([]);
+  const [openForm, setOpenForm] = useState<boolean>(false);
+  const [singleEvent, setSingleEvent] = useState<eventType>();
+
+  console.log("singleEvent", singleEvent);
 
   const handleEventClick = (clickInfo: EventClickArg) => {
     clickInfo.jsEvent.preventDefault();
-
     if (clickInfo.event.url) {
       window.open(clickInfo.event.url, "_blank");
     } else {
@@ -38,12 +47,19 @@ const PrivateOnlineMeetPageLayout = () => {
       start: arg.dateStr,
       end: arg.dateStr,
     };
-
     setEvents([...events, newEvent]);
+    setSingleEvent({
+      id: String(events.length + 1),
+      title: `Booked Seminar from Aman Verma.`,
+      start: arg.dateStr,
+      end: arg.dateStr,
+    });
+    setOpenForm(true);
   };
 
   const handleCancelClick = (eventId: string) => {
     setEvents(events.filter((event) => event.id !== eventId));
+    setOpenForm(false);
   };
 
   const renderEventContent = (eventInfo: any) => {
@@ -113,6 +129,82 @@ const PrivateOnlineMeetPageLayout = () => {
             eventContent={renderEventContent}
           />
         )}
+
+        <CustomDialogBox2
+          isOpen={openForm}
+          onClose={() => singleEvent && handleCancelClick(singleEvent.id)}
+          title="Booking Details"
+        >
+          <div className="w-full flex items-center justify-between gap-2">
+            <div className="w-full">
+              <CustomLabel
+                className="font-medium text-xs font-display text-[#0d1b2a]"
+                htmlFor="email"
+              >
+                From Date:
+              </CustomLabel>
+              <CustomDatePicker
+                selected={
+                  singleEvent &&
+                  new Date(singleEvent.start as string).toLocaleDateString()
+                }
+              />
+            </div>
+            <div className="w-full">
+              <CustomLabel
+                className="font-medium text-xs font-display text-[#0d1b2a]"
+                htmlFor="email"
+              >
+                To Date:
+              </CustomLabel>
+              <CustomDatePicker
+                selected={
+                  singleEvent &&
+                  new Date(singleEvent.end as string).toLocaleDateString()
+                }
+              />
+            </div>
+          </div>
+          <div className="w-full flex items-center justify-between gap-2">
+            <div className="w-full">
+              <CustomLabel
+                className="font-medium text-xs font-display text-[#0d1b2a]"
+                htmlFor="email"
+              >
+                From Time:
+              </CustomLabel>
+              <CustomTimePicker value={singleEvent?.start} />
+            </div>
+            <div className="w-full">
+              <CustomLabel
+                className="font-medium text-xs font-display text-[#0d1b2a]"
+                htmlFor="email"
+              >
+                To Time:
+              </CustomLabel>
+              <CustomTimePicker value={singleEvent?.end} />
+            </div>
+          </div>
+
+          <div className="w-full">
+            <CustomLabel
+              className="font-medium text-xs font-display text-[#0d1b2a]"
+              htmlFor="email"
+            >
+              Reason:
+            </CustomLabel>
+            <Textarea
+              className="border-2 rounded-lg p-2 text-xs font-display h-32"
+              style={{ maxHeight: "200px" }}
+            />
+          </div>
+
+          <div className="mt-5 w-full flex items-center justify-end">
+            <button className="text-xs text-white font-display bg-gray-700 p-2 w-full rounded-lg">
+              Book calender
+            </button>
+          </div>
+        </CustomDialogBox2>
       </div>
     </div>
   );

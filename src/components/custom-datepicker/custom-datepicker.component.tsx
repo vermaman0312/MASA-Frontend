@@ -15,7 +15,7 @@ type props = {
   borderColor?: string;
   isError?: boolean;
   onSelect?: (date: Date | undefined) => void;
-  selected?: Date;
+  selected?: Date | string;
   disabled?: (date: Date) => boolean;
 };
 
@@ -73,7 +73,7 @@ export function CustomDatePicker({
         <Calendar
           mode="single"
           disabled={disabled}
-          selected={selected}
+          selected={selected as Date}
           onSelect={onSelect}
           initialFocus
         />

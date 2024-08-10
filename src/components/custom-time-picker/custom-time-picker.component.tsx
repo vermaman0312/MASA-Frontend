@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 
 type Props = {
   title?: string;
@@ -18,12 +18,12 @@ const CustomTimePicker = ({ title, onChange, value, isError }: Props) => {
   };
 
   return (
-    <div className={`w-full p-1 border-2 rounded-lg`}>
+    <div className={`w-full p-1 border rounded-lg`}>
       <input
         type="time"
         onChange={handleInputChange}
         value={formatDateForTimeInput(value)}
-        className={`border-none outline-none active:border-none active:outline-none focus:border-none focus:outline-none w-full rounded-lg p-2 ${
+        className={`border-none outline-none active:border-none active:outline-none focus:border-none focus:outline-none w-full rounded-lg p-1 ${
           isError ? "text-red-500" : ""
         }`}
       />
