@@ -13,4 +13,5 @@ export type TBodyApiType = {
   longitude: number;
   latitude: number;
   userId?: string;
+  userPassKey?: string;
 };

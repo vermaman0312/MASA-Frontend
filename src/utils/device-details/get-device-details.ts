@@ -28,22 +28,22 @@ export const getDeviceDetails = async (): Promise<DeviceDetails> => {
   const ipAddress = await getPublicIpAddress();
   let macAddress = "";
 
-  chrome.runtime.sendMessage(
-    "abcdefghijklmnopabcdefghijklmnop",
-    { message: "version 1.0" },
-    (response) => {
-      if (chrome.runtime.lastError) {
-        console.error("Error:", chrome.runtime.lastError.message);
-        console.log("No extension or unable to connect");
-        return;
-      }
-      if (!response) {
-        console.log("No extension");
-        return;
-      }
-      console.log("Extension found", response);
-    }
-  );
+  // chrome.runtime.sendMessage(
+  //   "abcdefghijklmnopabcdefghijklmnop",
+  //   { message: "version 1.0" },
+  //   (response) => {
+  //     if (chrome.runtime.lastError) {
+  //       console.error("Error:", chrome.runtime.lastError.message);
+  //       console.log("No extension or unable to connect");
+  //       return;
+  //     }
+  //     if (!response) {
+  //       console.log("No extension");
+  //       return;
+  //     }
+  //     console.log("Extension found", response);
+  //   }
+  // );
 
   return {
     browserName,

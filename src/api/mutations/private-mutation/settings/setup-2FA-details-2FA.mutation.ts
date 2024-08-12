@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { details2FASettingApi } from "../../../api/private-api/settings/details-2FA.api";
+import { details2FASettingApi } from "../../../api/private-api/settings/setup-2FA-details-2FA.api";
 import { TBodyApiType } from "../../../models/api.body.model";
 import {
   getDetails2FAFailure,
