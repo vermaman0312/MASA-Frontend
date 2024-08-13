@@ -1,6 +1,6 @@
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import { useDetails2FAMutation } from "../../../api/mutations/private-mutation/settings/setup-2FA-details-2FA.mutation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { TBodyApiType } from "../../../api/models/api.body.model";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/redux-index";
@@ -9,8 +9,17 @@ import PrivateSetup2FAPreffered2FAMethodPageComponent from "./components/setup-2
 import PrivateSetup2FADecalaration2FAPageComponent from "./components/setup-2FA-component/page.decalaration-2FA.component";
 import PrivateSetup2FAPasswordlessSignInPasskeyPageComponent from "./components/setup-2FA-component/page.passwordless-signin-passkey.component";
 import PrivateSetup2FAMethodPageComponent from "./components/setup-2FA-component/page.2FA-method.component";
+import { generate2FAPasskey } from "../../../utils/generate-2FA-passkey/generate-passkey";
+import PrivateSetup2FAPasswordlessSignInPasskeyGenerateKeyPageComponent from "./components/setup-2FA-component/page.passwordless-signin-passkey-generate-key.component";
+import Private2FAGeneratingQRCodeVerifyOTPPageComponent from "./components/setup-2FA-component/page.2FA-genrate-qr-verify-otp.component";
+import Private2FAEnablePageComponent from "./components/setup-2FA-component/page.2FA-enable-2FA.component";
 
 const PrivateSettingSetup2FAPageTemplate = () => {
+  const [isPasskeyOpen, setIsPasskeyOpen] = useState<boolean>(false);
+  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+  const newPasskey = generate2FAPasskey(
+    localStorage.getItem("token") as string
+  );
   const mutate = useDetails2FAMutation();
   useEffect(() => {
     mutate.mutate({
@@ -22,6 +31,7 @@ const PrivateSettingSetup2FAPageTemplate = () => {
     (state: RootState) => state.privateSettingState.setup2FA.getDetails2FA
   );
   const data2FA = (details2FA as TStateResponseApiType).data?.Data;
+
   return (
     <div className="w-full h-full flex flex-col gap-2">
       <div className="w-full mt-3 md:mt-1">
@@ -32,18 +42,51 @@ const PrivateSettingSetup2FAPageTemplate = () => {
       <div>
         <PrivateSetup2FADecalaration2FAPageComponent />
       </div>
+      {!data2FA?.userPassKey && (
+        <div>
+          <PrivateSetup2FAPasswordlessSignInPasskeyPageComponent
+            setIsOpen={setIsPasskeyOpen}
+          />
+        </div>
+      )}
+
+      {!data2FA?.userIs2FA && !isEnabled && (
+        <div>
+          <Private2FAEnablePageComponent onClick={() => setIsEnabled(true)} />
+        </div>
+      )}
+
+      {!data2FA?.userIs2FA && isEnabled && (
+        <div>
+          <Private2FAGeneratingQRCodeVerifyOTPPageComponent />
+        </div>
+      )}
+
+      {data2FA?.userIs2FA && (
+        <div>
+          <PrivateSetup2FAPreffered2FAMethodPageComponent
+            preffered2FAMethod={data2FA?.userPreffered2FAApp as string}
+          />
+        </div>
+      )}
+      {data2FA?.userIs2FA && (
+        <div>
+          <PrivateSetup2FAMethodPageComponent
+            data2FA={data2FA}
+            onClickViewPasskey={() => setIsPasskeyOpen(true)}
+          />
+        </div>
+      )}
+
+      {/* DIALOG BOX */}
       <div>
-        <PrivateSetup2FAPreffered2FAMethodPageComponent
-          preffered2FAMethod={data2FA?.userPreffered2FAApp as string}
-        />
-      </div>
-      <div>
-        <PrivateSetup2FAPasswordlessSignInPasskeyPageComponent
+        <PrivateSetup2FAPasswordlessSignInPasskeyGenerateKeyPageComponent
           passkey={data2FA?.userPassKey as string}
+          newPasskey={newPasskey as string}
+          isOpen={isPasskeyOpen}
+          setIsOpen={setIsPasskeyOpen}
+          userUniqueId={data2FA?.userUniqueId as string}
         />
-      </div>
-      <div>
-        <PrivateSetup2FAMethodPageComponent data2FA={data2FA} />
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ export const generatePasskeyApi = async ({
 }: TBodyApiType): Promise<TResponseApiType> => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/update/details-2FA?token=${verifyToken}`,
+      `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/update/2FA/passkey?token=${verifyToken}`,
       {
         method: "POST",
         headers: {

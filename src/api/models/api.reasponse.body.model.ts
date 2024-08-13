@@ -42,7 +42,10 @@ export type TResponseBodyApiType = {
   userIs2FA?: boolean;
   userPassKey?: string;
   userPreffered2FAApp?: string;
-  user2FAMethod?: Array<string>;
+  user2FAMethod?: {
+    userAuthenticatorApp?: boolean;
+    userTextSMS?: boolean;
+  };
   userSecurityKey?: string;
   userRecoveryCode?: string;
 };

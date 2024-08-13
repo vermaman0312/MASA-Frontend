@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +14,7 @@ type props = {
   marginTop?: string;
   marginLeft?: string;
   marginRight?: string;
+  disabled?: boolean;
 };
 
 const CustomMenuDropdown = ({
@@ -24,10 +25,11 @@ const CustomMenuDropdown = ({
   marginTop,
   marginLeft,
   marginRight,
+  disabled,
 }: props) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger disabled={disabled} asChild>
         <button className={className}>{buttonComponent}</button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
