@@ -2,7 +2,6 @@ import { TStateResponseApiType } from "../../../api/models/api.state.response.mo
 import {
   IP_GET_USER_NAME_REQUEST,
   IP_GET_USER_NAME_SUCCESS,
-  IP_GET_USER_NAME_FAILURE,
 } from "../../constants/public-constants/public-component.constant";
 
 type Action = {
@@ -14,7 +13,6 @@ type Action = {
 const publicComponentInitialState = {
   publicUserDetails: {
     loading: false,
-    error: null,
     data: null,
   } as TStateResponseApiType,
 };
@@ -30,7 +28,6 @@ export const publicComponentState = (
         publicUserDetails: {
           ...state.publicUserDetails,
           loading: true,
-          error: null,
           data: null,
         },
       };
@@ -40,18 +37,7 @@ export const publicComponentState = (
         publicUserDetails: {
           ...state.publicUserDetails,
           loading: false,
-          error: null,
           data: action.payload,
-        },
-      };
-    case IP_GET_USER_NAME_FAILURE:
-      return {
-        ...state,
-        publicUserDetails: {
-          ...state.publicUserDetails,
-          loading: false,
-          error: action.payload,
-          data: null,
         },
       };
     default:

@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { userLoginApi } from "../../../api/public-api/authentication/login.api";
 import {
   userEmailAddressAction,
-  userLoginFailure,
   userLoginRequest,
   userLoginSuccess,
   userPasswordAction,
@@ -35,20 +34,18 @@ export const useUserLoginMutation = ({
       },
       onSuccess: (data) => {
         if (!data.Success) {
-          dispatch(userLoginFailure(data as TResponseApiType));
           toast(data.Message, {
             className: "error",
             icon: false,
           });
-        } else {
-          check2FA.mutate({
-            verifyToken: verifyToken,
-            token: data.Data,
-          } as unknown as TBodyApiType);
-          dispatch(userLoginSuccess(data as TResponseApiType));
-          dispatch(userEmailAddressAction(null));
-          dispatch(userPasswordAction(null));
         }
+        check2FA.mutate({
+          verifyToken: verifyToken,
+          token: data.Data,
+        } as unknown as TBodyApiType);
+        dispatch(userLoginSuccess(data as TResponseApiType));
+        dispatch(userEmailAddressAction(null));
+        dispatch(userPasswordAction(null));
       },
     }
   );

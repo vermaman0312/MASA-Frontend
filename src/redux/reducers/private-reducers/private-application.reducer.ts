@@ -6,7 +6,6 @@ import {
   APPROVAL_SEARCH_INPUT,
   MY_APPROVAL_REQUEST,
   MY_APPROVAL_SUCCESS,
-  MY_APPROVAL_FAILURE,
   // Apply Leave Form & Status
   LEAVE_TYPE,
   REQUESTED_DATE,
@@ -21,7 +20,6 @@ import {
   // Apply new leave and work from home request
   APPLY_LEAVE_REQUEST,
   APPLY_LEAVE_SUCCESS,
-  APPLY_LEAVE_FAILURE,
 
   // Application
   // New Application Form
@@ -33,15 +31,12 @@ import {
   // Apply new application request
   NEW_APPLICATION_REQUEST,
   NEW_APPLICATION_SUCCESS,
-  NEW_APPLICATION_FAILURE,
   // My Application list
   MY_APPLICATION_REQUEST,
   MY_APPLICATION_SUCCESS,
-  MY_APPLICATION_FAILURE,
   // My Application details
   MY_APPLICATION_DETAILS_REQUEST,
   MY_APPLICATION_DETAILS_SUCCESS,
-  MY_APPLICATION_DETAILS_FAILURE,
 } from "../../constants/private-constants/private-application.constant";
 import { Action } from "../TReducerType";
 
@@ -73,7 +68,6 @@ export const privateApplicationStateIntialState = {
       approvalList: {
         loading: false,
         data: null,
-        error: null,
       } as myApproval,
       applyLeave: {
         formData: {
@@ -91,7 +85,6 @@ export const privateApplicationStateIntialState = {
         applyLeave: {
           loading: false,
           data: null,
-          error: null,
         } as myApproval,
       },
     },
@@ -99,12 +92,10 @@ export const privateApplicationStateIntialState = {
       myApplication: {
         loading: false,
         data: null,
-        error: null,
       },
       myApplicationDetails: {
         loading: false,
         data: null,
-        error: null,
       },
       writeApplication: {
         formData: {
@@ -117,7 +108,6 @@ export const privateApplicationStateIntialState = {
         newApplication: {
           loading: false,
           data: null,
-          error: null,
         },
       },
     },
@@ -185,8 +175,7 @@ export const privateApplicationState = (
             approvalList: {
               loading: true,
               data: null,
-              error: null,
-            } as myApproval,
+            },
           },
         },
       };
@@ -200,23 +189,7 @@ export const privateApplicationState = (
             approvalList: {
               loading: false,
               data: action.payload,
-              error: null,
-            } as myApproval,
-          },
-        },
-      };
-    case MY_APPROVAL_FAILURE:
-      return {
-        ...state,
-        applicationData: {
-          ...state.applicationData,
-          myApproval: {
-            ...state.applicationData.myApproval,
-            approvalList: {
-              loading: false,
-              data: null,
-              error: action.payload,
-            } as myApproval,
+            },
           },
         },
       };
@@ -405,7 +378,6 @@ export const privateApplicationState = (
                 ...state.applicationData.myApproval.applyLeave.applyLeave,
                 loading: true,
                 data: null,
-                error: null,
               },
             },
           },
@@ -424,26 +396,6 @@ export const privateApplicationState = (
                 ...state.applicationData.myApproval.applyLeave.applyLeave,
                 loading: false,
                 data: action.payload,
-                error: null,
-              },
-            },
-          },
-        },
-      };
-    case APPLY_LEAVE_FAILURE:
-      return {
-        ...state,
-        applicationData: {
-          ...state.applicationData,
-          myApproval: {
-            ...state.applicationData.myApproval,
-            applyLeave: {
-              ...state.applicationData.myApproval.applyLeave,
-              applyLeave: {
-                ...state.applicationData.myApproval.applyLeave.applyLeave,
-                loading: false,
-                data: null,
-                error: action.payload,
               },
             },
           },
@@ -551,7 +503,6 @@ export const privateApplicationState = (
                   .newApplication,
                 loading: true,
                 data: null,
-                error: null,
               },
             },
           },
@@ -571,27 +522,6 @@ export const privateApplicationState = (
                   .newApplication,
                 loading: false,
                 data: action.payload,
-                error: null,
-              },
-            },
-          },
-        },
-      };
-    case NEW_APPLICATION_FAILURE:
-      return {
-        ...state,
-        applicationData: {
-          ...state.applicationData,
-          application: {
-            ...state.applicationData.application,
-            writeApplication: {
-              ...state.applicationData.application.writeApplication,
-              newApplication: {
-                ...state.applicationData.application.writeApplication
-                  .newApplication,
-                loading: false,
-                data: null,
-                error: action.payload,
               },
             },
           },
@@ -609,7 +539,6 @@ export const privateApplicationState = (
               ...state.applicationData.application.myApplication,
               loading: true,
               data: null,
-              error: null,
             },
           },
         },
@@ -625,23 +554,6 @@ export const privateApplicationState = (
               ...state.applicationData.application.myApplication,
               loading: false,
               data: action.payload,
-              error: null,
-            },
-          },
-        },
-      };
-    case MY_APPLICATION_FAILURE:
-      return {
-        ...state,
-        applicationData: {
-          ...state.applicationData,
-          application: {
-            ...state.applicationData.application,
-            myApplication: {
-              ...state.applicationData.application.myApplication,
-              loading: false,
-              data: null,
-              error: action.payload,
             },
           },
         },
@@ -658,7 +570,6 @@ export const privateApplicationState = (
               ...state.applicationData.application.myApplicationDetails,
               loading: true,
               data: null,
-              error: null,
             },
           },
         },
@@ -674,23 +585,6 @@ export const privateApplicationState = (
               ...state.applicationData.application.myApplicationDetails,
               loading: false,
               data: action.payload,
-              error: null,
-            },
-          },
-        },
-      };
-    case MY_APPLICATION_DETAILS_FAILURE:
-      return {
-        ...state,
-        applicationData: {
-          ...state.applicationData,
-          application: {
-            ...state.applicationData.application,
-            myApplicationDetails: {
-              ...state.applicationData.application.myApplicationDetails,
-              loading: false,
-              data: null,
-              error: action.payload,
             },
           },
         },

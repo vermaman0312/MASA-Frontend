@@ -2,7 +2,6 @@ import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { getUserNamePublicApi } from "../../../api/public-api/component/get-username.api";
 import {
-  getUserNamePublicViaIpFailure,
   getUserNamePublicViaIpRequest,
   getUserNamePublicViaIpSuccess,
 } from "../../../../redux/actions/public-actions/public-component.action";
@@ -23,11 +22,7 @@ export const useGetUserNameMutation = () => {
         dispatch(getUserNamePublicViaIpRequest());
       },
       onSuccess: (data) => {
-        if (data.Success) {
-          dispatch(getUserNamePublicViaIpSuccess(data as TResponseApiType));
-        } else {
-          dispatch(getUserNamePublicViaIpFailure(data as TResponseApiType));
-        }
+        dispatch(getUserNamePublicViaIpSuccess(data as TResponseApiType));
       },
     }
   );

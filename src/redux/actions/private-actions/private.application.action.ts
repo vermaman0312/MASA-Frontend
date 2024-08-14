@@ -7,7 +7,7 @@ import {
   APPROVAL_SEARCH_INPUT,
   MY_APPROVAL_REQUEST,
   MY_APPROVAL_SUCCESS,
-  MY_APPROVAL_FAILURE,
+
   // Apply Leave Form & Status
   LEAVE_TYPE,
   REQUESTED_DATE,
@@ -22,7 +22,6 @@ import {
   // Apply new leave and work from home request
   APPLY_LEAVE_REQUEST,
   APPLY_LEAVE_SUCCESS,
-  APPLY_LEAVE_FAILURE,
 
   // Application
   // New Application Form
@@ -34,15 +33,14 @@ import {
   // Apply new application request
   NEW_APPLICATION_REQUEST,
   NEW_APPLICATION_SUCCESS,
-  NEW_APPLICATION_FAILURE,
+
   // My Application list
   MY_APPLICATION_REQUEST,
   MY_APPLICATION_SUCCESS,
-  MY_APPLICATION_FAILURE,
+
   // My Application details
   MY_APPLICATION_DETAILS_REQUEST,
   MY_APPLICATION_DETAILS_SUCCESS,
-  MY_APPLICATION_DETAILS_FAILURE,
 } from "../../constants/private-constants/private-application.constant";
 
 // Application Menu
@@ -77,12 +75,6 @@ export const myApprovalSuccess = (myApproval: Array<myApprovalType>) => {
   return {
     type: MY_APPROVAL_SUCCESS,
     payload: myApproval,
-  };
-};
-export const myApprovalFailure = (error: Error) => {
-  return {
-    type: MY_APPROVAL_FAILURE,
-    payload: error,
   };
 };
 // Apply Leave Form
@@ -158,12 +150,6 @@ export const applyLeaveSuccess = (data: string) => {
     payload: data,
   };
 };
-export const applyLeaveFailure = (error: Error) => {
-  return {
-    type: APPLY_LEAVE_FAILURE,
-    payload: error,
-  };
-};
 
 // Application
 // New Application Form
@@ -215,12 +201,6 @@ export const newApplicationSuccess = (data: string) => {
     payload: data,
   };
 };
-export const newApplicationFailure = (error: Error) => {
-  return {
-    type: NEW_APPLICATION_FAILURE,
-    payload: error,
-  };
-};
 // My application list
 export const myApplicationRequest = () => {
   return {
@@ -233,12 +213,6 @@ export const myApplicationSuccess = (data: string) => {
     payload: data,
   };
 };
-export const myApplicationFailure = (error: Error) => {
-  return {
-    type: MY_APPLICATION_FAILURE,
-    payload: error,
-  };
-};
 // My Application Detials
 export const myApplicationDetailsRequest = () => {
   return {
@@ -249,11 +223,5 @@ export const myApplicationDetailsSuccess = (data: string) => {
   return {
     type: MY_APPLICATION_DETAILS_SUCCESS,
     payload: data,
-  };
-};
-export const myApplicationDetailsFailure = (error: Error) => {
-  return {
-    type: MY_APPLICATION_DETAILS_FAILURE,
-    payload: error,
   };
 };

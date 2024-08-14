@@ -1,6 +1,6 @@
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import { useDetails2FAMutation } from "../../../api/mutations/private-mutation/settings/setup-2FA-details-2FA.mutation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { TBodyApiType } from "../../../api/models/api.body.model";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/redux-index";
@@ -13,6 +13,8 @@ import { generate2FAPasskey } from "../../../utils/generate-2FA-passkey/generate
 import PrivateSetup2FAPasswordlessSignInPasskeyGenerateKeyPageComponent from "./components/setup-2FA-component/page.passwordless-signin-passkey-generate-key.component";
 import Private2FAGeneratingQRCodeVerifyOTPPageComponent from "./components/setup-2FA-component/page.2FA-genrate-qr-verify-otp.component";
 import Private2FAEnablePageComponent from "./components/setup-2FA-component/page.2FA-enable-2FA.component";
+import { useSetup2FAUpdate2FAMutation } from "../../../api/mutations/private-mutation/settings/setup.-2FA-update-2FA.mutation";
+import { Loader } from "lucide-react";
 
 const PrivateSettingSetup2FAPageTemplate = () => {
   const [isPasskeyOpen, setIsPasskeyOpen] = useState<boolean>(false);
@@ -20,9 +22,10 @@ const PrivateSettingSetup2FAPageTemplate = () => {
   const newPasskey = generate2FAPasskey(
     localStorage.getItem("token") as string
   );
-  const mutate = useDetails2FAMutation();
+  const { mutate, isLoading } = useDetails2FAMutation();
+  const update2FAMutate = useSetup2FAUpdate2FAMutation();
   useEffect(() => {
-    mutate.mutate({
+    mutate({
       verifyToken: "123",
       token: localStorage.getItem("token"),
     } as TBodyApiType);
@@ -32,7 +35,20 @@ const PrivateSettingSetup2FAPageTemplate = () => {
   );
   const data2FA = (details2FA as TStateResponseApiType).data?.Data;
 
-  return (
+  const handleUpdate2FA = useCallback(() => {
+    update2FAMutate.mutate({
+      verifyToken: "123",
+      token: localStorage.getItem("token"),
+      userIs2FA: true,
+    } as TBodyApiType);
+    setIsEnabled(true);
+  }, [update2FAMutate]);
+
+  return isLoading ? (
+    <div className="w-full h-full flex items-center justify-center">
+      <Loader className="animate-spin" />
+    </div>
+  ) : (
     <div className="w-full h-full flex flex-col gap-2">
       <div className="w-full mt-3 md:mt-1">
         <CustomLabel className="text-xl font-display">
@@ -52,24 +68,24 @@ const PrivateSettingSetup2FAPageTemplate = () => {
 
       {!data2FA?.userIs2FA && !isEnabled && (
         <div>
-          <Private2FAEnablePageComponent onClick={() => setIsEnabled(true)} />
+          <Private2FAEnablePageComponent onClick={handleUpdate2FA} />
         </div>
       )}
 
-      {!data2FA?.userIs2FA && isEnabled && (
+      {data2FA?.userIs2FA && isEnabled && (
         <div>
           <Private2FAGeneratingQRCodeVerifyOTPPageComponent />
         </div>
       )}
 
-      {data2FA?.userIs2FA && (
+      {data2FA?.userPreffered2FAApp && (
         <div>
           <PrivateSetup2FAPreffered2FAMethodPageComponent
             preffered2FAMethod={data2FA?.userPreffered2FAApp as string}
           />
         </div>
       )}
-      {data2FA?.userIs2FA && (
+      {data2FA?.userPreffered2FAApp && (
         <div>
           <PrivateSetup2FAMethodPageComponent
             data2FA={data2FA}

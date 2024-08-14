@@ -7,7 +7,6 @@ import {
   IS_USER_PASSWORD_ERROR,
   PUBLIC_AUTH_LOGIN_REQUEST,
   PUBLIC_AUTH_LOGIN_SUCCESS,
-  PUBLIC_AUTH_LOGIN_FAILURE,
   // Check 2FA
   IS_2FA_AUTHENTICATION,
 } from "../../constants/public-constants/public-authentication.constant";
@@ -50,12 +49,6 @@ export const userLoginSuccess = (data: TResponseApiType) => {
   return {
     type: PUBLIC_AUTH_LOGIN_SUCCESS,
     payload: data,
-  };
-};
-export const userLoginFailure = (error: TResponseApiType) => {
-  return {
-    type: PUBLIC_AUTH_LOGIN_FAILURE,
-    payload: error,
   };
 };
 

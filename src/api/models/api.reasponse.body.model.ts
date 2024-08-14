@@ -48,4 +48,6 @@ export type TResponseBodyApiType = {
   };
   userSecurityKey?: string;
   userRecoveryCode?: string;
+  qrKey?: string;
+  qrImage?: string;
 };

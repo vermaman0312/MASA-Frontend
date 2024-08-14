@@ -7,7 +7,6 @@ import {
   IS_USER_PASSWORD_ERROR,
   PUBLIC_AUTH_LOGIN_REQUEST,
   PUBLIC_AUTH_LOGIN_SUCCESS,
-  PUBLIC_AUTH_LOGIN_FAILURE,
   // Check 2FA
   IS_2FA_AUTHENTICATION,
 } from "../../constants/public-constants/public-authentication.constant";
@@ -29,7 +28,6 @@ const publicAuthenticationInitialState = {
     loginState: {
       loading: false,
       data: null,
-      error: null,
     } as TStateResponseApiType,
   },
   is2FAOn: false,
@@ -94,7 +92,6 @@ export const publicAuthState = (
             ...state.loginDetails.loginState,
             loading: true,
             data: null,
-            error: null,
           },
         },
       };
@@ -107,20 +104,6 @@ export const publicAuthState = (
             ...state.loginDetails.loginState,
             loading: false,
             data: action.payload,
-            error: null,
-          },
-        },
-      };
-    case PUBLIC_AUTH_LOGIN_FAILURE:
-      return {
-        ...state,
-        loginDetails: {
-          ...state.loginDetails,
-          loginState: {
-            ...state.loginDetails.loginState,
-            loading: false,
-            data: null,
-            error: action.payload,
           },
         },
       };

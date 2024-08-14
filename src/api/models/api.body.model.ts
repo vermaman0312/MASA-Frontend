@@ -14,4 +14,5 @@ export type TBodyApiType = {
   latitude: number;
   userId?: string;
   userPassKey?: string;
+  userIs2FA?: boolean;
 };

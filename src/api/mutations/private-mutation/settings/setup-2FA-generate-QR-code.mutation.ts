@@ -1,27 +1,27 @@
 import { useMutation } from "react-query";
-import { details2FASettingApi } from "../../../api/private-api/settings/setup-2FA-details-2FA.api";
+import { generateQRCodeSetup2FAApi } from "../../../api/private-api/settings/setup-2FA-generate-QR-code.api";
 import { TBodyApiType } from "../../../models/api.body.model";
+import { useDispatch } from "react-redux";
 import {
-  getDetails2FARequest,
-  getDetails2FASuccess,
+  generateQRCodeRequest,
+  generateQRCodeSuccess,
 } from "../../../../redux/actions/private-actions/private.settings.action";
 import { TResponseApiType } from "../../../models/api.response.model";
-import { useDispatch } from "react-redux";
 
-export const useDetails2FAMutation = () => {
+export const useGenerateQRSetup2FAMutation = () => {
   const dispatch = useDispatch();
   return useMutation(
     ({ verifyToken, token }: TBodyApiType) =>
-      details2FASettingApi({
+      generateQRCodeSetup2FAApi({
         verifyToken: verifyToken,
         token: token,
       } as TBodyApiType),
     {
       onMutate: () => {
-        dispatch(getDetails2FARequest());
+        dispatch(generateQRCodeRequest());
       },
       onSuccess: (data: TResponseApiType) => {
-        dispatch(getDetails2FASuccess(data as TResponseApiType));
+        dispatch(generateQRCodeSuccess(data as TResponseApiType));
       },
     }
   );
