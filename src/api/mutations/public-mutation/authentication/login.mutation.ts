@@ -38,14 +38,16 @@ export const useUserLoginMutation = ({
             className: "error",
             icon: false,
           });
+          dispatch(userLoginSuccess(data as TResponseApiType));
+        } else {
+          check2FA.mutate({
+            verifyToken: verifyToken,
+            token: data.Data,
+          } as unknown as TBodyApiType);
+          dispatch(userLoginSuccess(data as TResponseApiType));
+          dispatch(userEmailAddressAction(null));
+          dispatch(userPasswordAction(null));
         }
-        check2FA.mutate({
-          verifyToken: verifyToken,
-          token: data.Data,
-        } as unknown as TBodyApiType);
-        dispatch(userLoginSuccess(data as TResponseApiType));
-        dispatch(userEmailAddressAction(null));
-        dispatch(userPasswordAction(null));
       },
     }
   );
