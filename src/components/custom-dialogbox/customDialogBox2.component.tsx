@@ -5,7 +5,6 @@ import { CustomLabel } from "../custom-label/custom-label.component";
 type props = {
   title?: string;
   isOpen?: boolean;
-  onOpenChange?: (setIsOpen: boolean) => void;
   onClose?: () => void;
   children?: React.ReactNode;
 };
@@ -13,7 +12,6 @@ type props = {
 const CustomDialogBox2 = ({
   title,
   isOpen,
-  onOpenChange,
   onClose,
   children,
 }: props) => {
@@ -26,7 +24,7 @@ const CustomDialogBox2 = ({
           </CustomLabel>
           <X
             onClick={onClose}
-            className="text-white border rounded-lg bg-red-500"
+            className="text-white border rounded-lg bg-red-500 cursor-pointer"
           />
         </div>
         <div className="w-full mt-5">{children}</div>

@@ -15,4 +15,6 @@ export type TBodyApiType = {
   userId?: string;
   userPassKey?: string;
   userIs2FA?: boolean;
+  userIs2FASetupCompleted?: boolean;
+  userOTP?: string;
 };

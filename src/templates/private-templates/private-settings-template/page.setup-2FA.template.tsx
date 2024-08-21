@@ -18,7 +18,6 @@ import { Loader } from "lucide-react";
 
 const PrivateSettingSetup2FAPageTemplate = () => {
   const [isPasskeyOpen, setIsPasskeyOpen] = useState<boolean>(false);
-  const [isEnabled, setIsEnabled] = useState<boolean>(false);
   const newPasskey = generate2FAPasskey(
     localStorage.getItem("token") as string
   );
@@ -41,7 +40,6 @@ const PrivateSettingSetup2FAPageTemplate = () => {
       token: localStorage.getItem("token"),
       userIs2FA: true,
     } as TBodyApiType);
-    setIsEnabled(true);
   }, [update2FAMutate]);
 
   return isLoading ? (
@@ -66,26 +64,26 @@ const PrivateSettingSetup2FAPageTemplate = () => {
         </div>
       )}
 
-      {!data2FA?.userIs2FA && !isEnabled && (
+      {!data2FA?.userIs2FA && (
         <div>
           <Private2FAEnablePageComponent onClick={handleUpdate2FA} />
         </div>
       )}
 
-      {data2FA?.userIs2FA && isEnabled && (
+      {data2FA?.userIs2FA && !data2FA.userIs2FASetupCompleted && (
         <div>
           <Private2FAGeneratingQRCodeVerifyOTPPageComponent />
         </div>
       )}
 
-      {data2FA?.userPreffered2FAApp && (
+      {data2FA?.userIs2FA && data2FA.userIs2FASetupCompleted && (
         <div>
           <PrivateSetup2FAPreffered2FAMethodPageComponent
             preffered2FAMethod={data2FA?.userPreffered2FAApp as string}
           />
         </div>
       )}
-      {data2FA?.userPreffered2FAApp && (
+      {data2FA?.userIs2FA && data2FA.userIs2FASetupCompleted && (
         <div>
           <PrivateSetup2FAMethodPageComponent
             data2FA={data2FA}

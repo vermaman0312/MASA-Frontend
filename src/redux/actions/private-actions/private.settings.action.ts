@@ -24,6 +24,9 @@ import {
   USER_OTP_2FA,
   VERIFY_2FA_OTP_REQUEST,
   VERIFY_2FA_OTP_SUCCESS,
+  // UserIs2FASetupCompleted
+  USER_IS_2FA_SETUP_COMPLETED_REQUEST,
+  USER_IS_2FA_SETUP_COMPLETED_SUCCESS,
   // Preffered 2FA method
   PREFFERED_2FA_METHOD_OPTION,
   UPDATE_PREFFERED_2FA_METHOD_REQUEST,
@@ -122,6 +125,18 @@ export const verify2FAOTPRequest = () => {
 export const verify2FAOTPSuccess = (data: TResponseApiType) => {
   return {
     type: VERIFY_2FA_OTP_SUCCESS,
+    payload: data,
+  };
+};
+// UserIs2FASetupCompleted
+export const userIs2FASetupCompletedRequest = () => {
+  return {
+    type: USER_IS_2FA_SETUP_COMPLETED_REQUEST,
+  };
+};
+export const userIs2FASetupCompletedSuccess = (data: TResponseApiType) => {
+  return {
+    type: USER_IS_2FA_SETUP_COMPLETED_SUCCESS,
     payload: data,
   };
 };

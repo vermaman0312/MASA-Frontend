@@ -24,6 +24,9 @@ import {
   USER_OTP_2FA,
   VERIFY_2FA_OTP_REQUEST,
   VERIFY_2FA_OTP_SUCCESS,
+  // UserIs2FASetupCompleted
+  USER_IS_2FA_SETUP_COMPLETED_REQUEST,
+  USER_IS_2FA_SETUP_COMPLETED_SUCCESS,
   // Preffered 2FA method
   PREFFERED_2FA_METHOD_OPTION,
   UPDATE_PREFFERED_2FA_METHOD_REQUEST,
@@ -78,6 +81,10 @@ const privateSettingStateInitialState = {
           data: null,
         } as TStateResponseApiType,
       },
+    },
+    userIs2FASetupCompleted: {
+      loading: false,
+      data: null,
     },
     preffered2FAMethod: {
       preffered2FAMethodOption: null,
@@ -294,6 +301,31 @@ export const privateSettingState = (
                 data: action.payload,
               },
             },
+          },
+        },
+      };
+    // UserIs2FASetupCompleted
+    case USER_IS_2FA_SETUP_COMPLETED_REQUEST:
+      return {
+        ...state,
+        setup2FA: {
+          ...state.setup2FA,
+          userIs2FASetupCompleted: {
+            ...state.setup2FA.userIs2FASetupCompleted,
+            loading: true,
+            data: null,
+          },
+        },
+      };
+    case USER_IS_2FA_SETUP_COMPLETED_SUCCESS:
+      return {
+        ...state,
+        setup2FA: {
+          ...state.setup2FA,
+          userIs2FASetupCompleted: {
+            ...state.setup2FA.userIs2FASetupCompleted,
+            loading: false,
+            data: action.payload,
           },
         },
       };
