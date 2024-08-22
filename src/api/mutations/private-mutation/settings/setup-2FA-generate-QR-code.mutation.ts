@@ -11,9 +11,9 @@ import { TResponseApiType } from "../../../models/api.response.model";
 export const useGenerateQRSetup2FAMutation = () => {
   const dispatch = useDispatch();
   return useMutation(
-    ({ verifyToken, token }: TBodyApiType) =>
+    ({ deviceToken, token }: TBodyApiType) =>
       generateQRCodeSetup2FAApi({
-        verifyToken: verifyToken,
+        deviceToken: deviceToken,
         token: token,
       } as TBodyApiType),
     {

@@ -13,7 +13,7 @@ export const useDeviceDetailsUpdationMutation = () => {
   const dispatch = useDispatch();
   return useMutation(
     ({
-      verifyToken,
+      deviceToken,
       token,
       browserName,
       browserVersion,
@@ -26,7 +26,7 @@ export const useDeviceDetailsUpdationMutation = () => {
       latitude,
     }: TBodyApiType) =>
       updateDeviceDetailsApi({
-        verifyToken,
+        deviceToken,
         token,
         browserName,
         browserVersion,

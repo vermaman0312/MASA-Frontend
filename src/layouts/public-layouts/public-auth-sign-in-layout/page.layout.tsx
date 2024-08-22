@@ -37,7 +37,7 @@ const PublicAuthSignInPageLayout = () => {
   const mutation = useUserLoginMutation({
     userEmailAddress: loginFormData.userEmailAddress as string,
     userPassword: loginFormData.userPassword as string,
-    verifyToken: "123",
+    deviceToken: "123",
   } as TBodyApiType);
 
   const handleClickForgotPassword = useCallback(() => {

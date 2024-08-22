@@ -1,7 +1,7 @@
 export type TBodyApiType = {
   userEmailAddress: string;
   userPassword: string;
-  verifyToken: string;
+  deviceToken: string;
   token: string;
   ipAddress: string;
   browserName: string;

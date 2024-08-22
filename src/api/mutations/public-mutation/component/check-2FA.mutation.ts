@@ -6,6 +6,7 @@ import { RootState } from "../../../../redux/redux-index";
 import { useDeviceDetailsMutation } from "../../private-mutation/component/device-details.mutation";
 import { useDeviceDetailsUpdationMutation } from "../../private-mutation/component/device-details-updation.mutation";
 import { TBodyApiType } from "../../../models/api.body.model";
+import { customSetCookies } from "../../../../utils/custom-cookies/custom-cookies.util";
 
 export const useUserCheck2FAMutation = () => {
   const navigate = useNavigate();
@@ -15,18 +16,19 @@ export const useUserCheck2FAMutation = () => {
   );
   const getDeviceDetails = useDeviceDetailsMutation();
   return useMutation(
-    ({ verifyToken, token }: TBodyApiType) =>
-      userCheck2FA({ verifyToken: verifyToken, token: token } as TBodyApiType),
+    ({ deviceToken, token }: TBodyApiType) =>
+      userCheck2FA({ deviceToken: deviceToken, token: token } as TBodyApiType),
     {
-      onMutate: () => {},
       onSuccess: (data, context) => {
         if (data.Success) {
-          navigate(`/user/auth/2FA?token=${context.verifyToken}`);
+          navigate(`/user/auth/2FA?token=${context.deviceToken}`);
+          customSetCookies("userTempToken", context.token, 7);
         } else {
           localStorage.setItem("token", context.token);
-          navigate(`/user/auth/dashboard?token=${context.verifyToken}`);
+          customSetCookies("userAuthToken", context.token, 7);
+          navigate(`/user/auth/dashboard?token=${context.deviceToken}`);
           updateDeviceDetails.mutate({
-            verifyToken: context.verifyToken,
+            deviceToken: context.deviceToken,
             token: context.token,
             browserName: deviceDetails.browserName as string,
             browserVersion: deviceDetails.browserVersion as string,
@@ -39,7 +41,7 @@ export const useUserCheck2FAMutation = () => {
             latitude: deviceDetails.location.latitude as number,
           } as TBodyApiType);
           getDeviceDetails.mutate({
-            verifyToken: context.verifyToken,
+            deviceToken: context.deviceToken,
             token: context.token,
           } as TBodyApiType);
         }

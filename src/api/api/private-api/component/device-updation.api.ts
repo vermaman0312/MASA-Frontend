@@ -2,7 +2,7 @@ import { TBodyApiType } from "../../../models/api.body.model";
 import { TResponseApiType } from "../../../models/api.response.model";
 
 export const updateDeviceDetailsApi = async ({
-  verifyToken,
+  deviceToken,
   token,
   browserName,
   browserVersion,
@@ -16,7 +16,7 @@ export const updateDeviceDetailsApi = async ({
 }: TBodyApiType): Promise<TResponseApiType> => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/update/device-details?token=${verifyToken}`,
+      `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/update/device-details?token=${deviceToken}`,
       {
         method: "POST",
         headers: {

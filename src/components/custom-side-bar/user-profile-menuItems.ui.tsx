@@ -4,12 +4,14 @@ import CustomAvatar from "../custom-avatar/custom-avatar.component";
 import { DropdownMenuItem } from "../custom-menu-dropdown/custom-menu-dropdown.ui";
 import { FilePenLine, LogOut, Settings, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { customRemoveCookies } from "../../utils/custom-cookies/custom-cookies.util";
 
 const UserProfileMenuItems = () => {
   const navigate = useNavigate();
   const token = "123";
   const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
+    customRemoveCookies("userAuthToken");
     navigate("/login");
     return;
   }, [navigate]);

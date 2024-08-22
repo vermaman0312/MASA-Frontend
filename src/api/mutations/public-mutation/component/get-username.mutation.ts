@@ -12,9 +12,9 @@ export const useGetUserNameMutation = () => {
   const dispatch = useDispatch();
 
   return useMutation(
-    ({ verifyToken, ipAddress }: TBodyApiType) =>
+    ({ deviceToken, ipAddress }: TBodyApiType) =>
       getUserNamePublicApi({
-        verifyToken: verifyToken,
+        deviceToken: deviceToken,
         ipAddress: ipAddress,
       } as TBodyApiType),
     {

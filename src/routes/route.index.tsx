@@ -23,9 +23,10 @@ import PrivateAuthSettingPage from "../pages/private-pages/private-auth-setting-
 import PrivateAuthVNXTPage from "../pages/private-pages/private-auth-vnxt-page/page";
 import PrivateAuthCoursePage from "../pages/private-pages/private-auth-course-page/page";
 import PublicAuth2FAPage from "../pages/public-pages/public-auth-2FA-page/page";
+import { customGetCookies } from "../utils/custom-cookies/custom-cookies.util";
 
 const RouteIndex = () => {
-  const token = "123";
+  const { deviceToken } = customGetCookies("userAuthToken");
   return (
     <Routes>
       {/** Protected Routes */}
@@ -35,7 +36,10 @@ const RouteIndex = () => {
           <Route
             path="/"
             element={
-              <Navigate replace to={`/user/auth/dashboard?token=${token}`} />
+              <Navigate
+                replace
+                to={`/user/auth/dashboard?token=${deviceToken}`}
+              />
             }
           />
           <Route

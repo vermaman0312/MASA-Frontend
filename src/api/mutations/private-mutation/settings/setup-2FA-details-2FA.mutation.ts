@@ -11,9 +11,9 @@ import { useDispatch } from "react-redux";
 export const useDetails2FAMutation = () => {
   const dispatch = useDispatch();
   return useMutation(
-    ({ verifyToken, token }: TBodyApiType) =>
+    ({ deviceToken, token }: TBodyApiType) =>
       details2FASettingApi({
-        verifyToken: verifyToken,
+        deviceToken: deviceToken,
         token: token,
       } as TBodyApiType),
     {

@@ -94,7 +94,7 @@ const PrivateSetup2FAPasswordlessSignInPasskeyGenerateKeyPageComponent = ({
     setIsLoading(true);
     setTimeout(() => {
       mutate.mutate({
-        verifyToken: "123",
+        deviceToken: "123",
         token: localStorage.getItem("token"),
         userPassKey: newPasskey,
       } as TBodyApiType);

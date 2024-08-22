@@ -1,3 +1,4 @@
+import React from "react";
 import {
   InputOTP,
   InputOTPGroup,
@@ -6,24 +7,23 @@ import {
 } from "./custom-otp-input-field.ui";
 
 type props = {
-  setOtp?: (value: Array<string>) => void;
-  setIsOtpError?: (value: boolean) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isOtpError?: boolean;
 };
 
-const CustomOtpInputField = ({ setOtp, setIsOtpError, isOtpError }: props) => {
+const CustomOtpInputField = ({
+  onChange,
+  isOtpError,
+}: props) => {
   return (
     <div className="w-full">
       <InputOTP
         maxLength={6}
         onChange={(value) => {
-          const otpArray = value.split("");
-          if (setOtp) {
-            setOtp(otpArray);
-            if (setIsOtpError) {
-              setIsOtpError(false);
-            }
-          }
+          onChange &&
+            onChange({
+              target: { value },
+            } as React.ChangeEvent<HTMLInputElement>);
         }}
       >
         <InputOTPGroup>

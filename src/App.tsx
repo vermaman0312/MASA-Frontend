@@ -26,7 +26,7 @@ function App() {
   const deviceDetails = useDeviceDetailsMutation();
 
   useEffect(() => {
-    deviceDetails.mutate({ verifyToken: "123", token: token as string } as TBodyApiType);
+    deviceDetails.mutate({ deviceToken: "123", token: token as string } as TBodyApiType);
   }, []);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ function App() {
       dispatch(ipAddress(response.ipAddress));
       dispatch(macAddress(response.macAddress));
       getPublicUserDetails.mutate({
-        verifyToken: "123",
+        deviceToken: "123",
         ipAddress: response.ipAddress as string,
       } as TBodyApiType);
     });

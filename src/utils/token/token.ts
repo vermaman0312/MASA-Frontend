@@ -1,7 +1,9 @@
-export const authenticatedUser = () => {
-  const token = localStorage.getItem("token");
+import { customGetCookies } from "../custom-cookies/custom-cookies.util";
 
-  if (token) {
+export const authenticatedUser = () => {
+  const { userToken } = customGetCookies("userAuthToken");
+
+  if (userToken) {
     return true;
   } else {
     return false;
@@ -14,22 +16,22 @@ export const authenticatedUserRole = () => {
 };
 
 export const authenticatedLoggedInUser = () => {
-  const token = localStorage.getItem("token");
+  const { userToken } = customGetCookies("userAuthToken");
 
-  if (token) {
+  if (userToken) {
     return {
       isAuthenticated: true,
       userId: "123",
       role: "admin",
-      verifyToken: "123",
-      token: token,
+      deviceToken: "123",
+      token: userToken,
     };
   } else {
     return {
       isAuthenticated: false,
       userId: null,
       role: null,
-      verifyToken: null,
+      deviceToken: null,
       token: null,
     };
   }

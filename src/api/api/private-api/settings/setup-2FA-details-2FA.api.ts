@@ -2,12 +2,12 @@ import { TBodyApiType } from "../../../models/api.body.model";
 import { TResponseApiType } from "../../../models/api.response.model";
 
 export const details2FASettingApi = async ({
-  verifyToken,
+  deviceToken,
   token,
 }: TBodyApiType): Promise<TResponseApiType> => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/details-2FA?token=${verifyToken}`,
+      `${process.env.REACT_APP_PRIVATE_LOCAL_API_URL}user/details-2FA?token=${deviceToken}`,
       {
         method: "POST",
         headers: {

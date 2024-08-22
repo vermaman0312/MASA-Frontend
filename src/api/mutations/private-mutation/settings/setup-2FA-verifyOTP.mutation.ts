@@ -14,9 +14,9 @@ export const useVerifyOTPMutation = () => {
   const mutate = useUserIs2FASetupCompletedMutation();
 
   return useMutation(
-    ({ verifyToken, token, userOTP }: TBodyApiType) =>
+    ({ deviceToken, token, userOTP }: TBodyApiType) =>
       verifyOtpApi({
-        verifyToken: verifyToken,
+        deviceToken: deviceToken,
         token: token,
         userOTP: userOTP,
       } as TBodyApiType),
@@ -29,7 +29,7 @@ export const useVerifyOTPMutation = () => {
         if (data.Success) {
           toast(data.Message);
           mutate.mutate({
-            verifyToken: context.verifyToken,
+            deviceToken: context.deviceToken,
             token: context.token,
             userIs2FASetupCompleted: true,
           } as TBodyApiType);

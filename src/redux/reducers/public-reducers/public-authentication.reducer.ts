@@ -7,6 +7,11 @@ import {
   IS_USER_PASSWORD_ERROR,
   PUBLIC_AUTH_LOGIN_REQUEST,
   PUBLIC_AUTH_LOGIN_SUCCESS,
+  // Verify 2FA
+  PUBLIC_USER_OTP_2FA,
+  IS_PUBLIC_USER_OTP_2FA_ERROR,
+  PUBLIC_VERIFY_2FA_REQUEST,
+  PUBLIC_VERIFY_2FA_SUCCESS,
   // Check 2FA
   IS_2FA_AUTHENTICATION,
 } from "../../constants/public-constants/public-authentication.constant";
@@ -26,6 +31,14 @@ const publicAuthenticationInitialState = {
       isUserPasswordError: false,
     },
     loginState: {
+      loading: false,
+      data: null,
+    } as TStateResponseApiType,
+  },
+  verify2FA: {
+    userOTP2FA: null,
+    isUserOTP2FAError: false,
+    verifyOTP: {
       loading: false,
       data: null,
     } as TStateResponseApiType,
@@ -102,6 +115,47 @@ export const publicAuthState = (
           ...state.loginDetails,
           loginState: {
             ...state.loginDetails.loginState,
+            loading: false,
+            data: action.payload,
+          },
+        },
+      };
+    // Verify 2FA
+    case PUBLIC_USER_OTP_2FA:
+      return {
+        ...state,
+        verify2FA: {
+          ...state.verify2FA,
+          userOTP2FA: action.payload,
+        },
+      };
+    case IS_PUBLIC_USER_OTP_2FA_ERROR:
+      return {
+        ...state,
+        verify2FA: {
+          ...state.verify2FA,
+          isUserOTP2FAError: action.payload,
+        },
+      };
+    case PUBLIC_VERIFY_2FA_REQUEST:
+      return {
+        ...state,
+        verify2FA: {
+          ...state.verify2FA,
+          verifyOTP: {
+            ...state.verify2FA.verifyOTP,
+            loading: true,
+            data: null,
+          },
+        },
+      };
+    case PUBLIC_VERIFY_2FA_SUCCESS:
+      return {
+        ...state,
+        verify2FA: {
+          ...state.verify2FA,
+          verifyOTP: {
+            ...state.verify2FA.verifyOTP,
             loading: false,
             data: action.payload,
           },

@@ -13,9 +13,9 @@ export const useUserIs2FASetupCompletedMutation = () => {
   const dispatch = useDispatch();
   const mutation = useDetails2FAMutation();
   return useMutation(
-    ({ verifyToken, token, userIs2FASetupCompleted }: TBodyApiType) =>
+    ({ deviceToken, token, userIs2FASetupCompleted }: TBodyApiType) =>
       userIs2FASetupCompletedApi({
-        verifyToken: verifyToken,
+        deviceToken: deviceToken,
         token: token,
         userIs2FASetupCompleted: userIs2FASetupCompleted,
       } as TBodyApiType),
@@ -27,7 +27,7 @@ export const useUserIs2FASetupCompletedMutation = () => {
         dispatch(userIs2FASetupCompletedSuccess(data as TResponseApiType));
         if (data.Success) {
           mutation.mutate({
-            verifyToken: context.verifyToken,
+            deviceToken: context.deviceToken,
             token: context.token,
           } as TBodyApiType);
         }

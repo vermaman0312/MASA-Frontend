@@ -4,11 +4,11 @@ import { TResponseApiType } from "../../../models/api.response.model";
 export const userLoginApi = async ({
   userEmailAddress,
   userPassword,
-  verifyToken,
+  deviceToken,
 }: TBodyApiType): Promise<TResponseApiType> => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_PUBLIC_LOCAL_API_URL}user/login?token=${verifyToken}`,
+      `${process.env.REACT_APP_PUBLIC_LOCAL_API_URL}user/login?token=${deviceToken}`,
       {
         method: "POST",
         headers: {

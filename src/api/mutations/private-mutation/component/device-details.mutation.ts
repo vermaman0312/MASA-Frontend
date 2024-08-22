@@ -12,9 +12,9 @@ import { TResponseApiType } from "../../../models/api.response.model";
 export const useDeviceDetailsMutation = () => {
   const dispatch = useDispatch();
   return useMutation(
-    ({ verifyToken, token }: TBodyApiType) =>
+    ({ deviceToken, token }: TBodyApiType) =>
       getDeviceDetailsApi({
-        verifyToken: verifyToken,
+        deviceToken: deviceToken,
         token: token,
       } as TBodyApiType),
     {

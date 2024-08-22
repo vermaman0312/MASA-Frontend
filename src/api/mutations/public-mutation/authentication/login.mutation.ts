@@ -16,7 +16,7 @@ import { TResponseApiType } from "../../../models/api.response.model";
 export const useUserLoginMutation = ({
   userEmailAddress,
   userPassword,
-  verifyToken,
+  deviceToken,
 }: TBodyApiType) => {
   const dispatch = useDispatch();
   const check2FA = useUserCheck2FAMutation();
@@ -26,7 +26,7 @@ export const useUserLoginMutation = ({
       userLoginApi({
         userEmailAddress: userEmailAddress,
         userPassword: userPassword,
-        verifyToken: verifyToken,
+        deviceToken: deviceToken,
       } as TBodyApiType),
     {
       onMutate: () => {
@@ -41,7 +41,7 @@ export const useUserLoginMutation = ({
           dispatch(userLoginSuccess(data as TResponseApiType));
         } else {
           check2FA.mutate({
-            verifyToken: verifyToken,
+            deviceToken: deviceToken,
             token: data.Data,
           } as unknown as TBodyApiType);
           dispatch(userLoginSuccess(data as TResponseApiType));

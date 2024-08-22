@@ -27,6 +27,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { authenticatedUserRole } from "../../utils/token/token";
 import { menuAction } from "../../redux/actions/private-actions/private.component.action";
+import { customRemoveCookies } from "../../utils/custom-cookies/custom-cookies.util";
 
 const MobileMenuItems = () => {
   const role = authenticatedUserRole();
@@ -42,6 +43,7 @@ const MobileMenuItems = () => {
   );
   const handleLogout = useCallback(() => {
     localStorage.removeItem("token");
+    customRemoveCookies("userAuthToken");
     navigate("/login");
     return;
   }, [navigate]);

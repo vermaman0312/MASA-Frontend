@@ -22,6 +22,7 @@ import {
   GENERATE_QR_CODE_SUCCESS,
   // Verify 2FA => OTP INPUT
   USER_OTP_2FA,
+  IS_USER_OTP_2FA_ERROR,
   VERIFY_2FA_OTP_REQUEST,
   VERIFY_2FA_OTP_SUCCESS,
   // UserIs2FASetupCompleted
@@ -115,6 +116,12 @@ export const userOTP2FAAction = (userOTP: string | null) => {
   return {
     type: USER_OTP_2FA,
     payload: userOTP,
+  };
+};
+export const isUserOTP2FAErrorAction = (isUserOTP2FAError: boolean) => {
+  return {
+    type: IS_USER_OTP_2FA_ERROR,
+    payload: isUserOTP2FAError,
   };
 };
 export const verify2FAOTPRequest = () => {

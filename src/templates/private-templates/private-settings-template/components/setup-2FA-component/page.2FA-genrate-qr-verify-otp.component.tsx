@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
 import CustomOtpInputField from "../../../../../components/custom-otp-input-field/custom-otp-input-field.component";
 import { RootState } from "../../../../../redux/redux-index";
@@ -11,13 +11,18 @@ import CustomDialogBox2 from "../../../../../components/custom-dialogbox/customD
 import { useSetup2FAUpdate2FAMutation } from "../../../../../api/mutations/private-mutation/settings/setup.-2FA-update-2FA.mutation";
 import { toast } from "react-toastify";
 import { useVerifyOTPMutation } from "../../../../../api/mutations/private-mutation/settings/setup-2FA-verifyOTP.mutation";
+import {
+  isUserOTP2FAErrorAction,
+  userOTP2FAAction,
+} from "../../../../../redux/actions/private-actions/private.settings.action";
 
 const Private2FAGeneratingQRCodeVerifyOTPPageComponent = () => {
+  const dispatch = useDispatch();
   const textRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [otp, setOtp] = useState<Array<string>>();
-  const [isOtpError, setIsOtpError] = useState<boolean>(false);
-  const fullOtp = otp?.join("");
+  const otpDetails = useSelector(
+    (state: RootState) => state.privateSettingState.setup2FA.verify2FA.verify2FA
+  );
   const [isSetKeyOpen, setIsSetupKeyOpen] = useState<boolean>(false);
   const generatedData = useSelector(
     (state: RootState) =>
@@ -29,14 +34,14 @@ const Private2FAGeneratingQRCodeVerifyOTPPageComponent = () => {
   const verifyMutate = useVerifyOTPMutation();
   const handleGenerateQRCode = useCallback(() => {
     mutate.mutate({
-      verifyToken: "123",
+      deviceToken: "123",
       token: localStorage.getItem("token"),
     } as TBodyApiType);
   }, [mutate]);
 
   const handleUpdate2FA = useCallback(() => {
     update2FAMutate.mutate({
-      verifyToken: "123",
+      deviceToken: "123",
       token: localStorage.getItem("token"),
       userIs2FA: false,
     } as TBodyApiType);
@@ -56,31 +61,27 @@ const Private2FAGeneratingQRCodeVerifyOTPPageComponent = () => {
     }
   };
 
-  console.log("fullOtp", fullOtp);
-
   const handleVerifyOtp = useCallback(() => {
     setIsLoading(true);
-    if (!fullOtp) {
-      setIsOtpError(true);
+    if (!otpDetails.userOTP) {
+      dispatch(isUserOTP2FAErrorAction(true));
       setIsLoading(false);
       return;
     }
-    if (fullOtp && fullOtp?.length < 6) {
-      setIsOtpError(true);
+    if (otpDetails.userOTP && (otpDetails.userOTP as string)?.length < 6) {
+      dispatch(isUserOTP2FAErrorAction(true));
       setIsLoading(false);
       return;
     }
     setTimeout(() => {
       verifyMutate.mutate({
-        verifyToken: "123",
+        deviceToken: "123",
         token: localStorage.getItem("token"),
-        userOTP: fullOtp,
+        userOTP: otpDetails.userOTP,
       } as TBodyApiType);
       setIsLoading(false);
-      setIsOtpError(false);
-      setOtp([]);
     }, 5000);
-  }, [fullOtp, verifyMutate]);
+  }, [dispatch, otpDetails.userOTP, verifyMutate]);
 
   return (
     <div className="border w-full rounded-lg p-2 flex flex-col items-start">
@@ -153,9 +154,11 @@ const Private2FAGeneratingQRCodeVerifyOTPPageComponent = () => {
       </div>
       <div className="w-full md:w-[30%]">
         <CustomOtpInputField
-          setOtp={setOtp}
-          isOtpError={isOtpError}
-          setIsOtpError={setIsOtpError}
+          onChange={(event) => {
+            dispatch(userOTP2FAAction(event?.target.value));
+            dispatch(isUserOTP2FAErrorAction(false));
+          }}
+          isOtpError={otpDetails.isUserOTPError as boolean}
         />
       </div>
       <div className="w-full mt-5 flex items-center justify-end gap-5">

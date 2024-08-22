@@ -22,6 +22,7 @@ import {
   GENERATE_QR_CODE_SUCCESS,
   // Verify 2FA => OTP INPUT
   USER_OTP_2FA,
+  IS_USER_OTP_2FA_ERROR,
   VERIFY_2FA_OTP_REQUEST,
   VERIFY_2FA_OTP_SUCCESS,
   // UserIs2FASetupCompleted
@@ -76,6 +77,7 @@ const privateSettingStateInitialState = {
       } as TStateResponseApiType,
       verify2FA: {
         userOTP: null,
+        isUserOTPError: false,
         verifyOTP: {
           loading: false,
           data: null,
@@ -264,6 +266,20 @@ export const privateSettingState = (
             verify2FA: {
               ...state.setup2FA.verify2FA.verify2FA,
               userOTP: action.payload,
+            },
+          },
+        },
+      };
+    case IS_USER_OTP_2FA_ERROR:
+      return {
+        ...state,
+        setup2FA: {
+          ...state.setup2FA,
+          verify2FA: {
+            ...state.setup2FA.verify2FA,
+            verify2FA: {
+              ...state.setup2FA.verify2FA.verify2FA,
+              isUserOTPError: action.payload,
             },
           },
         },

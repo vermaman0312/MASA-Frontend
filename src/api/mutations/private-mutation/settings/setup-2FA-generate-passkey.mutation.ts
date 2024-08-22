@@ -8,9 +8,9 @@ export const useGeneratePasskeyMutation = () => {
   const mutate = useDetails2FAMutation();
 
   return useMutation(
-    ({ verifyToken, token, userPassKey }: TBodyApiType) =>
+    ({ deviceToken, token, userPassKey }: TBodyApiType) =>
       generatePasskeyApi({
-        verifyToken: verifyToken,
+        deviceToken: deviceToken,
         token: token,
         userPassKey: userPassKey,
       } as TBodyApiType),
@@ -19,7 +19,7 @@ export const useGeneratePasskeyMutation = () => {
       onSuccess: (data: TResponseApiType) => {
         if (data.Success) {
           mutate.mutate({
-            verifyToken: "123",
+            deviceToken: "123",
             token: localStorage.getItem("token"),
           } as TBodyApiType);
           console.log("Generated Passkey Successfully");

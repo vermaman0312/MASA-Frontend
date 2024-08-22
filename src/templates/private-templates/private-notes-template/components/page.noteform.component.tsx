@@ -1,11 +1,8 @@
-import { ArrowLeft, EllipsisVertical } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import React, { useState } from "react";
 import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
 import moment from "moment";
-import CustomMenuDropdown from "../../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
-import { DropdownMenuItem } from "../../../../components/custom-menu-dropdown/custom-menu-dropdown.ui";
 import CustomMarkDown from "../../../../components/custom-markdown/custom-markdown.component";
-import MDEditor from "@uiw/react-md-editor";
 
 type props = {
   isOpen?: boolean;

@@ -15,9 +15,9 @@ export const useSetup2FAUpdate2FAMutation = () => {
   const mutate = useGenerateQRSetup2FAMutation();
   const fetchDetails = useDetails2FAMutation();
   return useMutation(
-    ({ verifyToken, token, userIs2FA }: TBodyApiType) =>
+    ({ deviceToken, token, userIs2FA }: TBodyApiType) =>
       updateUserIs2FAApi({
-        verifyToken: verifyToken,
+        deviceToken: deviceToken,
         token: token,
         userIs2FA: userIs2FA,
       } as TBodyApiType),
@@ -29,11 +29,11 @@ export const useSetup2FAUpdate2FAMutation = () => {
         dispatch(updateUserIs2FASuccess(data));
         if (data.Success) {
           fetchDetails.mutate({
-            verifyToken: context.verifyToken,
+            deviceToken: context.deviceToken,
             token: context.token,
           } as TBodyApiType);
           mutate.mutate({
-            verifyToken: context.verifyToken,
+            deviceToken: context.deviceToken,
             token: context.token,
           } as TBodyApiType);
         }

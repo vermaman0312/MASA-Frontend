@@ -25,7 +25,7 @@ const PrivateSettingSetup2FAPageTemplate = () => {
   const update2FAMutate = useSetup2FAUpdate2FAMutation();
   useEffect(() => {
     mutate({
-      verifyToken: "123",
+      deviceToken: "123",
       token: localStorage.getItem("token"),
     } as TBodyApiType);
   }, []);
@@ -36,7 +36,7 @@ const PrivateSettingSetup2FAPageTemplate = () => {
 
   const handleUpdate2FA = useCallback(() => {
     update2FAMutate.mutate({
-      verifyToken: "123",
+      deviceToken: "123",
       token: localStorage.getItem("token"),
       userIs2FA: true,
     } as TBodyApiType);

@@ -13,6 +13,10 @@ import CustomNotificationBody from "./custom-notification-body.ui";
 import { useUserDetailsMutation } from "../../api/mutations/private-mutation/profile/user-details.mutation";
 import { TBodyApiType } from "../../api/models/api.body.model";
 import { TStateResponseApiType } from "../../api/models/api.state.response.model";
+import {
+  customGetCookies,
+  customRemoveCookies,
+} from "../../utils/custom-cookies/custom-cookies.util";
 
 type props = {
   headerChildren?: ReactNode;
@@ -21,6 +25,7 @@ type props = {
 
 const CustomSideBar = ({ headerChildren, children }: props) => {
   const navigate = useNavigate();
+  const { userToken } = customGetCookies("userAuthToken");
   const profileDetails = useUserDetailsMutation();
   const IpAddress = useSelector(
     (state: RootState) =>
@@ -31,15 +36,15 @@ const CustomSideBar = ({ headerChildren, children }: props) => {
   );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleLogout = useCallback(() => {
-    localStorage.removeItem("token");
+    customRemoveCookies("userAuthToken");
     navigate("/login");
     return;
   }, [navigate]);
 
   useEffect(() => {
     profileDetails.mutate({
-      verifyToken: "123",
-      token: localStorage.getItem("token") as string,
+      deviceToken: "123",
+      token: userToken as string,
     } as TBodyApiType);
   }, []);
 
