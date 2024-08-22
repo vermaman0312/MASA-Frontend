@@ -18,15 +18,19 @@ import ExtensionPrompt from "./components/custom-react-extension/custom-react-ex
 import { useGetUserNameMutation } from "./api/mutations/public-mutation/component/get-username.mutation";
 import { useDeviceDetailsMutation } from "./api/mutations/private-mutation/component/device-details.mutation";
 import { TBodyApiType } from "./api/models/api.body.model";
+import { customGetCookies } from "./utils/custom-cookies/custom-cookies.util";
 
 function App() {
   const dispatch = useDispatch();
   const getPublicUserDetails = useGetUserNameMutation();
-  const token = localStorage.getItem("token");
+  const { userToken, deviceToken } = customGetCookies("userAuthToken");
   const deviceDetails = useDeviceDetailsMutation();
 
   useEffect(() => {
-    deviceDetails.mutate({ deviceToken: "123", token: token as string } as TBodyApiType);
+    deviceDetails.mutate({
+      deviceToken: deviceToken,
+      token: userToken as string,
+    } as TBodyApiType);
   }, []);
 
   useEffect(() => {

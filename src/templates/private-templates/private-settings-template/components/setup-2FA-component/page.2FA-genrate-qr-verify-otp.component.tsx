@@ -15,8 +15,10 @@ import {
   isUserOTP2FAErrorAction,
   userOTP2FAAction,
 } from "../../../../../redux/actions/private-actions/private.settings.action";
+import { customGetCookies } from "../../../../../utils/custom-cookies/custom-cookies.util";
 
 const Private2FAGeneratingQRCodeVerifyOTPPageComponent = () => {
+  const { userToken, deviceToken } = customGetCookies("userAuthToken");
   const dispatch = useDispatch();
   const textRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -34,18 +36,18 @@ const Private2FAGeneratingQRCodeVerifyOTPPageComponent = () => {
   const verifyMutate = useVerifyOTPMutation();
   const handleGenerateQRCode = useCallback(() => {
     mutate.mutate({
-      deviceToken: "123",
-      token: localStorage.getItem("token"),
+      deviceToken: deviceToken,
+      token: userToken,
     } as TBodyApiType);
-  }, [mutate]);
+  }, [deviceToken, mutate, userToken]);
 
   const handleUpdate2FA = useCallback(() => {
     update2FAMutate.mutate({
-      deviceToken: "123",
-      token: localStorage.getItem("token"),
+      deviceToken: deviceToken,
+      token: userToken,
       userIs2FA: false,
     } as TBodyApiType);
-  }, [update2FAMutate]);
+  }, [deviceToken, update2FAMutate, userToken]);
 
   const handleCopy = () => {
     if (textRef.current) {
@@ -75,13 +77,13 @@ const Private2FAGeneratingQRCodeVerifyOTPPageComponent = () => {
     }
     setTimeout(() => {
       verifyMutate.mutate({
-        deviceToken: "123",
-        token: localStorage.getItem("token"),
+        deviceToken: deviceToken,
+        token: userToken,
         userOTP: otpDetails.userOTP,
       } as TBodyApiType);
       setIsLoading(false);
     }, 5000);
-  }, [dispatch, otpDetails.userOTP, verifyMutate]);
+  }, [deviceToken, dispatch, otpDetails.userOTP, userToken, verifyMutate]);
 
   return (
     <div className="border w-full rounded-lg p-2 flex flex-col items-start">
