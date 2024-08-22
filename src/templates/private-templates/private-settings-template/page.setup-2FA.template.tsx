@@ -15,20 +15,20 @@ import Private2FAGeneratingQRCodeVerifyOTPPageComponent from "./components/setup
 import Private2FAEnablePageComponent from "./components/setup-2FA-component/page.2FA-enable-2FA.component";
 import { useSetup2FAUpdate2FAMutation } from "../../../api/mutations/private-mutation/settings/setup.-2FA-update-2FA.mutation";
 import { Loader } from "lucide-react";
+import { customGetCookies } from "../../../utils/custom-cookies/custom-cookies.util";
 
 const PrivateSettingSetup2FAPageTemplate = () => {
+  const { userToken, deviceToken } = customGetCookies("userAuthToken");
   const [isPasskeyOpen, setIsPasskeyOpen] = useState<boolean>(false);
-  const newPasskey = generate2FAPasskey(
-    localStorage.getItem("token") as string
-  );
+  const newPasskey = generate2FAPasskey(userToken as string);
   const { mutate, isLoading } = useDetails2FAMutation();
   const update2FAMutate = useSetup2FAUpdate2FAMutation();
   useEffect(() => {
     mutate({
-      deviceToken: "123",
-      token: localStorage.getItem("token"),
+      deviceToken: deviceToken,
+      token: userToken,
     } as TBodyApiType);
-  }, []);
+  }, [deviceToken, mutate, userToken]);
   const details2FA = useSelector(
     (state: RootState) => state.privateSettingState.setup2FA.getDetails2FA
   );
@@ -36,11 +36,11 @@ const PrivateSettingSetup2FAPageTemplate = () => {
 
   const handleUpdate2FA = useCallback(() => {
     update2FAMutate.mutate({
-      deviceToken: "123",
-      token: localStorage.getItem("token"),
+      deviceToken: deviceToken,
+      token: userToken,
       userIs2FA: true,
     } as TBodyApiType);
-  }, [update2FAMutate]);
+  }, [deviceToken, update2FAMutate, userToken]);
 
   return isLoading ? (
     <div className="w-full h-full flex items-center justify-center">
@@ -83,6 +83,7 @@ const PrivateSettingSetup2FAPageTemplate = () => {
           />
         </div>
       )}
+      
       {data2FA?.userIs2FA && data2FA.userIs2FASetupCompleted && (
         <div>
           <PrivateSetup2FAMethodPageComponent

@@ -5,6 +5,7 @@ import { Loader } from "lucide-react";
 import { TBodyApiType } from "../../../../../api/models/api.body.model";
 import { useGeneratePasskeyMutation } from "../../../../../api/mutations/private-mutation/settings/setup-2FA-generate-passkey.mutation";
 import jsPDF from "jspdf";
+import { customGetCookies } from "../../../../../utils/custom-cookies/custom-cookies.util";
 
 type props = {
   isOpen: boolean;
@@ -23,6 +24,7 @@ const PrivateSetup2FAPasswordlessSignInPasskeyGenerateKeyPageComponent = ({
 }: props) => {
   const mutate = useGeneratePasskeyMutation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { userToken, deviceToken } = customGetCookies("userAuthToken");
 
   const downloadPDF = () => {
     const doc = new jsPDF({
@@ -94,14 +96,14 @@ const PrivateSetup2FAPasswordlessSignInPasskeyGenerateKeyPageComponent = ({
     setIsLoading(true);
     setTimeout(() => {
       mutate.mutate({
-        deviceToken: "123",
-        token: localStorage.getItem("token"),
+        deviceToken: deviceToken,
+        token: userToken,
         userPassKey: newPasskey,
       } as TBodyApiType);
       setIsLoading(false);
       setIsOpen && setIsOpen(false);
     }, 3000);
-  }, [mutate, newPasskey, setIsOpen]);
+  }, [deviceToken, mutate, newPasskey, setIsOpen, userToken]);
 
   return (
     <CustomDialogBox2
