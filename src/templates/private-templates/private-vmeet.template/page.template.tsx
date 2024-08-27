@@ -5,11 +5,7 @@ import { useRef, useState } from "react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { CustomLabel } from "../../../components/custom-label/custom-label.component";
-import CustomDialogBox2 from "../../../components/custom-dialogbox/customDialogBox2.component";
-import { Textarea } from "../../../components/custom-textarea/custom-textarea.component";
-import { CustomDatePicker } from "../../../components/custom-datepicker/custom-datepicker.component";
-import CustomTimePicker from "../../../components/custom-time-picker/custom-time-picker.component";
+import PrivateVMeetBookingCalenderFormPageComponent from "./components/booking-calender-component/page.booking-calender-form.component";
 
 interface eventType {
   id: string;
@@ -128,81 +124,23 @@ const PrivateVMeetPageTemplate = () => {
           />
         )}
 
-        <CustomDialogBox2
+        <PrivateVMeetBookingCalenderFormPageComponent
           isOpen={openForm}
           onClose={() => singleEvent && handleCancelClick(singleEvent.id)}
-          title="Booking Details"
-        >
-          <div className="w-full flex items-center justify-between gap-2">
-            <div className="w-full">
-              <CustomLabel
-                className="font-medium text-xs font-display text-[#0d1b2a]"
-                htmlFor="email"
-              >
-                From Date:
-              </CustomLabel>
-              <CustomDatePicker
-                selected={
-                  singleEvent &&
-                  new Date(singleEvent.start as string).toLocaleDateString()
-                }
-              />
-            </div>
-            <div className="w-full">
-              <CustomLabel
-                className="font-medium text-xs font-display text-[#0d1b2a]"
-                htmlFor="email"
-              >
-                To Date:
-              </CustomLabel>
-              <CustomDatePicker
-                selected={
-                  singleEvent &&
-                  new Date(singleEvent.end as string).toLocaleDateString()
-                }
-              />
-            </div>
-          </div>
-          <div className="w-full flex items-center justify-between gap-2">
-            <div className="w-full">
-              <CustomLabel
-                className="font-medium text-xs font-display text-[#0d1b2a]"
-                htmlFor="email"
-              >
-                From Time:
-              </CustomLabel>
-              <CustomTimePicker value={singleEvent?.start} />
-            </div>
-            <div className="w-full">
-              <CustomLabel
-                className="font-medium text-xs font-display text-[#0d1b2a]"
-                htmlFor="email"
-              >
-                To Time:
-              </CustomLabel>
-              <CustomTimePicker value={singleEvent?.end} />
-            </div>
-          </div>
-
-          <div className="w-full">
-            <CustomLabel
-              className="font-medium text-xs font-display text-[#0d1b2a]"
-              htmlFor="email"
-            >
-              Reason:
-            </CustomLabel>
-            <Textarea
-              className="border-2 rounded-lg p-2 text-xs font-display h-32"
-              style={{ maxHeight: "200px" }}
-            />
-          </div>
-
-          <div className="mt-5 w-full flex items-center justify-end">
-            <button className="text-xs text-white font-display bg-gray-700 p-2 w-full rounded-lg">
-              Book calender
-            </button>
-          </div>
-        </CustomDialogBox2>
+          selectedFromDate={
+            singleEvent &&
+            new Date(singleEvent.start as string).toLocaleDateString()
+          }
+          selectedToDate={
+            singleEvent &&
+            new Date(singleEvent.end as string).toLocaleDateString()
+          }
+          selectedFromTime={singleEvent?.start}
+          selectedToTime={singleEvent?.end}
+          onChangeTextArea={(event) => console.log(event?.target.value)}
+          textAreaValue={""}
+          onClick={() => alert("")}
+        />
       </div>
     </div>
   );
