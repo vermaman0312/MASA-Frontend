@@ -13,7 +13,7 @@ import PrivateAuthApplicationPage from "../pages/private-pages/private-auth-appl
 import PrivateAuthTasksheetPage from "../pages/private-pages/private-auth-tasksheet-page/page";
 import PrivateAuthFeesPaymentPage from "../pages/private-pages/private-auth-feespayment-page/page";
 import PrivateAuthOnlineExamPage from "../pages/private-pages/private-auth-onlineexam-page/page";
-import PrivateAuthOnlineMeetPage from "../pages/private-pages/private-auth-onlinemeet-page/page";
+import PrivateAuthOnlineMeetPage from "../pages/private-pages/private-auth-vmeet-page/page";
 import PrivateAuthTimeTablePage from "../pages/private-pages/private-auth-timetable-page/page";
 import PrivateAuthResultPage from "../pages/private-pages/private-auth-result-page/page";
 import PrivateAuthMessagePage from "../pages/private-pages/private-auth-message-page/page";

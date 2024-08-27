@@ -1,6 +1,7 @@
 import React from "react";
 import { CustomLabel } from "../custom-label/custom-label.component";
 import "../../css/scroll-container.css";
+import PrivateNotificationPageLayout from "../../layouts/private-layouts/private-notification-layout/page.layout";
 
 type props = {
   isOpen?: boolean;
@@ -17,7 +18,7 @@ const CustomNotificationBody = ({ isOpen, setIsOpen }: props) => {
       </div>
       <div className="w-full bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent h-[1px] mt-2" />
       <div className="w-full h-full flex flex-col items-center justify-start gap-2 scroll-container pt-2">
-        <div className="border w-full p-2 rounded-lg">Aman</div>
+        <PrivateNotificationPageLayout />
       </div>
     </div>
   ) : null;

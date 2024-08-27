@@ -1,13 +1,12 @@
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
 import { EventClickArg } from "@fullcalendar/common";
+import FullCalendar from "@fullcalendar/react";
+import { X } from "lucide-react";
+import { useRef, useState } from "react";
+import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import { useRef, useState } from "react";
-import { X } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import CustomDialogBox2 from "../../../components/custom-dialogbox/customDialogBox2.component";
-import { CustomInputField } from "../../../components/custom-input-field/custom-input-field.component";
 import { Textarea } from "../../../components/custom-textarea/custom-textarea.component";
 import { CustomDatePicker } from "../../../components/custom-datepicker/custom-datepicker.component";
 import CustomTimePicker from "../../../components/custom-time-picker/custom-time-picker.component";
@@ -20,14 +19,12 @@ interface eventType {
   url?: string;
 }
 
-const PrivateOnlineMeetPageLayout = () => {
+const PrivateVMeetPageTemplate = () => {
   const [isNewMeeting, setIsNewMeeting] = useState<boolean>(false);
   const calendarRef = useRef<FullCalendar>(null);
   const [events, setEvents] = useState<Array<eventType>>([]);
   const [openForm, setOpenForm] = useState<boolean>(false);
   const [singleEvent, setSingleEvent] = useState<eventType>();
-
-  console.log("singleEvent", singleEvent);
 
   const handleEventClick = (clickInfo: EventClickArg) => {
     clickInfo.jsEvent.preventDefault();
@@ -84,7 +81,7 @@ const PrivateOnlineMeetPageLayout = () => {
   return (
     <div className="w-full h-full">
       <div className="w-full flex items-center justify-center">
-        <div className="w-64 bg-gray-300 flex items-center justify-between p-1 rounded-lg">
+        <div className="w-[20rem] bg-gray-300 flex items-center justify-between p-1 rounded-lg">
           <button
             disabled={events.length <= 0 ? false : true}
             onClick={() => setIsNewMeeting(true)}
@@ -100,11 +97,12 @@ const PrivateOnlineMeetPageLayout = () => {
               !isNewMeeting && "bg-white"
             } text-xs font-display rounded-lg p-1`}
           >
-            Calender
+            Booking Calender
           </button>
         </div>
       </div>
-      <div className="mt-1">
+
+      <div className="w-full mt-1">
         {!isNewMeeting && (
           <FullCalendar
             ref={calendarRef}
@@ -210,4 +208,4 @@ const PrivateOnlineMeetPageLayout = () => {
   );
 };
 
-export default PrivateOnlineMeetPageLayout;
+export default PrivateVMeetPageTemplate;

@@ -8,6 +8,7 @@ import {
 } from "../../../../redux/actions/private-actions/private.component.action";
 import { TBodyApiType } from "../../../models/api.body.model";
 import { TResponseApiType } from "../../../models/api.response.model";
+import { customRemoveCookies } from "../../../../utils/custom-cookies/custom-cookies.util";
 
 export const useDeviceDetailsUpdationMutation = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ export const useDeviceDetailsUpdationMutation = () => {
           dispatch(updateDeviceDetailsSuccess(data as TResponseApiType));
         } else {
           dispatch(updateDeviceDetailsFailure(data as TResponseApiType));
+          customRemoveCookies("userAuthToken");
         }
       },
     }

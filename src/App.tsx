@@ -14,7 +14,6 @@ import {
   longitude,
   macAddress,
 } from "./redux/actions/private-actions/private.component.action";
-import ExtensionPrompt from "./components/custom-react-extension/custom-react-extension";
 import { useGetUserNameMutation } from "./api/mutations/public-mutation/component/get-username.mutation";
 import { useDeviceDetailsMutation } from "./api/mutations/private-mutation/component/device-details.mutation";
 import { TBodyApiType } from "./api/models/api.body.model";
