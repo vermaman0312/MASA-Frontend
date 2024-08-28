@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const PrivateVMeetNewMettingPageTemplate = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div className="border w-full h-full">Aman</div>;
+};
 
-export default PrivateVMeetNewMettingPageTemplate
+export default PrivateVMeetNewMettingPageTemplate;
