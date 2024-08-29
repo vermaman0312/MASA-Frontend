@@ -1,8 +1,8 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { CustomLabel } from "../custom-label/custom-label.component";
 import CustomCheckBox from "../custom-checkbox/custom-checkbox.component";
 import "../../css/scroll-container.css";
+import { CustomLabel } from "../custom-label/custom-label.component";
 
 interface valueType {
   id: string;
@@ -57,15 +57,21 @@ const CustomAutoComplete = () => {
     },
     [input]
   );
-  const handleBlur = useCallback(() => {
-    if (input.trim() !== "") {
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      const inputValue = event.currentTarget.value.trim();
+      if (inputValue === "") return;
       setValue((prevValues) => [
         ...prevValues,
-        { id: (prevValues.length + 1).toString(), value: input },
+        {
+          id: (prevValues.length + 1).toString(),
+          value: inputValue,
+        },
       ]);
-      setInput("");
+      event.currentTarget.value = "";
     }
-  }, [input]);
+  };
+
   useEffect(() => {
     const myApprovalFilteredList = data.filter((contact) =>
       Object.values(contact).some((value) =>
@@ -85,7 +91,7 @@ const CustomAutoComplete = () => {
           placeholder="Title"
           className="w-full h-10 text-gray-600 outline-none p-2 text-xs font-display rounded-lg"
           onChange={handleInputChange}
-          onBlur={handleBlur}
+          onKeyPress={handleKeyPress}
         />
         <div className="h-full p-3">
           {isOpen ? (
@@ -101,18 +107,39 @@ const CustomAutoComplete = () => {
           )}
         </div>
       </div>
-      {isOpen && (
-        <div className="absolute top-full left-0 w-full max-h-64 p-2 bg-white mt-1 rounded-lg shadow-lg transition-all z-10 scroll-container">
-          {lists.map((item, index) => {
+      {value.length > 0 && (
+        <div className="border mt-2 rounded-lg p-2 flex gap-2 line-clamp-2 break-words overflow-x-auto scroll-container">
+          {value.map((data, index) => {
             return (
               <div
                 key={index}
-                className={`${lists.length > 1 && "border-b"} p-2`}
+                className="flex rounded-full border p-1 gap-2 items-center"
               >
-                <CustomCheckBox title={item.value} />
+                <CustomLabel className="text-xs font-display font-normal whitespace-nowrap">
+                  {data.value}
+                </CustomLabel>
+                <X className="w-4 h-4" />
               </div>
             );
           })}
+        </div>
+      )}
+      {isOpen && (
+        <div>
+          {lists.length > 0 && (
+            <div className="absolute top-full left-0 w-full max-h-64 p-2 bg-white mt-1 rounded-lg shadow-lg transition-all z-10 scroll-container">
+              {lists.map((item, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={`${lists.length > 1 && "border-b"} p-2`}
+                  >
+                    <CustomCheckBox title={item.value} />
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       )}
     </div>
