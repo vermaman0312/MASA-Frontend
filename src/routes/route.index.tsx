@@ -24,6 +24,7 @@ import PrivateAuthVNXTPage from "../pages/private-pages/private-auth-vnxt-page/p
 import PrivateAuthCoursePage from "../pages/private-pages/private-auth-course-page/page";
 import PublicAuth2FAPage from "../pages/public-pages/public-auth-2FA-page/page";
 import { customGetCookies } from "../utils/custom-cookies/custom-cookies.util";
+import PrivateAuthVMeetOnlinePage from "../pages/private-pages/private-auth-vmeet-online-page/page";
 
 const RouteIndex = () => {
   const { deviceToken } = customGetCookies("userAuthToken");
@@ -78,6 +79,10 @@ const RouteIndex = () => {
           <Route
             path="/user/auth/v-meet"
             element={<PrivateAuthOnlineMeetPage />}
+          />
+          <Route
+            path="/user/auth/v-meet/online"
+            element={<PrivateAuthVMeetOnlinePage />}
           />
           <Route
             path="/user/auth/time-table"

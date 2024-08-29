@@ -5,6 +5,7 @@ import { CustomInputField } from "../../../components/custom-input-field/custom-
 import CustomDropdown from "../../../components/custom-dropdown/custom-dropdown.component";
 import CustomAutoComplete from "../../../components/custom-autocomplete/custom-autocomplete.component";
 import { Loader } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface newMeetingType {
   userName: string;
@@ -48,6 +49,7 @@ const data = [
 ];
 
 const PrivateVMeetNewMettingPageTemplate = () => {
+  const navigate = useNavigate();
   const [isNewMeeting, setIsNewMeeting] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isJoining, setIsJoining] = useState<boolean>(false);
@@ -155,19 +157,35 @@ const PrivateVMeetNewMettingPageTemplate = () => {
           ) : (
             <div className="mt-5">
               <div className="mt-3">
-                <CustomInputField placeholder="Meeting Id" value="" />
-              </div>
-              <div className="mt-3">
-                <CustomInputField placeholder="Enter your name" value="" />
+                <CustomInputField
+                  type="text"
+                  placeholder="Meeting Id"
+                  value=""
+                />
               </div>
               <div className="mt-3">
                 <CustomInputField
+                  type="text"
+                  placeholder="Enter your name"
+                  value=""
+                />
+              </div>
+              <div className="mt-3">
+                <CustomInputField
+                  type="password"
                   placeholder="Enter meeting password"
                   value=""
                 />
               </div>
               <div className="mt-3">
-                <button className="bg-gray-900 w-full p-2 text-white rounded-lg text-xs font-display h-10 flex items-center justify-center">
+                <button
+                  onClick={() =>
+                    navigate(
+                      "/user/auth/v-meet/online?meetingId=abc123?token=123"
+                    )
+                  }
+                  className="bg-gray-900 w-full p-2 text-white rounded-lg text-xs font-display h-10 flex items-center justify-center"
+                >
                   Join meeting
                 </button>
               </div>

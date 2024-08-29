@@ -4,7 +4,7 @@ import { Radio } from "lucide-react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import "../../../css/scroll-container.css";
 
-const PrivateAuthOnlineMeetPage = () => {
+const PrivateAuthVMeetPage = () => {
   return (
     <CustomSideBar
       headerChildren={
@@ -26,4 +26,4 @@ const PrivateAuthOnlineMeetPage = () => {
   );
 };
 
-export default PrivateAuthOnlineMeetPage;
+export default PrivateAuthVMeetPage;
