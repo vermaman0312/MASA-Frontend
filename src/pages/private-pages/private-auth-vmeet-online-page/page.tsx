@@ -27,6 +27,12 @@ import { CustomDialogBox } from "../../../components/custom-dialogbox/custom.dia
 import CustomMenuDropdown from "../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
 import { DropdownMenuItem } from "../../../components/custom-menu-dropdown/custom-menu-dropdown.ui";
 import AudioVisualizer from "../../../components/custom-voice-recognition-animation/custom-voice-recognition-animation.component";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "../../../components/custom-context-menu/custom-context-menu.ui";
 
 const PrivateAuthVMeetOnlinePage = () => {
   const navigate = useNavigate();
@@ -467,88 +473,115 @@ const PrivateAuthVMeetOnlinePage = () => {
         </div>
 
         <div className="p-4 w-full h-full flex flex-col gap-2">
-          <div className="w-full flex items-center justify-between">
-            <div className="flex items-center">
-              <div className="flex-shrink-0 w-10 h-10">
-                <img
-                  className="w-full h-full rounded-lg"
-                  src={`https://randomuser.me/api/portraits/women/2.jpg`}
-                  alt=""
-                />
-              </div>
-              <div className="ml-3">
-                <p className="text-[#D1D5DB] whitespace-no-wrap font-display font-normal text-lg">
-                  {`Rina Jonson`}
-                </p>
-                <p className="text-[#6B7280] whitespace-no-wrap font-display font-normal text-md">
-                  {`HOD`}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="bg-[#2D8CFF] bg-opacity-10 flex items-center justify-center p-1 px-4 rounded-xl border-2 border-[#2D8CFF] border-opacity-10">
-                <CustomLabel className="text-xs font-display text-[#2D8CFF] font-light">
-                  HOST
-                </CustomLabel>
-              </div>
-              <div>
-                {isMicOn ? (
-                  <Mic className="text-white" />
-                ) : (
-                  <MicOff className="text-[#9CA3AF]" />
-                )}
-              </div>
-              <div>
-                {isCameraOn ? (
-                  <Video className="text-white" />
-                ) : (
-                  <VideoOff className="text-[#9CA3AF]" />
-                )}
-              </div>
-            </div>
+          <div>
+            <ContextMenu>
+              <ContextMenuTrigger className="w-full flex items-center justify-between gap-2 rounded-xl cursor-pointer">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 w-10 h-10">
+                    <img
+                      className="w-full h-full rounded-lg"
+                      src={`https://randomuser.me/api/portraits/women/2.jpg`}
+                      alt=""
+                    />
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-[#D1D5DB] whitespace-no-wrap font-display font-normal text-lg">
+                      {`Rina Jonson`}
+                    </p>
+                    <p className="text-[#6B7280] whitespace-no-wrap font-display font-normal text-md">
+                      {`HOD`}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="bg-[#2D8CFF] bg-opacity-10 flex items-center justify-center p-1 px-4 rounded-xl border-2 border-[#2D8CFF] border-opacity-10">
+                    <CustomLabel className="text-xs font-display text-[#2D8CFF] font-light">
+                      HOST
+                    </CustomLabel>
+                  </div>
+                  <div>
+                    {isMicOn ? (
+                      <Mic className="text-white" />
+                    ) : (
+                      <MicOff className="text-[#9CA3AF]" />
+                    )}
+                  </div>
+                  <div>
+                    {isCameraOn ? (
+                      <Video className="text-white" />
+                    ) : (
+                      <VideoOff className="text-[#9CA3AF]" />
+                    )}
+                  </div>
+                </div>
+              </ContextMenuTrigger>
+              <ContextMenuContent className="w-[5rem] hover:border-none focus:border-none">
+                <ContextMenuItem
+                  inset
+                  className="w-full flex items-center justify-between"
+                >
+                  <CustomLabel className="text-xs font-display text-gray-500 cursor-pointer">
+                    See Profile
+                  </CustomLabel>
+                </ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
           </div>
 
-          <div className="w-full flex items-center justify-between">
-            <div className="flex items-center">
-              <div className="flex-shrink-0 w-10 h-10">
-                <img
-                  className="w-full h-full rounded-lg"
-                  src={`https://randomuser.me/api/portraits/women/3.jpg`}
-                  alt=""
-                />
-              </div>
-              <div className="ml-3">
-                <p className="text-[#D1D5DB] whitespace-no-wrap font-display font-normal text-lg">
-                  {`Jenny Ferr`}
-                </p>
-                <p className="text-[#6B7280] whitespace-no-wrap font-display font-normal text-md">
-                  {`HOD`}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="bg-[#2D8CFF] bg-opacity-10 flex items-center justify-center p-1 px-4 rounded-xl border-2 border-[#2D8CFF] border-opacity-10">
-                <CustomLabel className="text-xs font-display text-[#2D8CFF] font-light">
-                  CO-HOST
-                </CustomLabel>
-              </div>
-              <div>
-                {isMicOn ? (
-                  <Mic className="text-white" />
-                ) : (
-                  <MicOff className="text-[#9CA3AF]" />
-                )}
-              </div>
-              <div>
-                {isCameraOn ? (
-                  <Video className="text-white" />
-                ) : (
-                  <VideoOff className="text-[#9CA3AF]" />
-                )}
-              </div>
-            </div>
+          <div>
+            <ContextMenu>
+              <ContextMenuTrigger className="w-full flex items-center justify-between gap-2 rounded-xl cursor-pointer">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 w-10 h-10">
+                    <img
+                      className="w-full h-full rounded-lg"
+                      src={`https://randomuser.me/api/portraits/women/2.jpg`}
+                      alt=""
+                    />
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-[#D1D5DB] whitespace-no-wrap font-display font-normal text-lg">
+                      {`Jenny Ferr`}
+                    </p>
+                    <p className="text-[#6B7280] whitespace-no-wrap font-display font-normal text-md">
+                      {`Assistant Professor`}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="bg-[#2D8CFF] bg-opacity-10 flex items-center justify-center p-1 px-4 rounded-xl border-2 border-[#2D8CFF] border-opacity-10">
+                    <CustomLabel className="text-xs font-display text-[#2D8CFF] font-light">
+                      CO-HOST
+                    </CustomLabel>
+                  </div>
+                  <div>
+                    {isMicOn ? (
+                      <Mic className="text-white" />
+                    ) : (
+                      <MicOff className="text-[#9CA3AF]" />
+                    )}
+                  </div>
+                  <div>
+                    {isCameraOn ? (
+                      <Video className="text-white" />
+                    ) : (
+                      <VideoOff className="text-[#9CA3AF]" />
+                    )}
+                  </div>
+                </div>
+              </ContextMenuTrigger>
+              <ContextMenuContent className="w-[5rem] hover:border-none focus:border-none">
+                <ContextMenuItem
+                  inset
+                  className="w-full flex items-center justify-between"
+                >
+                  <CustomLabel className="text-xs font-display text-gray-500 cursor-pointer">
+                    See Profile
+                  </CustomLabel>
+                </ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
           </div>
-
         </div>
       </div>
 
