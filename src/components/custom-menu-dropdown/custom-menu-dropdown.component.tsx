@@ -15,6 +15,9 @@ type props = {
   marginLeft?: string;
   marginRight?: string;
   disabled?: boolean;
+  backgroundColor?: string;
+  textColor?: string;
+  border?: string;
 };
 
 const CustomMenuDropdown = ({
@@ -26,6 +29,9 @@ const CustomMenuDropdown = ({
   marginLeft,
   marginRight,
   disabled,
+  backgroundColor,
+  textColor,
+  border,
 }: props) => {
   return (
     <DropdownMenu>
@@ -33,7 +39,9 @@ const CustomMenuDropdown = ({
         <button className={className}>{buttonComponent}</button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className={`${width} ${marginRight} ${marginLeft} ${marginTop} z-50 text-[#0d1b2a] rounded-xl`}
+        className={`${width} ${marginRight} ${marginLeft} ${marginTop} z-50 ${
+          textColor ? textColor : "text-[#0d1b2a]"
+        } ${backgroundColor && backgroundColor} ${border && border} rounded-xl`}
       >
         <DropdownMenuGroup>{children}</DropdownMenuGroup>
       </DropdownMenuContent>

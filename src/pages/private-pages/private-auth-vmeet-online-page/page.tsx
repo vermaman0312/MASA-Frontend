@@ -4,10 +4,13 @@ import {
   Disc,
   EllipsisVertical,
   Hand,
+  LayoutPanelLeft,
+  MessageCircleMore,
   Mic,
   MicOff,
   ShieldCheck,
   SmilePlus,
+  UsersRound,
   Video,
   VideoOff,
   Volume,
@@ -15,15 +18,20 @@ import {
   Volume2,
   VolumeX,
 } from "lucide-react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { CustomLabel } from "../../../components/custom-label/custom-label.component";
 import CustomVMeetLoader from "../../../components/custom-loader/custom-vmeet-loader";
 import CustomNewtworkCheck from "../../../components/custom-network-check/custom-network-check.component";
 import { useNavigate } from "react-router-dom";
 import { CustomDialogBox } from "../../../components/custom-dialogbox/custom.dialogBox.component";
+import CustomMenuDropdown from "../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
+import { DropdownMenuItem } from "../../../components/custom-menu-dropdown/custom-menu-dropdown.ui";
+import AudioVisualizer from "../../../components/custom-voice-recognition-animation/custom-voice-recognition-animation.component";
 
 const PrivateAuthVMeetOnlinePage = () => {
   const navigate = useNavigate();
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [stream, setStream] = useState<MediaStream | null>(null);
   const [pageLoading, setPageLoading] = useState<boolean>(true);
   const [rangeValue, setRangeValue] = useState<number>(50);
   const [isSlowNetwork, setIsSlowNetwork] = useState<boolean>(false);
@@ -34,6 +42,7 @@ const PrivateAuthVMeetOnlinePage = () => {
   const [isScreenShareOn, setIsScreenShareOn] = useState<boolean>(false);
   const [isHandsUp, setIsHandsUp] = useState<boolean>(false);
   const [isEmojiOpen, setIsEmojiOpen] = useState<boolean>(false);
+  const [menuOptions, setMenuOptions] = useState<string>("participants");
 
   const handleChangeRange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,6 +87,33 @@ const PrivateAuthVMeetOnlinePage = () => {
     };
   }, []);
 
+  //==========================Screen sharing video
+  const startScreenShare = async () => {
+    try {
+      // Request screen capture
+      const capturedStream = await navigator.mediaDevices.getDisplayMedia({
+        video: true,
+      });
+      setStream(capturedStream);
+    } catch (error) {
+      console.error("Error capturing screen:", error);
+    }
+  };
+
+  const stopScreenShare = () => {
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+      setStream(null);
+    }
+  };
+
+  useEffect(() => {
+    if (videoRef.current && stream) {
+      videoRef.current.srcObject = stream;
+    }
+  }, [stream]);
+  //==========================
+
   if (pageLoading) {
     return <CustomVMeetLoader />;
   }
@@ -90,24 +126,34 @@ const PrivateAuthVMeetOnlinePage = () => {
             <ShieldCheck className="text-[#9CA3AF]" />
           </div>
 
-          <div className="w-full h-full rounded-xl"></div>
+          <div className="w-full h-full rounded-xl">
+            {isMicOn && <AudioVisualizer height="h-8" isMicOn={isMicOn} />}
+          </div>
 
-          {isRecordingOn && (
-            <div>
+          <div className="flex items-center gap-5">
+            {isHandsUp && (
+              <div>
+                <Hand className="text-[#9CA3AF]" />
+              </div>
+            )}
+            {isRecordingOn && (
               <button className="flex items-center justify-center gap-2 border-2 border-[#374151] border-opacity-50 p-2 w-32 bg-[#374151] bg-opacity-50 rounded-xl">
                 <Disc className="w-4 h-4 text-red-500 font-bold animate-pulse" />
                 <CustomLabel className="text-[#9CA3AF] font-display font-normal">
                   13:50:00
                 </CustomLabel>
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <CustomLabel className="text-white font-display text-4xl">
-            Main Container
-          </CustomLabel>
+        <div className="w-full flex items-center justify-center gap-2">
+          <video
+            ref={videoRef}
+            className="border-2 border-[#374151] border-opacity-50 p-1 rounded-xl md:w-[85rem]"
+            autoPlay
+            playsInline
+          />
         </div>
 
         <div className="w-full border-t-2 border-[#374151] border-opacity-50 bg-[#1F2937] bg-opacity-50 p-4 flex items-center justify-between gap-2 flex-wrap">
@@ -135,7 +181,109 @@ const PrivateAuthVMeetOnlinePage = () => {
             </div>
 
             <div className="md:hidden">
-              <EllipsisVertical className="text-[#9CA3AF] cursor-pointer" />
+              <CustomMenuDropdown
+                buttonComponent={
+                  <EllipsisVertical className="text-[#9CA3AF] cursor-pointer" />
+                }
+                marginRight="mr-6"
+                backgroundColor="bg-[#374151] bg-opacity-50"
+                border="border-2 border-[#374151] border-opacity-50"
+                textColor="text-white"
+              >
+                <DropdownMenuItem
+                  onClick={() => setIsMicOn((prev) => !prev)}
+                  className="hover:bg-gray-100 cursor-pointer"
+                >
+                  {isMicOn ? (
+                    <Mic className="text-white mr-2 h-4 w-4" />
+                  ) : (
+                    <MicOff className="text-[#9CA3AF] mr-2 h-4 w-4" />
+                  )}
+                  <span
+                    className={`font-display text-xs ${
+                      isMicOn ? "text-white" : "text-[#9CA3AF]"
+                    }`}
+                  >
+                    {isMicOn ? "Mute mic" : "Unmute mic"}
+                  </span>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() => setIsCameraOn((prev) => !prev)}
+                  className="hover:bg-gray-100 cursor-pointer"
+                >
+                  {isCameraOn ? (
+                    <Video className="text-white mr-2 h-4 w-4" />
+                  ) : (
+                    <VideoOff className="text-[#9CA3AF] mr-2 h-4 w-4" />
+                  )}
+                  <span
+                    className={`font-display text-xs ${
+                      isCameraOn ? "text-white" : "text-[#9CA3AF]"
+                    }`}
+                  >
+                    {isCameraOn ? "Turn of camera" : "Turn on camera"}
+                  </span>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() => setIsRecordingOn((prev) => !prev)}
+                  className="hover:bg-gray-100 cursor-pointer"
+                >
+                  <Disc
+                    className={`${
+                      isRecordingOn
+                        ? "text-red-500 animate-pulse"
+                        : "text-[#9CA3AF]"
+                    } mr-2 h-4 w-4`}
+                  />
+                  <span
+                    className={`font-display text-xs ${
+                      isRecordingOn ? "text-white" : "text-[#9CA3AF]"
+                    }`}
+                  >
+                    {isRecordingOn ? "Stop recording" : "Start recording"}
+                  </span>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() => setIsScreenShareOn((prev) => !prev)}
+                  className="hover:bg-gray-100 cursor-pointer"
+                >
+                  <Cast
+                    className={`${
+                      isScreenShareOn ? "text-white" : "text-[#9CA3AF]"
+                    } mr-2 h-4 w-4`}
+                  />
+                  <span
+                    className={`font-display text-xs ${
+                      isScreenShareOn ? "text-white" : "text-[#9CA3AF]"
+                    }`}
+                  >
+                    {isScreenShareOn
+                      ? "Stop share screen"
+                      : "Start share screen"}
+                  </span>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem
+                  onClick={() => setIsHandsUp((prev) => !prev)}
+                  className="hover:bg-gray-100 cursor-pointer"
+                >
+                  <Hand
+                    className={`${
+                      isHandsUp ? "text-white" : "text-[#9CA3AF]"
+                    } mr-2 h-4 w-4`}
+                  />
+                  <span
+                    className={`font-display text-xs ${
+                      isHandsUp ? "text-white" : "text-[#9CA3AF]"
+                    }`}
+                  >
+                    {isHandsUp ? "Hands down" : "Hands up"}
+                  </span>
+                </DropdownMenuItem>
+              </CustomMenuDropdown>
             </div>
           </div>
 
@@ -193,7 +341,10 @@ const PrivateAuthVMeetOnlinePage = () => {
             </div>
 
             <div
-              onClick={() => setIsScreenShareOn((prev) => !prev)}
+              onClick={() => {
+                setIsScreenShareOn((prev) => !prev);
+                startScreenShare();
+              }}
               className={`border-2 ${
                 isScreenShareOn
                   ? "border-[#2D8CFF] border-opacity-50 bg-[#2D8CFF]"
@@ -213,17 +364,35 @@ const PrivateAuthVMeetOnlinePage = () => {
             </div>
 
             <div
-              className={`border-2 border-[#374151] border-opacity-50 bg-[#374151] bg-opacity-50 flex items-center justify-center gap-2 p-2 rounded-xl cursor-pointer`}
+              onClick={() => setIsHandsUp((prev) => !prev)}
+              className={`border-2 ${
+                isHandsUp
+                  ? "border-[#2D8CFF] border-opacity-50 bg-[#2D8CFF]"
+                  : "border-[#374151] border-opacity-50 bg-[#374151] bg-opacity-50"
+              } flex items-center justify-center gap-2 p-2 rounded-xl cursor-pointer`}
             >
-              <Hand className="text-[#9CA3AF]" />
-              <ChevronUp className="text-[#9CA3AF]" />
+              <Hand
+                className={`${isHandsUp ? "text-white" : "text-[#9CA3AF]"}`}
+              />
+              <ChevronUp
+                className={`${isHandsUp ? "text-white" : "text-[#9CA3AF]"}`}
+              />
             </div>
 
             <div
-              className={`border-2 border-[#374151] border-opacity-50 bg-[#374151] bg-opacity-50 flex items-center justify-center gap-2 p-2 rounded-xl cursor-pointer`}
+              onClick={() => setIsEmojiOpen((prev) => !prev)}
+              className={`border-2 ${
+                isEmojiOpen
+                  ? "border-[#2D8CFF] border-opacity-50 bg-[#2D8CFF]"
+                  : "border-[#374151] border-opacity-50 bg-[#374151] bg-opacity-50"
+              } flex items-center justify-center gap-2 p-2 rounded-xl cursor-pointer`}
             >
-              <SmilePlus className="text-[#9CA3AF]" />
-              <ChevronUp className="text-[#9CA3AF]" />
+              <SmilePlus
+                className={`${isEmojiOpen ? "text-white" : "text-[#9CA3AF]"}`}
+              />
+              <ChevronUp
+                className={`${isEmojiOpen ? "text-white" : "text-[#9CA3AF]"}`}
+              />
             </div>
           </div>
 
@@ -238,7 +407,65 @@ const PrivateAuthVMeetOnlinePage = () => {
         </div>
       </div>
 
-      <div className="hidden md:flex w-[30%] h-full"></div>
+      <div className="hidden md:flex w-[30%] h-full flex-col">
+        <div className="w-full p-4">
+          <div className="bg-[#374151] bg-opacity-50 flex items-center justify-between p-1 rounded-xl">
+            <button
+              onClick={() => setMenuOptions("participants")}
+              className={`w-full ${
+                menuOptions === "participants"
+                  ? "bg-[#2D8CFF] text-white"
+                  : "text-[#9CA3AF]"
+              } p-2 flex items-center justify-center gap-2 rounded-xl`}
+            >
+              <UsersRound className="w-4 h-4" />
+              <CustomLabel
+                className={`text-xs font-display ${
+                  menuOptions === "participants"
+                    ? "text-white"
+                    : "text-[#9CA3AF]"
+                } font-normal cursor-pointer`}
+              >
+                Participants
+              </CustomLabel>
+            </button>
+            <button
+              onClick={() => setMenuOptions("apps")}
+              className={`w-full ${
+                menuOptions === "apps"
+                  ? "bg-[#2D8CFF] text-white"
+                  : "text-[#9CA3AF]"
+              } p-2 flex items-center justify-center gap-2 rounded-xl`}
+            >
+              <LayoutPanelLeft className="w-4 h-4" />
+              <CustomLabel
+                className={`text-xs font-display ${
+                  menuOptions === "apps" ? "text-white" : "text-[#9CA3AF]"
+                } font-normal cursor-pointer`}
+              >
+                Apps
+              </CustomLabel>
+            </button>
+            <button
+              onClick={() => setMenuOptions("chat")}
+              className={`w-full ${
+                menuOptions === "chat"
+                  ? "bg-[#2D8CFF] text-white"
+                  : "text-[#9CA3AF]"
+              } p-2 flex items-center justify-center gap-2 rounded-xl`}
+            >
+              <MessageCircleMore className="w-4 h-4" />
+              <CustomLabel
+                className={`text-xs font-display ${
+                  menuOptions === "chat" ? "text-white" : "text-[#9CA3AF]"
+                } font-normal cursor-pointer`}
+              >
+                Chat
+              </CustomLabel>
+            </button>
+          </div>
+        </div>
+      </div>
 
       {isSlowNetwork && <CustomNewtworkCheck />}
 
