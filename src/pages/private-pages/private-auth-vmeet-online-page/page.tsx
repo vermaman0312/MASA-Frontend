@@ -148,12 +148,12 @@ const PrivateAuthVMeetOnlinePage = () => {
         </div>
 
         <div className="w-full flex items-center justify-center gap-2">
-          <video
+          {/* <video
             ref={videoRef}
             className="border-2 border-[#374151] border-opacity-50 p-1 rounded-xl md:w-[85rem]"
             autoPlay
             playsInline
-          />
+          /> */}
         </div>
 
         <div className="w-full border-t-2 border-[#374151] border-opacity-50 bg-[#1F2937] bg-opacity-50 p-4 flex items-center justify-between gap-2 flex-wrap">
@@ -407,9 +407,9 @@ const PrivateAuthVMeetOnlinePage = () => {
         </div>
       </div>
 
-      <div className="hidden md:flex w-[30%] h-full flex-col">
-        <div className="w-full p-4">
-          <div className="bg-[#374151] bg-opacity-50 flex items-center justify-between p-1 rounded-xl">
+      <div className="hidden md:flex w-[30%] h-full flex-col bg-[#1F2937] bg-opacity-50">
+        <div className="w-full border-b-2 border-[#374151] border-opacity-50 p-3.5 flex items-center justify-center gap-4">
+          <div className="bg-[#374151] bg-opacity-50 flex items-center justify-between p-1 rounded-xl w-full">
             <button
               onClick={() => setMenuOptions("participants")}
               className={`w-full ${
@@ -465,9 +465,94 @@ const PrivateAuthVMeetOnlinePage = () => {
             </button>
           </div>
         </div>
+
+        <div className="p-4 w-full h-full flex flex-col gap-2">
+          <div className="w-full flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="flex-shrink-0 w-10 h-10">
+                <img
+                  className="w-full h-full rounded-lg"
+                  src={`https://randomuser.me/api/portraits/women/2.jpg`}
+                  alt=""
+                />
+              </div>
+              <div className="ml-3">
+                <p className="text-[#D1D5DB] whitespace-no-wrap font-display font-normal text-lg">
+                  {`Rina Jonson`}
+                </p>
+                <p className="text-[#6B7280] whitespace-no-wrap font-display font-normal text-md">
+                  {`HOD`}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="bg-[#2D8CFF] bg-opacity-10 flex items-center justify-center p-1 px-4 rounded-xl border-2 border-[#2D8CFF] border-opacity-10">
+                <CustomLabel className="text-xs font-display text-[#2D8CFF] font-light">
+                  HOST
+                </CustomLabel>
+              </div>
+              <div>
+                {isMicOn ? (
+                  <Mic className="text-white" />
+                ) : (
+                  <MicOff className="text-[#9CA3AF]" />
+                )}
+              </div>
+              <div>
+                {isCameraOn ? (
+                  <Video className="text-white" />
+                ) : (
+                  <VideoOff className="text-[#9CA3AF]" />
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="flex-shrink-0 w-10 h-10">
+                <img
+                  className="w-full h-full rounded-lg"
+                  src={`https://randomuser.me/api/portraits/women/3.jpg`}
+                  alt=""
+                />
+              </div>
+              <div className="ml-3">
+                <p className="text-[#D1D5DB] whitespace-no-wrap font-display font-normal text-lg">
+                  {`Jenny Ferr`}
+                </p>
+                <p className="text-[#6B7280] whitespace-no-wrap font-display font-normal text-md">
+                  {`HOD`}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="bg-[#2D8CFF] bg-opacity-10 flex items-center justify-center p-1 px-4 rounded-xl border-2 border-[#2D8CFF] border-opacity-10">
+                <CustomLabel className="text-xs font-display text-[#2D8CFF] font-light">
+                  CO-HOST
+                </CustomLabel>
+              </div>
+              <div>
+                {isMicOn ? (
+                  <Mic className="text-white" />
+                ) : (
+                  <MicOff className="text-[#9CA3AF]" />
+                )}
+              </div>
+              <div>
+                {isCameraOn ? (
+                  <Video className="text-white" />
+                ) : (
+                  <VideoOff className="text-[#9CA3AF]" />
+                )}
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
-      {isSlowNetwork && <CustomNewtworkCheck />}
+      {/* {isSlowNetwork && <CustomNewtworkCheck />} */}
 
       <CustomDialogBox
         isOpen={isClose}
