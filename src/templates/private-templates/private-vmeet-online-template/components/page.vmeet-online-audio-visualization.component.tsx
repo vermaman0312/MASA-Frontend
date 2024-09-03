@@ -22,7 +22,10 @@ type props = {
   isMicOn: boolean;
 };
 
-const AudioVisualizer = ({ height, isMicOn }: props) => {
+const PrivateVMeetOnlineAudioVisualizationPageComponent = ({
+  height,
+  isMicOn,
+}: props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
@@ -190,4 +193,4 @@ const AudioVisualizer = ({ height, isMicOn }: props) => {
   ) : null;
 };
 
-export default AudioVisualizer;
+export default PrivateVMeetOnlineAudioVisualizationPageComponent;
