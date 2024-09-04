@@ -1,12 +1,11 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import PrivateVMeetOnlineMainHeaderPageComponent from "./components/page.vmeeting-online-main-header.component";
 import PrivateVMeetOnlineScreeSharingVideoPageComponent from "./components/page.vmeet-online-screensharing-video.component";
 import PrivateVMeetOnlineMainFooterPageComponent from "./components/page.vmeet-online.main-footer.component";
 import PrivateVMeetOnlineSideOptionHeaderPageComponent from "./components/page.vmeet-online-side-option-header.component";
-import PrivateVMeetOnlineSideOptionSubHeaderPageComponent from "./components/page.vmeet-online-side-option-subheader.component";
-import PrivateVMeetOnlineSideOptionUsersOptionsPageComponent from "./components/page.vmeet-online-side-option-users-option.component";
-import PrivateVMeetOnlineUserListDetailsPageComponent from "./components/page.vmeet-online-user-list-details.component";
 import { getMediaStreams } from "../../../utils/media-utils/get-media.utils";
+import PrivateVMeetOnlineParticipantsPageComponent from "./components/page.vmeet-online-participants.component";
+import PrivateVMeetOnlineAppsPageComponent from "./components/page.vmeet-online-apps.component";
 
 type StreamWebCamState = {
   video: MediaStream | null;
@@ -40,6 +39,8 @@ type props = {
   setMenuOptions: (menuOptions: string) => void;
   isGridView: boolean;
   setIsGridView: (isGridView: boolean) => void;
+  isInviteOpen: boolean;
+  setIsInviteOpen: (value: boolean) => void;
 };
 
 const PrivateVMeetOnlinePageTemplate = ({
@@ -69,6 +70,8 @@ const PrivateVMeetOnlinePageTemplate = ({
   setMenuOptions,
   isGridView,
   setIsGridView,
+  isInviteOpen,
+  setIsInviteOpen,
 }: props) => {
   const getMedia = useCallback(async () => {
     const { audio, video } = await getMediaStreams();
@@ -182,10 +185,12 @@ const PrivateVMeetOnlinePageTemplate = ({
           />
         </div>
         <div className="w-full">
-          <PrivateVMeetOnlineScreeSharingVideoPageComponent
-            videoRef={videoScreenRef}
-            stream={streamScreen}
-          />
+          {isScreenShareOn ? (
+            <PrivateVMeetOnlineScreeSharingVideoPageComponent
+              videoRef={videoScreenRef}
+              stream={streamScreen}
+            />
+          ) : null}
         </div>
         <div className="w-full">
           <PrivateVMeetOnlineMainFooterPageComponent
@@ -220,47 +225,24 @@ const PrivateVMeetOnlinePageTemplate = ({
             onClickChat={() => handleOnClickHeaderOption("chat")}
           />
         </div>
-        <div className="p-4 w-full h-full flex flex-col gap-2">
-          <div>
-            <PrivateVMeetOnlineSideOptionSubHeaderPageComponent
+
+        <div className="w-full">
+          {menuOptions === "chat" ? null : menuOptions === "apps" ? (
+            <PrivateVMeetOnlineAppsPageComponent />
+          ) : (
+            <PrivateVMeetOnlineParticipantsPageComponent
               isGridView={isGridView}
               onClickGridView={() => setIsGridView(true)}
               onClickListView={() => setIsGridView(false)}
-            />
-          </div>
-
-          <div>
-            <PrivateVMeetOnlineSideOptionUsersOptionsPageComponent />
-          </div>
-
-          <div className="mt-3 flex flex-col gap-2">
-            <PrivateVMeetOnlineUserListDetailsPageComponent
+              onClickInvite={() => setIsInviteOpen(true)}
+              isOpen={isInviteOpen}
+              setIsOpen={setIsInviteOpen}
               isMicOn={isMicOn}
               isCameraOn={isCameraOn}
-              userName="Jenny Ferr"
-              userProfileImageVideo="https://randomuser.me/api/portraits/women/2.jpg"
-              isRole="HOST"
               videoCamRef={videoCamRef}
               streamWebCam={streamWebCam}
-              onClickMakeHost={() => alert("Host")}
-              onClickMakeCoHost={() => alert("Co-host")}
-              onClickMic={() => alert("Mic on")}
-              onClickKick={() => alert("Kick")}
             />
-            <PrivateVMeetOnlineUserListDetailsPageComponent
-              isMicOn={isMicOn}
-              isCameraOn={isCameraOn}
-              userName="Jenny Ferr"
-              userProfileImageVideo="https://randomuser.me/api/portraits/women/18.jpg"
-              isRole="CO-HOST"
-              videoCamRef={videoCamRef}
-              streamWebCam={streamWebCam}
-              onClickMakeHost={() => alert("Host")}
-              onClickMakeCoHost={() => alert("Co-host")}
-              onClickMic={() => alert("Mic on")}
-              onClickKick={() => alert("Kick")}
-            />
-          </div>
+          )}
         </div>
       </div>
     </div>

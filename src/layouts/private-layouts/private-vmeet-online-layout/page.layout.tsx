@@ -11,8 +11,12 @@ type StreamWebCamState = {
 const PrivateVMeetOnlinePageLayout = () => {
   const videoScreenRef = useRef<HTMLVideoElement | null>(null);
   const videoCamRef = useRef<HTMLVideoElement | null>(null);
-  const [streamScreen, setStreamScreen] = useState<StreamWebCamState | null>(null);
-  const [streamWebCam, setStreamWebCam] = useState<StreamWebCamState | null>(null);
+  const [streamScreen, setStreamScreen] = useState<StreamWebCamState | null>(
+    null
+  );
+  const [streamWebCam, setStreamWebCam] = useState<StreamWebCamState | null>(
+    null
+  );
   const [pageLoading, setPageLoading] = useState<boolean>(true);
   const [rangeValue, setRangeValue] = useState<number>(50);
   const [isSlowNetwork, setIsSlowNetwork] = useState<boolean>(false);
@@ -25,6 +29,7 @@ const PrivateVMeetOnlinePageLayout = () => {
   const [isEmojiOpen, setIsEmojiOpen] = useState<boolean>(false);
   const [menuOptions, setMenuOptions] = useState<string>("participants");
   const [isGridView, setIsGridView] = useState<boolean>(false);
+  const [isInviteOpen, setIsInviteOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -65,6 +70,8 @@ const PrivateVMeetOnlinePageLayout = () => {
         setMenuOptions={setMenuOptions}
         isGridView={isGridView}
         setIsGridView={setIsGridView}
+        isInviteOpen={isInviteOpen}
+        setIsInviteOpen={setIsInviteOpen}
       />
 
       <PrivateVMeetOnlineNetworkCheckPageComponent
