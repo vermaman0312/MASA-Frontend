@@ -1,20 +1,19 @@
 import React, { useEffect } from "react";
 
+type StreamWebCamState = {
+  video: MediaStream | null;
+  audio: MediaStream | null;
+};
+
 type props = {
   videoRef: React.RefObject<HTMLVideoElement>;
-  stream: MediaStream | null;
+  stream: StreamWebCamState | null;
 };
 
 const PrivateVMeetOnlineScreeSharingVideoPageComponent = ({
   videoRef,
   stream,
 }: props) => {
-  
-  useEffect(() => {
-    if (videoRef.current && stream) {
-      videoRef.current.srcObject = stream;
-    }
-  }, [stream, videoRef]);
 
   return (
     <div className="w-full h-full flex items-center justify-center">

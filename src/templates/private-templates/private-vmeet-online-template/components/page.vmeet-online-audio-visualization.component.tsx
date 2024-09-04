@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Options = {
   smoothing: number;
@@ -17,15 +17,17 @@ type Options = {
   amp: number;
 };
 
-type props = {
+type Props = {
   height?: string;
   isMicOn: boolean;
+  mediaStream?: MediaStream | null;
 };
 
 const PrivateVMeetOnlineAudioVisualizationPageComponent = ({
   height,
   isMicOn,
-}: props) => {
+  mediaStream,
+}: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
@@ -158,19 +160,14 @@ const PrivateVMeetOnlineAudioVisualizationPageComponent = ({
       setAnalyser(analyser);
       setFreqs(freqs);
 
-      navigator.mediaDevices
-        .getUserMedia({ audio: true })
-        .then((stream) => {
-          const input = context.createMediaStreamSource(stream);
-          input.connect(analyser);
-        })
-        .catch((e) => {
-          document.body.innerHTML =
-            "<h1>This app only works with https://</h1>";
-          console.error(e);
-        });
+      if (mediaStream) {
+        const input = context.createMediaStreamSource(mediaStream);
+        input.connect(analyser);
+      } else {
+        console.error("No mediaStream provided");
+      }
     }
-  }, [audioContext]);
+  }, [audioContext, mediaStream]);
 
   useEffect(() => {
     if (isMicOn) {
@@ -183,7 +180,7 @@ const PrivateVMeetOnlineAudioVisualizationPageComponent = ({
         setFreqs(null);
       }
     }
-  }, [audioContext, isMicOn, startVisualization]);
+  }, [isMicOn, startVisualization, audioContext]);
 
   return isMicOn ? (
     <canvas

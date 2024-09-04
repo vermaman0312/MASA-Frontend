@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import PrivateVMeetOnlineMainHeaderPageComponent from "./components/page.vmeeting-online-main-header.component";
 import PrivateVMeetOnlineScreeSharingVideoPageComponent from "./components/page.vmeet-online-screensharing-video.component";
 import PrivateVMeetOnlineMainFooterPageComponent from "./components/page.vmeet-online.main-footer.component";
@@ -6,11 +6,20 @@ import PrivateVMeetOnlineSideOptionHeaderPageComponent from "./components/page.v
 import PrivateVMeetOnlineSideOptionSubHeaderPageComponent from "./components/page.vmeet-online-side-option-subheader.component";
 import PrivateVMeetOnlineSideOptionUsersOptionsPageComponent from "./components/page.vmeet-online-side-option-users-option.component";
 import PrivateVMeetOnlineUserListDetailsPageComponent from "./components/page.vmeet-online-user-list-details.component";
+import { getMediaStreams } from "../../../utils/media-utils/get-media.utils";
+
+type StreamWebCamState = {
+  video: MediaStream | null;
+  audio: MediaStream | null;
+};
 
 type props = {
-  videoRef: React.RefObject<HTMLVideoElement>;
-  stream: MediaStream | null;
-  setStream: (stream: MediaStream | null) => void;
+  videoScreenRef: React.RefObject<HTMLVideoElement>;
+  videoCamRef: React.RefObject<HTMLVideoElement>;
+  streamScreen: StreamWebCamState | null;
+  setStreamScreen: (stream: StreamWebCamState | null) => void;
+  streamWebCam: StreamWebCamState | null;
+  setStreamWebCam: (stream: StreamWebCamState | null) => void;
   rangeValue: number;
   setRangeValue: (rangeValue: number) => void;
   isClose: boolean;
@@ -34,9 +43,12 @@ type props = {
 };
 
 const PrivateVMeetOnlinePageTemplate = ({
-  videoRef,
-  stream,
-  setStream,
+  videoScreenRef,
+  videoCamRef,
+  streamScreen,
+  setStreamScreen,
+  streamWebCam,
+  setStreamWebCam,
   rangeValue,
   setRangeValue,
   isClose,
@@ -58,6 +70,10 @@ const PrivateVMeetOnlinePageTemplate = ({
   isGridView,
   setIsGridView,
 }: props) => {
+  const getMedia = useCallback(async () => {
+    const { audio, video } = await getMediaStreams();
+    return { audio, video };
+  }, []);
   const handleChangeRange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setRangeValue(parseInt(event.target.value));
@@ -65,22 +81,52 @@ const PrivateVMeetOnlinePageTemplate = ({
     [setRangeValue]
   );
 
-  const startScreenShare = async () => {
+  // Screen sharing
+  // const startScreenShare = async () => {
+  //   try {
+  //     const capturedStream = await navigator.mediaDevices.getDisplayMedia({
+  //       video: true,
+  //     });
+  //     setStreamScreen(capturedStream);
+  //   } catch (error) {
+  //     console.error("Error capturing screen:", error);
+  //   }
+  // };
+
+  // const stopScreenShare = () => {
+  //   if (streamScreen) {
+  //     streamScreen.getTracks().forEach((track) => track.stop());
+  //     setStreamScreen(null);
+  //   }
+  // };
+
+  // Webcam
+  const startCamera = async () => {
     try {
-      const capturedStream = await navigator.mediaDevices.getDisplayMedia({
-        video: true,
+      setStreamWebCam({
+        video: (await getMedia()).video,
+        audio: (await getMedia()).audio,
       });
-      setStream(capturedStream);
+      setIsCameraOn(true);
     } catch (error) {
-      console.error("Error capturing screen:", error);
+      console.error("Error accessing the camera:", error);
     }
   };
 
-  const stopScreenShare = () => {
-    if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
-      setStream(null);
+  const stopCamera = () => {
+    setStreamWebCam(null);
+    setIsCameraOn(false);
+  };
+
+  const handleButtonClickCamera = () => {
+    if (isCameraOn) {
+      stopCamera();
+    } else {
+      startCamera();
     }
+  };
+  const handleButtonClickMic = () => {
+    setIsMicOn(!isMicOn);
   };
 
   const handleOnClick = useCallback(
@@ -88,9 +134,6 @@ const PrivateVMeetOnlinePageTemplate = ({
       switch (type) {
         case "mic":
           setIsMicOn(!isMicOn);
-          break;
-        case "camera":
-          setIsCameraOn(!isCameraOn);
           break;
         case "recording":
           setIsRecordingOn(!isRecordingOn);
@@ -109,13 +152,11 @@ const PrivateVMeetOnlinePageTemplate = ({
       }
     },
     [
-      isCameraOn,
       isEmojiOpen,
       isHandsUp,
       isMicOn,
       isRecordingOn,
       isScreenShareOn,
-      setIsCameraOn,
       setIsEmojiOpen,
       setIsHandsUp,
       setIsMicOn,
@@ -142,8 +183,8 @@ const PrivateVMeetOnlinePageTemplate = ({
         </div>
         <div className="w-full">
           <PrivateVMeetOnlineScreeSharingVideoPageComponent
-            videoRef={videoRef}
-            stream={stream}
+            videoRef={videoScreenRef}
+            stream={streamScreen}
           />
         </div>
         <div className="w-full">
@@ -157,7 +198,7 @@ const PrivateVMeetOnlinePageTemplate = ({
             isHandsUp={isHandsUp}
             isEmojiOpen={isEmojiOpen}
             onClickMic={() => handleOnClick("mic")}
-            onClickCamera={() => handleOnClick("camera")}
+            onClickCamera={handleButtonClickCamera}
             onClickRecording={() => handleOnClick("recording")}
             onClickScreenShare={() => handleOnClick("screenShare")}
             onClickHandsup={() => handleOnClick("handsUp")}
@@ -192,12 +233,28 @@ const PrivateVMeetOnlinePageTemplate = ({
             <PrivateVMeetOnlineSideOptionUsersOptionsPageComponent />
           </div>
 
-          <div className="mt-3">
+          <div className="mt-3 flex flex-col gap-2">
             <PrivateVMeetOnlineUserListDetailsPageComponent
               isMicOn={isMicOn}
               isCameraOn={isCameraOn}
               userName="Jenny Ferr"
+              userProfileImageVideo="https://randomuser.me/api/portraits/women/2.jpg"
               isRole="HOST"
+              videoCamRef={videoCamRef}
+              streamWebCam={streamWebCam}
+              onClickMakeHost={() => alert("Host")}
+              onClickMakeCoHost={() => alert("Co-host")}
+              onClickMic={() => alert("Mic on")}
+              onClickKick={() => alert("Kick")}
+            />
+            <PrivateVMeetOnlineUserListDetailsPageComponent
+              isMicOn={isMicOn}
+              isCameraOn={isCameraOn}
+              userName="Jenny Ferr"
+              userProfileImageVideo="https://randomuser.me/api/portraits/women/18.jpg"
+              isRole="CO-HOST"
+              videoCamRef={videoCamRef}
+              streamWebCam={streamWebCam}
               onClickMakeHost={() => alert("Host")}
               onClickMakeCoHost={() => alert("Co-host")}
               onClickMic={() => alert("Mic on")}

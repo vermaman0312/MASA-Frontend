@@ -3,9 +3,16 @@ import PrivateVMeetOnlinePageTemplate from "../../../templates/private-templates
 import PrivateVMeetOnlineNetworkCheckPageComponent from "../../../templates/private-templates/private-vmeet-online-template/components/page.vmeet-online-network-check.component";
 import CustomVMeetLoader from "../../../components/custom-loader/custom-vmeet-loader";
 
+type StreamWebCamState = {
+  video: MediaStream | null;
+  audio: MediaStream | null;
+};
+
 const PrivateVMeetOnlinePageLayout = () => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [stream, setStream] = useState<MediaStream | null>(null);
+  const videoScreenRef = useRef<HTMLVideoElement | null>(null);
+  const videoCamRef = useRef<HTMLVideoElement | null>(null);
+  const [streamScreen, setStreamScreen] = useState<StreamWebCamState | null>(null);
+  const [streamWebCam, setStreamWebCam] = useState<StreamWebCamState | null>(null);
   const [pageLoading, setPageLoading] = useState<boolean>(true);
   const [rangeValue, setRangeValue] = useState<number>(50);
   const [isSlowNetwork, setIsSlowNetwork] = useState<boolean>(false);
@@ -32,9 +39,12 @@ const PrivateVMeetOnlinePageLayout = () => {
   return (
     <div className="w-full h-full">
       <PrivateVMeetOnlinePageTemplate
-        videoRef={videoRef}
-        stream={stream}
-        setStream={setStream}
+        videoScreenRef={videoScreenRef}
+        videoCamRef={videoCamRef}
+        streamScreen={streamScreen}
+        setStreamScreen={setStreamScreen}
+        streamWebCam={streamWebCam}
+        setStreamWebCam={setStreamWebCam}
         rangeValue={rangeValue}
         setRangeValue={setRangeValue}
         isClose={isClose}

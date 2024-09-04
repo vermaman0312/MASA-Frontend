@@ -7,6 +7,12 @@ import {
 import PrivateVMeetOnlineAudioVisualizationPageComponent from "./page.vmeet-online-audio-visualization.component";
 import { Mic, MicOff, Video, VideoOff } from "lucide-react";
 import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
+import { useEffect } from "react";
+
+type StreamWebCamState = {
+  video: MediaStream | null;
+  audio: MediaStream | null;
+};
 
 type props = {
   isMicOn: boolean;
@@ -16,7 +22,10 @@ type props = {
   onClickMic?: () => void;
   onClickKick?: () => void;
   userName: string;
+  userProfileImageVideo: string;
   isRole?: string;
+  videoCamRef: React.RefObject<HTMLVideoElement>;
+  streamWebCam: StreamWebCamState | null;
 };
 
 const PrivateVMeetOnlineUserListDetailsPageComponent = ({
@@ -27,18 +36,36 @@ const PrivateVMeetOnlineUserListDetailsPageComponent = ({
   onClickMic,
   onClickKick,
   userName,
+  userProfileImageVideo,
   isRole,
+  videoCamRef,
+  streamWebCam,
 }: props) => {
+  
+  useEffect(() => {
+    if (videoCamRef.current && streamWebCam?.video) {
+      videoCamRef.current.srcObject = streamWebCam.video;
+    }
+  }, [streamWebCam?.video, videoCamRef]);
+
   return (
     <ContextMenu>
       <ContextMenuTrigger className="w-full flex items-center justify-between gap-2 rounded-xl cursor-pointer">
         <div className="flex items-center">
           <div className="flex-shrink-0 w-10 h-10">
-            <img
-              className="w-full h-full rounded-lg"
-              src={`https://randomuser.me/api/portraits/women/2.jpg`}
-              alt=""
-            />
+            {streamWebCam && streamWebCam.video ? (
+              <video
+                ref={videoCamRef}
+                className="flex-shrink-0 w-10 h-10 rounded-lg"
+                autoPlay
+              ></video>
+            ) : (
+              <img
+                className="w-full h-full rounded-lg"
+                src={userProfileImageVideo}
+                alt=""
+              />
+            )}
           </div>
           <div className="ml-3">
             <p className="text-[#D1D5DB] whitespace-no-wrap font-display font-normal text-md">
@@ -55,6 +82,7 @@ const PrivateVMeetOnlineUserListDetailsPageComponent = ({
               <PrivateVMeetOnlineAudioVisualizationPageComponent
                 height="h-8"
                 isMicOn={isMicOn}
+                mediaStream={streamWebCam?.audio}
               />
             </div>
           )}
