@@ -6,6 +6,7 @@ import PrivateVMeetOnlineSideOptionHeaderPageComponent from "./components/page.v
 import { getMediaStreams } from "../../../utils/media-utils/get-media.utils";
 import PrivateVMeetOnlineParticipantsPageComponent from "./components/page.vmeet-online-participants.component";
 import PrivateVMeetOnlineAppsPageComponent from "./components/page.vmeet-online-apps.component";
+import PrivateVMeetOnlinePublicChatPageComponent from "./components/page.vmeet-online-public-chat.component";
 
 type StreamWebCamState = {
   video: MediaStream | null;
@@ -226,8 +227,10 @@ const PrivateVMeetOnlinePageTemplate = ({
           />
         </div>
 
-        <div className="w-full">
-          {menuOptions === "chat" ? null : menuOptions === "apps" ? (
+        <div className="w-full h-full">
+          {menuOptions === "chat" ? (
+            <PrivateVMeetOnlinePublicChatPageComponent />
+          ) : menuOptions === "apps" ? (
             <PrivateVMeetOnlineAppsPageComponent />
           ) : (
             <PrivateVMeetOnlineParticipantsPageComponent

@@ -1,6 +1,7 @@
 .scroll-container::-webkit-scrollbar {
   width: 0px;
   background: transparent;
+  transform: translateY(0);
 }
 
 .scroll-container {
@@ -8,6 +9,8 @@
   scrollbar-width: none;
   overflow-y: auto;
   overflow-x: auto;
+  scroll-behavior: smooth;
+  transition: transform 0.3s ease-in-out;
 }
 
 .truncate-3-lines {

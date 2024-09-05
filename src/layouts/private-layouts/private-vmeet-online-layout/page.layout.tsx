@@ -74,10 +74,10 @@ const PrivateVMeetOnlinePageLayout = () => {
         setIsInviteOpen={setIsInviteOpen}
       />
 
-      <PrivateVMeetOnlineNetworkCheckPageComponent
+      {/* <PrivateVMeetOnlineNetworkCheckPageComponent
         isSlowNetwork={isSlowNetwork}
         setIsSlowNetwork={setIsSlowNetwork}
-      />
+      /> */}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import CustomSearchBox from "../../../../components/custom-searchbox/custom-sear
 import { CustomLabel } from "../../../../components/custom-label/custom-label.component";
 import {
   CalendarCheck2,
-  ChevronRight,
   Clipboard,
   NotebookTabs,
   Presentation,
@@ -12,9 +11,81 @@ import {
   Vote,
 } from "lucide-react";
 import "../../../../css/scroll-container.css";
+import PrivateVMeetOnlineAppActiveAppDetailsComponent from "./app-component/page.vmeet-online-app-active-app-details.component";
+
+interface appType {
+  appId: string;
+  appName: string;
+  appDescription: string;
+  appIcon: React.ReactNode;
+}
+
+const appData: appType[] = [
+  {
+    appId: "1",
+    appName: "Registration Form",
+    appDescription: "Fill out the form to complete your registration.",
+    appIcon: <UserRoundCheck className="w-4 h-4 text-[#D1D5DB]" />,
+  },
+  {
+    appId: "2",
+    appName: "Polling",
+    appDescription: "Create and submit your poll here.",
+    appIcon: <Vote className="w-4 h-4 text-[#D1D5DB]" />,
+  },
+  {
+    appId: "3",
+    appName: "Meeting guide",
+    appDescription: "Learn create and manage meetings with ease.",
+    appIcon: <Presentation className="w-4 h-4 text-[#D1D5DB]" />,
+  },
+  {
+    appId: "4",
+    appName: "Smart notes",
+    appDescription: "Capture, organize, and access your notes effortlessly.",
+    appIcon: <NotebookTabs className="w-4 h-4 text-[#D1D5DB]" />,
+  },
+  {
+    appId: "5",
+    appName: "Timer",
+    appDescription: "Set and manage your timers with ease.",
+    appIcon: <Timer className="w-4 h-4 text-[#D1D5DB]" />,
+  },
+  {
+    appId: "6",
+    appName: "To-Do Lists",
+    appDescription: "Organize and track your tasks effortlessly.",
+    appIcon: <CalendarCheck2 className="w-4 h-4 text-[#D1D5DB]" />,
+  },
+  {
+    appId: "7",
+    appName: "Whiteboard",
+    appDescription: "Draw, plan, and brainstorm with ease.",
+    appIcon: <Clipboard className="w-4 h-4 text-[#D1D5DB]" />,
+  },
+];
 
 const PrivateVMeetOnlineAppsPageComponent = () => {
   const [searchInput, setSearchInput] = useState<string>("");
+
+  const filteredAndSortedApps = appData
+    .filter(
+      (app) =>
+        app.appName.toLowerCase().includes(searchInput.toLowerCase()) ||
+        app.appDescription.toLowerCase().includes(searchInput.toLowerCase())
+    )
+    .sort((a, b) => {
+      const aMatches =
+        a.appName.toLowerCase().includes(searchInput.toLowerCase()) ||
+        a.appDescription.toLowerCase().includes(searchInput.toLowerCase());
+      const bMatches =
+        b.appName.toLowerCase().includes(searchInput.toLowerCase()) ||
+        b.appDescription.toLowerCase().includes(searchInput.toLowerCase());
+      if (aMatches && !bMatches) return -1;
+      if (!aMatches && bMatches) return 1;
+      return 0;
+    });
+
   return (
     <div className="w-full h-full flex flex-col gap-2">
       <div className="p-4">
@@ -30,51 +101,6 @@ const PrivateVMeetOnlineAppsPageComponent = () => {
           onCancel={() => setSearchInput("")}
         />
       </div>
-      <div className="p-4 bg-[#1F2937] bg-opacity-50 flex items-center justify-center">
-        <CustomLabel className="text-lg font-display text-[#9CA3AF]">
-          Active apps
-        </CustomLabel>
-      </div>
-
-      <div className="w-full p-4 flex flex-col items-center gap-4">
-        <div className="w-full flex items-center justify-between cursor-pointer">
-          <div className="flex items-center justify-center gap-4">
-            <div className="bg-[#374151] bg-opacity-50 p-3 rounded-lg">
-              <UserRoundCheck className="w-4 h-4 text-[#D1D5DB]" />
-            </div>
-            <div className="flex flex-col">
-              <CustomLabel className="text-[#D1D5DB] text-lg font-display cursor-pointer">
-                Registration Form
-              </CustomLabel>
-              <CustomLabel className="text-[#6B7280] text-xs font-display cursor-pointer">
-                Eros in nec, in tortor fames aenean arcu sed.
-              </CustomLabel>
-            </div>
-          </div>
-          <div>
-            <ChevronRight className="text-[#9CA3AF]" />
-          </div>
-        </div>
-
-        <div className="w-full flex items-center justify-between cursor-pointer">
-          <div className="flex items-center justify-center gap-4">
-            <div className="bg-[#374151] bg-opacity-50 p-3 rounded-lg">
-              <Vote className="w-4 h-4 text-[#D1D5DB]" />
-            </div>
-            <div className="flex flex-col">
-              <CustomLabel className="text-[#D1D5DB] text-lg font-display cursor-pointer">
-                Polling
-              </CustomLabel>
-              <CustomLabel className="text-[#6B7280] text-xs font-display cursor-pointer">
-                Lectus tellus congue cursus lorem tempor mattis id neque.
-              </CustomLabel>
-            </div>
-          </div>
-          <div>
-            <ChevronRight className="text-[#9CA3AF]" />
-          </div>
-        </div>
-      </div>
 
       <div className="p-4 bg-[#1F2937] bg-opacity-50 flex items-center justify-center">
         <CustomLabel className="text-lg font-display text-[#9CA3AF]">
@@ -82,110 +108,35 @@ const PrivateVMeetOnlineAppsPageComponent = () => {
         </CustomLabel>
       </div>
 
-      <div
-        className="w-full p-4 flex flex-col items-center gap-4 scroll-container"
-        style={{
-          minHeight: "calc(100vh - 500px)",
-          maxHeight: "calc(100vh - 500px)",
-          overflowY: "auto",
-          boxSizing: "border-box",
-        }}
-      >
-        <div className="w-full flex items-center justify-between cursor-pointer">
-          <div className="flex items-center justify-center gap-4">
-            <div className="bg-[#374151] bg-opacity-50 p-3 rounded-lg">
-              <Presentation className="w-4 h-4 text-[#D1D5DB]" />
-            </div>
-            <div className="flex flex-col">
-              <CustomLabel className="text-[#D1D5DB] text-lg font-display cursor-pointer">
-                Meeting guide
-              </CustomLabel>
-              <CustomLabel className="text-[#6B7280] text-xs font-display cursor-pointer">
-                In quis mi venenatis gravida. Volutpat ultrices at proin dolor.
-              </CustomLabel>
-            </div>
-          </div>
-          <div>
-            <ChevronRight className="text-[#9CA3AF]" />
-          </div>
+      {filteredAndSortedApps.length > 0 ? (
+        <div
+          className="w-full p-4 flex flex-col items-center gap-4 scroll-container"
+          style={{
+            height: "calc(100vh - 215px)",
+            overflowY: "auto",
+            boxSizing: "border-box",
+          }}
+        >
+          {filteredAndSortedApps.map((app, index) => {
+            return (
+              <div key={index} className="w-full">
+                <PrivateVMeetOnlineAppActiveAppDetailsComponent
+                  appName={app.appName}
+                  appDescription={app.appDescription}
+                  appIcon={app.appIcon}
+                  onClick={() => alert(app.appName)}
+                />
+              </div>
+            );
+          })}
         </div>
-
-        <div className="w-full flex items-center justify-between cursor-pointer">
-          <div className="flex items-center justify-center gap-4">
-            <div className="bg-[#374151] bg-opacity-50 p-3 rounded-lg">
-              <NotebookTabs className="w-4 h-4 text-[#D1D5DB]" />
-            </div>
-            <div className="flex flex-col">
-              <CustomLabel className="text-[#D1D5DB] text-lg font-display cursor-pointer">
-                Smart notes
-              </CustomLabel>
-              <CustomLabel className="text-[#6B7280] text-xs font-display cursor-pointer">
-                Lectus tellus congue cursus lorem tempor mattis id neque.
-              </CustomLabel>
-            </div>
-          </div>
-          <div>
-            <ChevronRight className="text-[#9CA3AF]" />
-          </div>
+      ) : (
+        <div className="w-full p-4 flex flex-col items-center gap-4">
+          <CustomLabel className="text-lg font-display text-[#9CA3AF]">
+            App not found!
+          </CustomLabel>
         </div>
-
-        <div className="w-full flex items-center justify-between cursor-pointer">
-          <div className="flex items-center justify-center gap-4">
-            <div className="bg-[#374151] bg-opacity-50 p-3 rounded-lg">
-              <Timer className="w-4 h-4 text-[#D1D5DB]" />
-            </div>
-            <div className="flex flex-col">
-              <CustomLabel className="text-[#D1D5DB] text-lg font-display cursor-pointer">
-                Timer
-              </CustomLabel>
-              <CustomLabel className="text-[#6B7280] text-xs font-display cursor-pointer">
-                Lectus tellus congue cursus lorem tempor mattis id neque.
-              </CustomLabel>
-            </div>
-          </div>
-          <div>
-            <ChevronRight className="text-[#9CA3AF]" />
-          </div>
-        </div>
-
-        <div className="w-full flex items-center justify-between cursor-pointer">
-          <div className="flex items-center justify-center gap-4">
-            <div className="bg-[#374151] bg-opacity-50 p-3 rounded-lg">
-              <CalendarCheck2 className="w-4 h-4 text-[#D1D5DB]" />
-            </div>
-            <div className="flex flex-col">
-              <CustomLabel className="text-[#D1D5DB] text-lg font-display cursor-pointer">
-                To-Do Lists
-              </CustomLabel>
-              <CustomLabel className="text-[#6B7280] text-xs font-display cursor-pointer">
-                Lectus tellus congue cursus lorem tempor mattis id neque.
-              </CustomLabel>
-            </div>
-          </div>
-          <div>
-            <ChevronRight className="text-[#9CA3AF]" />
-          </div>
-        </div>
-
-        <div className="w-full flex items-center justify-between cursor-pointer">
-          <div className="flex items-center justify-center gap-4">
-            <div className="bg-[#374151] bg-opacity-50 p-3 rounded-lg">
-              <Clipboard className="w-4 h-4 text-[#D1D5DB]" />
-            </div>
-            <div className="flex flex-col">
-              <CustomLabel className="text-[#D1D5DB] text-lg font-display cursor-pointer">
-                Whiteboard
-              </CustomLabel>
-              <CustomLabel className="text-[#6B7280] text-xs font-display cursor-pointer">
-                Lectus tellus congue cursus lorem tempor mattis id neque.
-              </CustomLabel>
-            </div>
-          </div>
-          <div>
-            <ChevronRight className="text-[#9CA3AF]" />
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
