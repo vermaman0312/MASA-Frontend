@@ -148,9 +148,6 @@ const PrivateVMeetOnlinePageTemplate = ({
         case "mic":
           setIsMicOn(!isMicOn);
           break;
-        case "recording":
-          setIsRecordingOn(!isRecordingOn);
-          break;
         case "screenShare":
           setIsScreenShareOn(!isScreenShareOn);
           break;
@@ -168,12 +165,10 @@ const PrivateVMeetOnlinePageTemplate = ({
       isEmojiOpen,
       isHandsUp,
       isMicOn,
-      isRecordingOn,
       isScreenShareOn,
       setIsEmojiOpen,
       setIsHandsUp,
       setIsMicOn,
-      setIsRecordingOn,
       setIsScreenShareOn,
     ]
   );
@@ -251,7 +246,6 @@ const PrivateVMeetOnlinePageTemplate = ({
             isEmojiOpen={isEmojiOpen}
             onClickMic={() => handleOnClick("mic")}
             onClickCamera={handleButtonClickCamera}
-            // onClickRecording={() => handleOnClick("recording")}
             onClickRecording={handleStartStop}
             onClickScreenShare={() => handleOnClick("screenShare")}
             onClickHandsup={() => handleOnClick("handsUp")}
