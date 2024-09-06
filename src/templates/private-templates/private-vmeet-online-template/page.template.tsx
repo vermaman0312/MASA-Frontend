@@ -7,6 +7,7 @@ import { getMediaStreams } from "../../../utils/media-utils/get-media.utils";
 import PrivateVMeetOnlineParticipantsPageComponent from "./components/page.vmeet-online-participants.component";
 import PrivateVMeetOnlineAppsPageComponent from "./components/page.vmeet-online-apps.component";
 import PrivateVMeetOnlinePublicChatPageComponent from "./components/page.vmeet-online-public-chat.component";
+import PrivateVMeetOnlineAppWhiteboardPageComponent from "./components/app-component/page.vmeet-online-app-whiteboard.component";
 
 type StreamWebCamState = {
   video: MediaStream | null;
@@ -44,6 +45,8 @@ type props = {
   setIsInviteOpen: (value: boolean) => void;
   emoji: string;
   setEmoji: (emoji: string) => void;
+  mediaRecorderRef: React.RefObject<MediaRecorder>;
+  chunksRef: React.RefObject<Blob[]>;
 };
 
 const PrivateVMeetOnlinePageTemplate = ({
@@ -77,6 +80,8 @@ const PrivateVMeetOnlinePageTemplate = ({
   setIsInviteOpen,
   emoji,
   setEmoji,
+  mediaRecorderRef,
+  chunksRef,
 }: props) => {
   const getMedia = useCallback(async () => {
     const { audio, video } = await getMediaStreams();
@@ -180,6 +185,40 @@ const PrivateVMeetOnlinePageTemplate = ({
     [setMenuOptions]
   );
 
+  // Start and stop recording
+  const handleStartStop = async () => {
+    if (isRecordingOn) {
+      if (mediaRecorderRef.current) {
+        mediaRecorderRef.current.stop();
+        setIsRecordingOn(false);
+      }
+    } else {
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+        (mediaRecorderRef as any).current = new MediaRecorder(stream);
+        (chunksRef as any).current = [];
+        (mediaRecorderRef as any).current.ondataavailable = (event: BlobEvent) => {
+          if (event.data.size > 0) {
+            (chunksRef as any).current.push(event.data);
+          }
+        };
+        (mediaRecorderRef as any).current.onstop = () => {
+          const blob = new Blob((chunksRef as any).current, { type: 'video/mp4' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'recording.mp4';
+          a.click();
+          URL.revokeObjectURL(url);
+        };
+        (mediaRecorderRef as any).current.start();
+        setIsRecordingOn(true);
+      } catch (err) {
+        console.error('Error starting screen recording:', err);
+      }
+    }
+  };
+
   return (
     <div className="w-full h-full flex items-center">
       <div className="border-r-2 border-[#374151] border-opacity-50 w-full h-full flex flex-col items-center justify-between">
@@ -190,13 +229,15 @@ const PrivateVMeetOnlinePageTemplate = ({
             emoji={emoji}
           />
         </div>
-        <div className="w-full">
+        <div className="w-full h-full">
           {isScreenShareOn ? (
             <PrivateVMeetOnlineScreeSharingVideoPageComponent
               videoRef={videoScreenRef}
               stream={streamScreen}
             />
-          ) : null}
+          ) : (
+            <PrivateVMeetOnlineAppWhiteboardPageComponent />
+          )}
         </div>
         <div className="w-full">
           <PrivateVMeetOnlineMainFooterPageComponent
@@ -210,7 +251,8 @@ const PrivateVMeetOnlinePageTemplate = ({
             isEmojiOpen={isEmojiOpen}
             onClickMic={() => handleOnClick("mic")}
             onClickCamera={handleButtonClickCamera}
-            onClickRecording={() => handleOnClick("recording")}
+            // onClickRecording={() => handleOnClick("recording")}
+            onClickRecording={handleStartStop}
             onClickScreenShare={() => handleOnClick("screenShare")}
             onClickHandsup={() => handleOnClick("handsUp")}
             onClickEmoji={() => handleOnClick("emoji")}

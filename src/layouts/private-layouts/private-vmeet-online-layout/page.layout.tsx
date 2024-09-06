@@ -11,6 +11,8 @@ type StreamWebCamState = {
 const PrivateVMeetOnlinePageLayout = () => {
   const videoScreenRef = useRef<HTMLVideoElement | null>(null);
   const videoCamRef = useRef<HTMLVideoElement | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
   const [streamScreen, setStreamScreen] = useState<StreamWebCamState | null>(
     null
   );
@@ -75,12 +77,14 @@ const PrivateVMeetOnlinePageLayout = () => {
         setIsInviteOpen={setIsInviteOpen}
         emoji={emoji}
         setEmoji={setEmoji}
+        mediaRecorderRef={mediaRecorderRef}
+        chunksRef={chunksRef}
       />
 
-      {/* <PrivateVMeetOnlineNetworkCheckPageComponent
+      <PrivateVMeetOnlineNetworkCheckPageComponent
         isSlowNetwork={isSlowNetwork}
         setIsSlowNetwork={setIsSlowNetwork}
-      /> */}
+      />
     </div>
   );
 };
