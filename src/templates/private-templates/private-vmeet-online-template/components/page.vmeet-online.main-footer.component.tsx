@@ -3,6 +3,7 @@ import PrivateVMeetOnlineMainFooterVolumePageComponent from "./page.vmeet-online
 import PrivateVMeetOnlineMainFooterMobileViewMenuPageComponent from "./page.vmeet-online-main-footer-mobile-view-menu.component";
 import PrivateVMeetOnlineMainFooterDesktopViewMenuPageComponent from "./page.vmeet-online-main-footer-desktop-view-menu.component";
 import PrivateVMeetOnlineMainFooterClosePopupPageComponent from "./page.vmeet-online-main-footer-close-popup.component";
+import PrivateVMeetOnlineFooterEmojiPopupPageComponent from "./footer-components/page.vmeet-online-footer-emoji-popup.component";
 
 type props = {
   onChangeVolume: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -21,6 +22,8 @@ type props = {
   onClickEmoji: () => void;
   isClose: boolean;
   setIsClose: (isClose: boolean) => void;
+  emoji: string;
+  setEmoji: (emoji: string) => void;
 };
 
 const PrivateVMeetOnlineMainFooterPageComponent = ({
@@ -40,6 +43,8 @@ const PrivateVMeetOnlineMainFooterPageComponent = ({
   onClickEmoji,
   isClose,
   setIsClose,
+  emoji,
+  setEmoji,
 }: props) => {
   return (
     <div className="w-full border-t-2 border-[#374151] border-opacity-50 bg-[#1F2937] bg-opacity-50 p-4 flex items-center justify-between gap-2 flex-wrap">
@@ -92,7 +97,18 @@ const PrivateVMeetOnlineMainFooterPageComponent = ({
           </button>
         </div>
         <div>
-          <PrivateVMeetOnlineMainFooterClosePopupPageComponent isClose={isClose} setIsClose={setIsClose} />
+          <PrivateVMeetOnlineMainFooterClosePopupPageComponent
+            isClose={isClose}
+            setIsClose={setIsClose}
+          />
+        </div>
+        <div>
+          <PrivateVMeetOnlineFooterEmojiPopupPageComponent
+            isEmojiOpen={isEmojiOpen}
+            emoji={emoji}
+            setEmoji={setEmoji}
+            onClick={(emoji) => setEmoji(emoji)}
+          />
         </div>
       </div>
     </div>

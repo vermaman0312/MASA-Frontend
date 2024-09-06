@@ -5,11 +5,13 @@ import { CustomLabel } from "../../../../components/custom-label/custom-label.co
 type props = {
   isHandsUp?: boolean;
   isRecordingOn?: boolean;
+  emoji?: string;
 };
 
 const PrivateVMeetOnlineMainHeaderPageComponent = ({
   isHandsUp,
   isRecordingOn,
+  emoji,
 }: props) => {
   return (
     <div className="w-full border-b-2 border-[#374151] border-opacity-50 p-4 bg-[#1F2937] bg-opacity-50 flex items-center justify-between gap-4">
@@ -21,6 +23,11 @@ const PrivateVMeetOnlineMainHeaderPageComponent = ({
       <div className="w-full h-full rounded-xl flex items-center justify-center text-white"></div>
 
       <div className="flex items-center gap-5">
+        {emoji && (
+          <div>
+            <span>{emoji}</span>
+          </div>
+        )}
         {isHandsUp && (
           <div>
             <Hand className="text-[#9CA3AF]" />

@@ -30,6 +30,7 @@ const PrivateVMeetOnlinePageLayout = () => {
   const [menuOptions, setMenuOptions] = useState<string>("participants");
   const [isGridView, setIsGridView] = useState<boolean>(false);
   const [isInviteOpen, setIsInviteOpen] = useState<boolean>(false);
+  const [emoji, setEmoji] = useState<string>("");
 
   useEffect(() => {
     setTimeout(() => {
@@ -72,6 +73,8 @@ const PrivateVMeetOnlinePageLayout = () => {
         setIsGridView={setIsGridView}
         isInviteOpen={isInviteOpen}
         setIsInviteOpen={setIsInviteOpen}
+        emoji={emoji}
+        setEmoji={setEmoji}
       />
 
       {/* <PrivateVMeetOnlineNetworkCheckPageComponent

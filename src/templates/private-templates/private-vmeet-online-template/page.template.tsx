@@ -42,6 +42,8 @@ type props = {
   setIsGridView: (isGridView: boolean) => void;
   isInviteOpen: boolean;
   setIsInviteOpen: (value: boolean) => void;
+  emoji: string;
+  setEmoji: (emoji: string) => void;
 };
 
 const PrivateVMeetOnlinePageTemplate = ({
@@ -73,6 +75,8 @@ const PrivateVMeetOnlinePageTemplate = ({
   setIsGridView,
   isInviteOpen,
   setIsInviteOpen,
+  emoji,
+  setEmoji,
 }: props) => {
   const getMedia = useCallback(async () => {
     const { audio, video } = await getMediaStreams();
@@ -183,6 +187,7 @@ const PrivateVMeetOnlinePageTemplate = ({
           <PrivateVMeetOnlineMainHeaderPageComponent
             isHandsUp={isHandsUp}
             isRecordingOn={isRecordingOn}
+            emoji={emoji}
           />
         </div>
         <div className="w-full">
@@ -211,6 +216,8 @@ const PrivateVMeetOnlinePageTemplate = ({
             onClickEmoji={() => handleOnClick("emoji")}
             isClose={isClose}
             setIsClose={setIsClose}
+            emoji={emoji}
+            setEmoji={setEmoji}
           />
         </div>
       </div>
