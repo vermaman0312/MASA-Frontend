@@ -1,4 +1,3 @@
-import React from "react";
 import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
 import { EllipsisVertical, LockKeyhole, Trash2 } from "lucide-react";
 import CustomMenuDropdown from "../../../../../components/custom-menu-dropdown/custom-menu-dropdown.component";
