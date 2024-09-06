@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import PrivateVMeetOnlineSideOptionSubHeaderPageComponent from "./page.vmeet-online-side-option-subheader.component";
 import PrivateVMeetOnlineSideOptionUsersOptionsPageComponent from "./page.vmeet-online-side-option-users-option.component";
 import PrivateVMeetOnlineInvitePopupPageComponent from "./page.vmeet-online-invite-popup.component";
 import PrivateVMeetOnlineUserCardDetailsPageComponent from "./page.vmeet-online-user-card-details.component";
 import PrivateVMeetOnlineUserListDetailsPageComponent from "./page.vmeet-online-user-list-details.component";
+import PrivateVMeetOnlineParticipantsPingToStartVideoPopupPageComponent from "./participants-component/page.vmeet-online-participants-ping-to-start-video-popup.component";
 
 type StreamWebCamState = {
   video: MediaStream | null;
@@ -35,6 +36,7 @@ const PrivateVMeetOnlineParticipantsPageComponent = ({
   videoCamRef,
   streamWebCam,
 }: props) => {
+  const [isPopupOpen, setIsPopupOpen] = useState<string>("hide");
   return (
     <div className="p-4 w-full h-full flex flex-col gap-2">
       <div>
@@ -48,10 +50,15 @@ const PrivateVMeetOnlineParticipantsPageComponent = ({
       <div>
         <PrivateVMeetOnlineSideOptionUsersOptionsPageComponent
           onClickInvite={onClickInvite}
+          onClickPingToStartVideo={() => setIsPopupOpen("visible")}
         />
         <PrivateVMeetOnlineInvitePopupPageComponent
           isOpen={isOpen}
           setIsOpen={setIsOpen}
+        />
+        <PrivateVMeetOnlineParticipantsPingToStartVideoPopupPageComponent
+          isOpen={isPopupOpen}
+          setIsOpen={setIsPopupOpen}
         />
       </div>
 
