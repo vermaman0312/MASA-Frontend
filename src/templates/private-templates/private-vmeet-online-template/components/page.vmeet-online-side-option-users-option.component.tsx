@@ -10,22 +10,22 @@ const PrivateVMeetOnlineSideOptionUsersOptionsPageComponent = ({
   onClickPingToStartVideo,
 }: props) => {
   return (
-    <div className="flex items-center justify-between gap-2">
+    <div className="flex items-center justify-end flex-wrap gap-2">
       <button
         onClick={onClickInvite}
-        className="p-2 bg-[#374151] bg-opacity-50 w-full text-nowrap rounded-xl text-xs font-display text-[#D1D5DB]"
+        className="px-4 p-2 bg-[#374151] bg-opacity-50 text-nowrap rounded-xl text-xs font-display text-[#D1D5DB]"
       >
         Invite
       </button>
       <button
         onClick={onClickMuteAll}
-        className="p-2 bg-[#374151] bg-opacity-50 w-full text-nowrap rounded-xl text-xs font-display text-[#D1D5DB]"
+        className="px-4 p-2 bg-[#374151] bg-opacity-50 text-nowrap rounded-xl text-xs font-display text-[#D1D5DB]"
       >
         Mute all
       </button>
       <button
         onClick={onClickPingToStartVideo}
-        className="p-2 bg-[#374151] bg-opacity-50 w-full text-nowrap rounded-xl text-xs font-display text-[#D1D5DB]"
+        className="px-4 p-2 bg-[#374151] bg-opacity-50 text-nowrap rounded-xl text-xs font-display text-[#D1D5DB]"
       >
         Ping to start video
       </button>

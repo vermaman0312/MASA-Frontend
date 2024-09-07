@@ -107,7 +107,6 @@ const PrivateVMeetOnlineMainFooterPageComponent = ({
             isEmojiOpen={isEmojiOpen}
             emoji={emoji}
             setEmoji={setEmoji}
-            onClick={(emoji) => setEmoji(emoji)}
           />
         </div>
       </div>

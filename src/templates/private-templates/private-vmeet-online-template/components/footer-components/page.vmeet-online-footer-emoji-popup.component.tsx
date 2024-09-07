@@ -4,7 +4,6 @@ type props = {
   isEmojiOpen: boolean;
   emoji: string;
   setEmoji: (emoji: string) => void;
-  onClick?: (value: string) => void;
 };
 
 const emojiList: string[] = [
@@ -30,17 +29,19 @@ const PrivateVMeetOnlineFooterEmojiPopupPageComponent = ({
   isEmojiOpen,
   emoji,
   setEmoji,
-  onClick,
 }: props) => {
   const [hoveredEmoji, setHoveredEmoji] = useState<string>("");
 
   useEffect(() => {
-    if (emoji) {
-      setTimeout(() => {
-        setEmoji("");
-      }, 10000);
-    }
+    const timer = setTimeout(() => {
+      setEmoji("");
+    }, 10000);
+    return () => clearTimeout(timer);
   }, [emoji, setEmoji]);
+
+  const addEmoji = (newEmoji: string) => {
+    setEmoji(newEmoji);
+  };
 
   return isEmojiOpen ? (
     <div
@@ -58,7 +59,7 @@ const PrivateVMeetOnlineFooterEmojiPopupPageComponent = ({
         {emojiList.map((emoji, index) => {
           return (
             <span
-              onClick={() => onClick && onClick(emoji)}
+              onClick={() => addEmoji(emoji)}
               onMouseLeave={() => setHoveredEmoji("")}
               onMouseEnter={() => setHoveredEmoji(emoji as string)}
               key={index}
