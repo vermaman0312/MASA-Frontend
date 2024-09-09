@@ -14,6 +14,9 @@ type props = {
   data?: number;
   list?: Array<string | number>;
   onChange?: (value: number | string) => void;
+  border?: string;
+  textColor?: string;
+  placeholderColor?: string;
   value?: string | number;
   width?: string;
   isError?: boolean;
@@ -25,6 +28,9 @@ const CustomDropdown = ({
   data,
   list,
   onChange,
+  border,
+  textColor,
+  placeholderColor,
   value,
   width,
   isError,
@@ -54,8 +60,8 @@ const CustomDropdown = ({
         className={`${
           width ? width : "w-full"
         } font-display text-xs gap-2 outline-none select-none ${
-          isError && "border-red-500 text-red-500"
-        }`}
+          isError ? "border-red-500 text-red-500" : border ? border : undefined
+        } ${textColor && textColor} ${placeholderColor && placeholderColor}`}
       >
         <SelectValue placeholder={title} />
       </SelectTrigger>

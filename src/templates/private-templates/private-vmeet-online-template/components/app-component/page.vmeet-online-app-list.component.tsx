@@ -49,7 +49,7 @@ const PrivateVMeetOnlineAppListPageComponent = ({
         <div
           className="w-full p-4 flex flex-col items-center gap-4 scroll-container"
           style={{
-            height: "calc(100vh - 215px)",
+            height: "calc(100vh - 235px)",
             overflowY: "auto",
             boxSizing: "border-box",
           }}

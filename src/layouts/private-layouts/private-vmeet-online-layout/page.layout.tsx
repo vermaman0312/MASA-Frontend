@@ -81,10 +81,10 @@ const PrivateVMeetOnlinePageLayout = () => {
         chunksRef={chunksRef}
       />
 
-      <PrivateVMeetOnlineNetworkCheckPageComponent
+      {/* <PrivateVMeetOnlineNetworkCheckPageComponent
         isSlowNetwork={isSlowNetwork}
         setIsSlowNetwork={setIsSlowNetwork}
-      />
+      /> */}
     </div>
   );
 };
