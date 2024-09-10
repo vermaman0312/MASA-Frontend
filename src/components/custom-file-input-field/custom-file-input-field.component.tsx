@@ -6,6 +6,7 @@ type Props = {
   value?: File | null;
   isError?: boolean;
   placeholder?: string;
+  backgroundColor?: string;
 };
 
 const CustomFileInputField = ({
@@ -13,6 +14,7 @@ const CustomFileInputField = ({
   value,
   isError,
   placeholder,
+  backgroundColor,
 }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const clearInput = () => {
@@ -35,7 +37,11 @@ const CustomFileInputField = ({
           className={`flex flex-col items-center justify-center w-full h-64 border-2 ${
             isError ? "border-red-500" : "border-gray-300"
           } border-dashed rounded-lg cursor-pointer ${
-            isError ? "bg-red-50" : "bg-gray-50"
+            isError
+              ? "bg-red-50"
+              : backgroundColor
+              ? backgroundColor
+              : "bg-gray-50"
           } dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600`}
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">

@@ -11,6 +11,7 @@ import {
 import "../../../../css/scroll-container.css";
 import PrivateVMeetOnlineAppListPageComponent from "./app-component/page.vmeet-online-app-list.component";
 import PrivateVMeetOnlineAppFormDetailsPageComponent from "./app-component/page.vmeet-online-app-form-details.component";
+import PrivateVMeetOnlineAppPollingPageComponent from "./app-component/page.vmeet-online-app-polling.component";
 
 interface appType {
   appId: string;
@@ -92,9 +93,12 @@ const PrivateVMeetOnlineAppsPageComponent = () => {
         <PrivateVMeetOnlineAppFormDetailsPageComponent
           onClickBack={() => setOpenAppId("")}
         />
-      ) : openAppId === "2" ? null : openAppId === "3" ? null : openAppId ===
-        "4" ? null : openAppId === "5" ? null : openAppId ===
-        "6" ? null : openAppId === "7" ? null : (
+      ) : openAppId === "2" ? (
+        <PrivateVMeetOnlineAppPollingPageComponent
+          onClickBack={() => setOpenAppId("")}
+        />
+      ) : openAppId === "3" ? null : openAppId === "4" ? null : openAppId ===
+        "5" ? null : openAppId === "6" ? null : openAppId === "7" ? null : (
         <PrivateVMeetOnlineAppListPageComponent
           setSearchInput={setSearchInput}
           searchInput={searchInput}

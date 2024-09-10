@@ -6,6 +6,8 @@ import { useCallback, useState } from "react";
 import { CustomInputField } from "../../../../../components/custom-input-field/custom-input-field.component";
 import { Textarea } from "../../../../../components/custom-textarea/custom-textarea.component";
 import { v4 as uuidv4 } from "uuid";
+import CustomCheckBox from "../../../../../components/custom-checkbox/custom-checkbox.component";
+import CustomFileInputField from "../../../../../components/custom-file-input-field/custom-file-input-field.component";
 
 type formComponentType = {
   id: string;
@@ -38,7 +40,7 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
       {
         id: "",
         title: "",
-        formType: "text",
+        formType: "" as "text" | "select" | "upload",
         formOptions: [""],
       },
     ],
@@ -159,8 +161,6 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
   );
 
   PrivateVMeetOnlineJoiningSoundPageComponent();
-
-  console.log("forms", forms);
 
   return (
     <div className="w-full h-full flex flex-col gap-2">
@@ -392,8 +392,69 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
               </div>
             </div>
           ) : (
-            <div className="w-full flex flex-col items-center justify-center gap-2 p-4">
-              List
+            <div className="w-full p-4">
+              {forms.formId && (
+                <div className="w-full flex flex-col items-center justify-center gap-2 p-4 border-2 border-[#374151] border-opacity-50 rounded-xl">
+                  <div className="w-full">
+                    <CustomLabel className="text-lg font-semibold font-display text-[#D1D5DB]">
+                      {forms.formTitle}
+                    </CustomLabel>
+                  </div>
+                  <div className="w-full">
+                    <CustomLabel className="text-xs font-normal font-display text-[#6B7280] text-justify">
+                      {forms.formDescription}
+                    </CustomLabel>
+                  </div>
+                  <div className="w-full">
+                    <CustomLabel className="text-lg font-semibold font-display text-[#D1D5DB]">
+                      Form Details
+                    </CustomLabel>
+                  </div>
+
+                  <div className="w-full">
+                    {forms.form.map((form, index) => {
+                      return (
+                        <div className="w-full">
+                          <div className="w-full">
+                            <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
+                              {form.title}
+                            </CustomLabel>
+                            {form.formType === "text" && (
+                              <CustomInputField
+                                placeholder="Give your answer..."
+                                className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
+                              />
+                            )}
+
+                            {form.formType === "select" && (
+                              <div className="w-full mt-3 flex flex-col items-start justify-start gap-2">
+                                {form.formOptions.map(
+                                  (formOption, formOptionIndex) => {
+                                    return (
+                                      <CustomCheckBox
+                                        title={formOption}
+                                        checkColor="text-[#6B7280]"
+                                        borderColor="border-[#6B7280]"
+                                        titleColor="text-[#D1D5DB]"
+                                      />
+                                    );
+                                  }
+                                )}
+                              </div>
+                            )}
+
+                            {form.formType === "upload" && (
+                              <div className="mt-3">
+                                <CustomFileInputField backgroundColor="bg-[#374151] bg-opacity-50" />
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
