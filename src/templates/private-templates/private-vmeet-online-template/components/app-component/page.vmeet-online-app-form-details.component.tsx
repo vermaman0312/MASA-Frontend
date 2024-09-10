@@ -5,6 +5,7 @@ import "../../../../../css/scroll-container.css";
 import { useCallback, useState } from "react";
 import { CustomInputField } from "../../../../../components/custom-input-field/custom-input-field.component";
 import { Textarea } from "../../../../../components/custom-textarea/custom-textarea.component";
+import { v4 as uuidv4 } from "uuid";
 
 type formComponentType = {
   id: string;
@@ -44,6 +45,26 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
     status: true,
   });
 
+  const handleChangeTitle = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setForms((prevForms) => ({
+        ...prevForms,
+        formId: uuidv4(),
+        formTitle: event.target.value,
+      }));
+    },
+    []
+  );
+  const handleChangeDescription = useCallback(
+    (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setForms((prevForms) => ({
+        ...prevForms,
+        formDescription: event.target.value,
+      }));
+    },
+    []
+  );
+
   const handleSelectAnswerType = useCallback(
     (index: number, event: React.ChangeEvent<HTMLSelectElement>) => {
       setForms((prevForms) => {
@@ -57,7 +78,6 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
     },
     []
   );
-
   const handleAddField = useCallback(
     (formIndex: number) => {
       const newForms = forms.form.map((form, index) => {
@@ -83,8 +103,64 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
     },
     [forms]
   );
+  // Handler function to update form title
+  const handleChangeFormTitle = useCallback(
+    (formIndex: number, event: React.ChangeEvent<HTMLInputElement>) => {
+      setForms((prevForms) => {
+        const updatedForm = [...prevForms.form];
+        updatedForm[formIndex] = {
+          ...updatedForm[formIndex],
+          title: event.target.value as string,
+        };
+        return { ...prevForms, form: updatedForm };
+      });
+    },
+    []
+  );
+  // Handler function to update form options
+  const handleInputChange = useCallback(
+    (
+      formIndex: number,
+      optionIndex: number,
+      event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+      const updatedForms = [...forms.form];
+      updatedForms[formIndex].formOptions[optionIndex] = event.target.value;
+
+      setForms({
+        ...forms,
+        form: updatedForms,
+      });
+    },
+    [forms]
+  );
+
+  // Create a new form
+  const handleCreateNewForm = useCallback(() => {
+    const newForm: formComponentType = {
+      id: "",
+      title: "",
+      formType: "text",
+      formOptions: [""],
+    };
+    setForms((prevState) => ({
+      ...prevState,
+      form: [...prevState.form, newForm],
+    }));
+  }, []);
+  // Remove a form
+  const handleRemoveForm = useCallback(
+    (formIndex: number) => {
+      let newForms = [...forms.form];
+      newForms = newForms.filter((_, idx) => idx !== formIndex);
+      setForms({ ...forms, form: newForms });
+    },
+    [forms]
+  );
 
   PrivateVMeetOnlineJoiningSoundPageComponent();
+
+  console.log("forms", forms);
 
   return (
     <div className="w-full h-full flex flex-col gap-2">
@@ -142,8 +218,10 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
                   Form title:
                 </CustomLabel>
                 <CustomInputField
-                  placeholder="Title here"
+                  placeholder="Title here..."
                   className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
+                  onChange={handleChangeTitle}
+                  value={forms.formTitle as string}
                 />
               </div>
               <div className="w-full">
@@ -151,8 +229,10 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
                   Form description:
                 </CustomLabel>
                 <Textarea
-                  placeholder="Title here"
+                  placeholder="Description here..."
                   className="bg-transparent border-2 border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700 scroll-container rounded-md p-3.5 min-h-32 max-h-64"
+                  onChange={handleChangeDescription}
+                  value={forms.formDescription as string}
                 />
               </div>
 
@@ -179,6 +259,10 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
                         <CustomInputField
                           placeholder={`Write a question ${index + 1} here...`}
                           className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
+                          onChange={(event) =>
+                            handleChangeFormTitle(index, event)
+                          }
+                          value={data.title}
                         />
                       </div>
                       <div className="w-full">
@@ -229,60 +313,83 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
                               Options
                             </CustomLabel>
                           </div>
-                          <div>
-                            <div className="w-full">
-                              <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
-                                Option 1:
-                              </CustomLabel>
-                              <CustomInputField
-                                placeholder="Write a option here..."
-                                className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
-                              />
-                            </div>
-                            <div className="w-full">
-                              <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
-                                Option 2:
-                              </CustomLabel>
-                              <CustomInputField
-                                placeholder="Write a option here..."
-                                className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
-                              />
-                            </div>
-                            <div className="w-full">
-                              <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
-                                Option 3:
-                              </CustomLabel>
-                              <CustomInputField
-                                placeholder="Write a option here..."
-                                className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
-                              />
-                            </div>
-                            <div className="w-full">
-                              <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
-                                Option 4:
-                              </CustomLabel>
-                              <CustomInputField
-                                placeholder="Write a option here..."
-                                className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
-                              />
-                            </div>
-                          </div>
+                          {data.formOptions.map(
+                            (formOptionData, formOptionIndex) => {
+                              return (
+                                <div key={formOptionIndex} className="w-full">
+                                  <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
+                                    {`Option ${formOptionIndex + 1}:`}
+                                  </CustomLabel>
+                                  <div className="flex w-full items-center justify-between gap-2">
+                                    <div className="w-full">
+                                      <CustomInputField
+                                        placeholder="Write a option here..."
+                                        className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
+                                        onChange={(event) =>
+                                          handleInputChange(
+                                            index,
+                                            formOptionIndex,
+                                            event
+                                          )
+                                        }
+                                        value={formOptionData}
+                                      />
+                                    </div>
+                                    <div className="flex flex-col items-center justify-center gap-1">
+                                      {formOptionIndex > 0 && (
+                                        <X
+                                          onClick={() =>
+                                            handleRemoveField(
+                                              index,
+                                              formOptionIndex
+                                            )
+                                          }
+                                          className="w-5 h-5 text-red-500 cursor-pointer"
+                                        />
+                                      )}
+                                      {formOptionIndex ===
+                                        data.formOptions.length - 1 && (
+                                        <Plus
+                                          onClick={() => handleAddField(index)}
+                                          className="w-5 h-5 text-blue-500 cursor-pointer"
+                                        />
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            }
+                          )}
                         </div>
                       )}
                     </div>
-                    <div className="w-full flex items-center justify-end gap-2 mt-5">
-                      <button className="w-24 text-xs font-display text-[#D1D5DB] p-2 bg-[#1c73ff] rounded-lg">
-                        Add more
-                      </button>
-                    </div>
-                    <div className="w-full flex items-center justify-end gap-2 mt-5">
-                      <button className="w-full text-xs font-display text-[#D1D5DB] p-2 border-2 border-[#374151] border-opacity-50 bg-[#374151] bg-opacity-50 rounded-lg">
-                        Create form
-                      </button>
+                    <div className="w-full flex items-center justify-start gap-2 mt-3">
+                      {index > 0 && (
+                        <button
+                          onClick={() => handleRemoveForm(index)}
+                          className="w-32 text-xs font-display text-[#D1D5DB] p-2 bg-[#1c73ff] rounded-lg"
+                        >
+                          Remove form
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
               })}
+
+              <div className="w-full flex items-center justify-end gap-2">
+                <button
+                  onClick={handleCreateNewForm}
+                  className="w-24 text-xs font-display text-[#D1D5DB] p-2 bg-[#1c73ff] rounded-lg"
+                >
+                  Add more
+                </button>
+              </div>
+              <div className="w-full flex items-center justify-end gap-2 mt-5">
+                <button className="w-full text-xs font-display text-[#D1D5DB] p-2 border-2 border-[#374151] border-opacity-50 bg-[#374151] bg-opacity-50 rounded-lg">
+                  Create form
+                </button>
+              </div>
             </div>
           ) : (
             <div className="w-full flex flex-col items-center justify-center gap-2 p-4">
