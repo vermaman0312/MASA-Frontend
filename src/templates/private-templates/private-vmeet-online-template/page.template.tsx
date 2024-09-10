@@ -231,7 +231,8 @@ const PrivateVMeetOnlinePageTemplate = ({
               stream={streamScreen}
             />
           ) : (
-            <PrivateVMeetOnlineAppWhiteboardPageComponent />
+            // <PrivateVMeetOnlineAppWhiteboardPageComponent />
+            null
           )}
         </div>
         <div className="w-full">

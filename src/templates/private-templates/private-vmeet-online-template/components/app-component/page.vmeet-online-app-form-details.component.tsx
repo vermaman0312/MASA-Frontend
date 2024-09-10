@@ -1,11 +1,10 @@
-import { ChevronLeft } from "lucide-react";
+import { Check, ChevronLeft, Plus, X } from "lucide-react";
 import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
 import PrivateVMeetOnlineJoiningSoundPageComponent from "../page.vmeet-online-joining-sound.component";
 import "../../../../../css/scroll-container.css";
 import { useCallback, useState } from "react";
 import { CustomInputField } from "../../../../../components/custom-input-field/custom-input-field.component";
 import { Textarea } from "../../../../../components/custom-textarea/custom-textarea.component";
-import CustomDropdown from "../../../../../components/custom-dropdown/custom-dropdown.component";
 
 type formComponentType = {
   id: string;
@@ -39,7 +38,7 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
         id: "",
         title: "",
         formType: "text",
-        formOptions: [],
+        formOptions: [""],
       },
     ],
     status: true,
@@ -59,7 +58,34 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
     []
   );
 
+  const handleAddField = useCallback(
+    (formIndex: number) => {
+      const newForms = forms.form.map((form, index) => {
+        if (index === formIndex) {
+          return {
+            ...form,
+            formOptions: [...form.formOptions, ""],
+          };
+        }
+        return form;
+      });
+      setForms({ ...forms, form: newForms });
+    },
+    [forms]
+  );
+  const handleRemoveField = useCallback(
+    (formIndex: number, optionIndex: number) => {
+      const newForms = [...forms.form];
+      newForms[formIndex].formOptions = newForms[formIndex].formOptions.filter(
+        (_, idx) => idx !== optionIndex
+      );
+      setForms({ ...forms, form: newForms });
+    },
+    [forms]
+  );
+
   PrivateVMeetOnlineJoiningSoundPageComponent();
+
   return (
     <div className="w-full h-full flex flex-col gap-2">
       <div className="flex items-center justify-start gap-2 p-4">
@@ -197,54 +223,62 @@ const PrivateVMeetOnlineAppFormDetailsPageComponent = ({
                         </select>
                       </div>
                       {data.formType === "select" && (
-                        <div className="w-full grid grid-cols-2">
+                        <div className="w-full">
                           <div className="w-full">
-                            <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
-                              {`Options 1:`}
+                            <CustomLabel className="text-lg font-display text-[#6B7280] font-normal">
+                              Options
                             </CustomLabel>
-                            <CustomInputField
-                              placeholder="Option 1"
-                              className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
-                            />
                           </div>
-                          <div className="w-full">
-                            <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
-                              {`Options 2:`}
-                            </CustomLabel>
-                            <CustomInputField
-                              placeholder="Option 2"
-                              className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
-                            />
-                          </div>
-                          <div className="w-full">
-                            <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
-                              {`Options 3:`}
-                            </CustomLabel>
-                            <CustomInputField
-                              placeholder="Option 3"
-                              className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
-                            />
-                          </div>
-                          <div className="w-full">
-                            <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
-                              {`Options 4:`}
-                            </CustomLabel>
-                            <CustomInputField
-                              placeholder="Option 4"
-                              className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
-                            />
+                          <div>
+                            <div className="w-full">
+                              <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
+                                Option 1:
+                              </CustomLabel>
+                              <CustomInputField
+                                placeholder="Write a option here..."
+                                className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
+                              />
+                            </div>
+                            <div className="w-full">
+                              <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
+                                Option 2:
+                              </CustomLabel>
+                              <CustomInputField
+                                placeholder="Write a option here..."
+                                className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
+                              />
+                            </div>
+                            <div className="w-full">
+                              <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
+                                Option 3:
+                              </CustomLabel>
+                              <CustomInputField
+                                placeholder="Write a option here..."
+                                className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
+                              />
+                            </div>
+                            <div className="w-full">
+                              <CustomLabel className="text-sm font-display text-[#6B7280] font-normal">
+                                Option 4:
+                              </CustomLabel>
+                              <CustomInputField
+                                placeholder="Write a option here..."
+                                className="bg-transparent border-[#374151] border-opacity-50 text-[#D1D5DB] font-display placeholder:text-gray-700"
+                              />
+                            </div>
                           </div>
                         </div>
                       )}
-
-                      <div className="w-full flex items-center justify-end gap-2">
-                        <button className="w-24 text-xs font-display text-[#D1D5DB] p-2 bg-[#1c73ff] rounded-lg">
-                          Add more
-                        </button>
-                        <button className="w-24 text-xs font-display text-[#D1D5DB] p-2 bg-[#1c73ff] rounded-lg">
-                          Create
-                        </button>
-                      </div>
+                    </div>
+                    <div className="w-full flex items-center justify-end gap-2 mt-5">
+                      <button className="w-24 text-xs font-display text-[#D1D5DB] p-2 bg-[#1c73ff] rounded-lg">
+                        Add more
+                      </button>
+                    </div>
+                    <div className="w-full flex items-center justify-end gap-2 mt-5">
+                      <button className="w-full text-xs font-display text-[#D1D5DB] p-2 border-2 border-[#374151] border-opacity-50 bg-[#374151] bg-opacity-50 rounded-lg">
+                        Create form
+                      </button>
                     </div>
                   </div>
                 );
