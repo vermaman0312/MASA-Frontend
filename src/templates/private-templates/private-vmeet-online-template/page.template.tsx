@@ -7,7 +7,7 @@ import { getMediaStreams } from "../../../utils/media-utils/get-media.utils";
 import PrivateVMeetOnlineParticipantsPageComponent from "./components/page.vmeet-online-participants.component";
 import PrivateVMeetOnlineAppsPageComponent from "./components/page.vmeet-online-apps.component";
 import PrivateVMeetOnlinePublicChatPageComponent from "./components/page.vmeet-online-public-chat.component";
-import PrivateVMeetOnlineAppWhiteboardPageComponent from "./components/app-component/page.vmeet-online-app-whiteboard.component";
+import PrivateVMeetOnlineAppWhiteboardPageComponent from "./components/app-component/components/whiteboard-component/page.vmeet-online-app-whiteboard.component";
 
 type StreamWebCamState = {
   video: MediaStream | null;

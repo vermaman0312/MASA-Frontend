@@ -10,8 +10,11 @@ import {
 } from "lucide-react";
 import "../../../../css/scroll-container.css";
 import PrivateVMeetOnlineAppListPageComponent from "./app-component/page.vmeet-online-app-list.component";
-import PrivateVMeetOnlineAppFormDetailsPageComponent from "./app-component/page.vmeet-online-app-form-details.component";
-import PrivateVMeetOnlineAppPollingPageComponent from "./app-component/page.vmeet-online-app-polling.component";
+import PrivateVMeetOnlineAppFormDetailsPageComponent from "./app-component/components/registration-form-component/page.vmeet-online-app-form-details.component";
+import PrivateVMeetOnlineAppPollingPageComponent from "./app-component/components/polling-component/page.vmeet-online-app-polling.component";
+import PrivateVMeetOnlineAppMeetingGuidePageComponent from "./app-component/components/meeting-guide-component/page.vmeet-online-app-meeting-guide.component";
+import PrivateVMeetOnlineAppSmartNotesPageComponent from "./app-component/components/smart-notes-component/page.vmeet-online-app-smart-notes.component";
+import PrivateVMeetOnlineAppTimerPageComponent from "./app-component/components/timer-component/page.vmeet-online-app-timer.component";
 
 interface appType {
   appId: string;
@@ -97,8 +100,19 @@ const PrivateVMeetOnlineAppsPageComponent = () => {
         <PrivateVMeetOnlineAppPollingPageComponent
           onClickBack={() => setOpenAppId("")}
         />
-      ) : openAppId === "3" ? null : openAppId === "4" ? null : openAppId ===
-        "5" ? null : openAppId === "6" ? null : openAppId === "7" ? null : (
+      ) : openAppId === "3" ? (
+        <PrivateVMeetOnlineAppMeetingGuidePageComponent
+          onClickBack={() => setOpenAppId("")}
+        />
+      ) : openAppId === "4" ? (
+        <PrivateVMeetOnlineAppSmartNotesPageComponent
+          onClickBack={() => setOpenAppId("")}
+        />
+      ) : openAppId === "5" ? (
+        <PrivateVMeetOnlineAppTimerPageComponent
+          onClickBack={() => setOpenAppId("")}
+        />
+      ) : openAppId === "6" ? null : openAppId === "7" ? null : (
         <PrivateVMeetOnlineAppListPageComponent
           setSearchInput={setSearchInput}
           searchInput={searchInput}

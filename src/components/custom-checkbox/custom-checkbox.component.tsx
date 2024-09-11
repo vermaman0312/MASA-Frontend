@@ -8,6 +8,7 @@ type props = {
   checkColor?: string;
   titleColor?: string;
   borderColor?: string;
+  disabled?: boolean;
 };
 
 const CustomCheckBox = ({
@@ -18,10 +19,12 @@ const CustomCheckBox = ({
   checkColor,
   titleColor,
   borderColor,
+  disabled,
 }: props) => {
   return (
     <div className="flex items-center space-x-2">
       <Checkbox
+        disabled={disabled}
         id="terms"
         onCheckedChange={(checked: boolean) =>
           onChange &&
@@ -37,9 +40,9 @@ const CustomCheckBox = ({
       />
       <label
         htmlFor="terms"
-        className={`text-sm font-display ${
+        className={`text-xs font-display ${
           isError && "text-red-500"
-        } font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 select-none ${
+        } font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 select-none ${
           titleColor && titleColor
         }`}
       >

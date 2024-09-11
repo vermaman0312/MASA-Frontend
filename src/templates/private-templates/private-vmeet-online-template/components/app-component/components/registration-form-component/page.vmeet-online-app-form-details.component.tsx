@@ -1,13 +1,13 @@
 import { Check, ChevronLeft, Plus, X } from "lucide-react";
-import { CustomLabel } from "../../../../../components/custom-label/custom-label.component";
-import PrivateVMeetOnlineJoiningSoundPageComponent from "../page.vmeet-online-joining-sound.component";
-import "../../../../../css/scroll-container.css";
+import { CustomLabel } from "../../../../../../../components/custom-label/custom-label.component";
+import PrivateVMeetOnlineJoiningSoundPageComponent from "../../../page.vmeet-online-joining-sound.component";
+import "../../../../../../../css/scroll-container.css";
 import { useCallback, useState } from "react";
-import { CustomInputField } from "../../../../../components/custom-input-field/custom-input-field.component";
-import { Textarea } from "../../../../../components/custom-textarea/custom-textarea.component";
+import { CustomInputField } from "../../../../../../../components/custom-input-field/custom-input-field.component";
+import { Textarea } from "../../../../../../../components/custom-textarea/custom-textarea.component";
 import { v4 as uuidv4 } from "uuid";
-import CustomCheckBox from "../../../../../components/custom-checkbox/custom-checkbox.component";
-import CustomFileInputField from "../../../../../components/custom-file-input-field/custom-file-input-field.component";
+import CustomCheckBox from "../../../../../../../components/custom-checkbox/custom-checkbox.component";
+import CustomFileInputField from "../../../../../../../components/custom-file-input-field/custom-file-input-field.component";
 
 type formComponentType = {
   id: string;
