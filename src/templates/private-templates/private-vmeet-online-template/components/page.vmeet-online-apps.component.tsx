@@ -15,6 +15,7 @@ import PrivateVMeetOnlineAppPollingPageComponent from "./app-component/component
 import PrivateVMeetOnlineAppMeetingGuidePageComponent from "./app-component/components/meeting-guide-component/page.vmeet-online-app-meeting-guide.component";
 import PrivateVMeetOnlineAppSmartNotesPageComponent from "./app-component/components/smart-notes-component/page.vmeet-online-app-smart-notes.component";
 import PrivateVMeetOnlineAppTimerPageComponent from "./app-component/components/timer-component/page.vmeet-online-app-timer.component";
+import PrivateVMeetOnlineAppToDoListsPageComponent from "./app-component/components/to-do-list-component/page.vmeet-online-app-to-do-lists.component";
 
 interface appType {
   appId: string;
@@ -112,7 +113,11 @@ const PrivateVMeetOnlineAppsPageComponent = () => {
         <PrivateVMeetOnlineAppTimerPageComponent
           onClickBack={() => setOpenAppId("")}
         />
-      ) : openAppId === "6" ? null : openAppId === "7" ? null : (
+      ) : openAppId === "6" ? (
+        <PrivateVMeetOnlineAppToDoListsPageComponent
+          onClickBack={() => setOpenAppId("")}
+        />
+      ) : openAppId === "7" ? null : (
         <PrivateVMeetOnlineAppListPageComponent
           setSearchInput={setSearchInput}
           searchInput={searchInput}

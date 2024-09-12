@@ -5,9 +5,20 @@ type Props = {
   onChange?: (time: string | undefined) => void;
   value?: string;
   isError?: boolean;
+  padding?: string;
+  borderColor?: string;
+  backgroundColor?: string;
 };
 
-const CustomTimePicker = ({ title, onChange, value, isError }: Props) => {
+const CustomTimePicker = ({
+  title,
+  onChange,
+  value,
+  isError,
+  padding,
+  borderColor,
+  backgroundColor,
+}: Props) => {
   const formatDateForTimeInput = (timeValue: string | undefined): string => {
     return timeValue ?? "";
   };
@@ -18,14 +29,16 @@ const CustomTimePicker = ({ title, onChange, value, isError }: Props) => {
   };
 
   return (
-    <div className={`w-full p-1 border rounded-lg`}>
+    <div className={`w-full p-1 rounded-lg`}>
       <input
         type="time"
         onChange={handleInputChange}
         value={formatDateForTimeInput(value)}
-        className={`border-none outline-none active:border-none active:outline-none focus:border-none focus:outline-none w-full rounded-lg p-1 ${
-          isError ? "text-red-500" : ""
-        }`}
+        className={`outline-none active:outline-none focus:outline-none w-full rounded-lg ${
+          backgroundColor && backgroundColor
+        } ${borderColor ? borderColor : "border-none"} ${
+          padding ? padding : "p-1"
+        } ${isError ? "text-red-500" : ""} text-white`}
       />
     </div>
   );
