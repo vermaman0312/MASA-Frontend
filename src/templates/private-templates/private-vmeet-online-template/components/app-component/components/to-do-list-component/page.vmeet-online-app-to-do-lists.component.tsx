@@ -3,6 +3,7 @@ import React, { useCallback, useState } from "react";
 import { CustomLabel } from "../../../../../../../components/custom-label/custom-label.component";
 import Draggable from "react-draggable";
 import CustomCheckBox from "../../../../../../../components/custom-checkbox/custom-checkbox.component";
+import TodoListIllustration from "../../../../../../../assets/illustrations/todo-list.illustration";
 
 interface todoListType {
   todoId: string;
@@ -72,7 +73,7 @@ const PrivateVMeetOnlineAppToDoListsPageComponent = ({
         }}
       >
         <div
-          className="w-full h-full scroll-container flex flex-col justify-start items-start gap-2"
+          className="w-full h-full scroll-container flex flex-col justify-start items-start gap-4"
           style={{
             height: "calc(100vh - 140px)",
             overflowY: "auto",
@@ -125,10 +126,10 @@ const PrivateVMeetOnlineAppToDoListsPageComponent = ({
               })}
             </div>
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <CustomLabel className="text-[#6B7280] text-4xl font-display">
-                No Create To-Do
-              </CustomLabel>
+            <div className="w-full h-full flex flex-col items-center justify-center">
+              <div className="w-64 h-64">
+                <TodoListIllustration />
+              </div>
             </div>
           )}
         </div>

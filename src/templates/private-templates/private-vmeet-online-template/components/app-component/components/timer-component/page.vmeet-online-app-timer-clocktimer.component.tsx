@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import "../../../../../../../css/scroll-container.css";
 import { CustomLabel } from "../../../../../../../components/custom-label/custom-label.component";
+import CustomTimePicker2 from "../../../../../../../components/custom-time-picker/custom-time-picker2.component";
 
 interface timeType {
   hour?: string;
@@ -146,7 +147,6 @@ const PrivateVMeetOnlineAppTimerClockTimerPageComponent = () => {
         setTimeLeft(calculateTimeLeft());
       }, 1000);
     }
-
     return () => clearInterval(timerId);
   }, [calculateTimeLeft, isCounting]);
 
@@ -167,75 +167,34 @@ const PrivateVMeetOnlineAppTimerClockTimerPageComponent = () => {
 
   return (
     <div className="w-full h-full flex flex-col items-start justify-center animate-zoomIn">
-      <div className="w-full flex flex-wrap items-center justify-center gap-4">
-        <div className="flex items-center justify-center gap-2">
-          <div className="w-12 h-12 rounded-lg border-2 border-[#374151] border-opacity-50 bg-[#1F2937] bg-opacity-50">
-            <input
-              disabled={timeLeft?.hours ? true : false}
-              value={timer?.hour}
-              onChange={handleChangeHour}
-              onKeyDown={(e) => handleKeyDown(e, "hour")}
-              placeholder="00"
-              className="w-full h-full bg-transparent flex items-center justify-center text-2xl font-bold font-family outline-none border-none pl-2 text-[#9CA3AF] placeholder:text-gray-700 select-none"
-              maxLength={2}
-              minLength={2}
-            />
-          </div>
-          <span className="text-[#9CA3AF]">:</span>
-          <div className="w-12 h-12 rounded-lg border-2 border-[#374151] border-opacity-50 bg-[#1F2937] bg-opacity-50">
-            <input
-              disabled={timeLeft?.minutes ? true : false}
-              value={timer?.minute}
-              onChange={handleChangeMinute}
-              onKeyDown={(e) => handleKeyDown(e, "minute")}
-              placeholder="00"
-              className="w-full h-full bg-transparent flex items-center justify-center text-2xl font-bold font-family outline-none border-none pl-2 text-[#9CA3AF] placeholder:text-gray-700"
-              maxLength={2}
-              minLength={2}
-            />
-          </div>
-          <span className="text-[#9CA3AF]">:</span>
-          <div className="w-12 h-12 rounded-lg border-2 border-[#374151] border-opacity-50 bg-[#1F2937] bg-opacity-50">
-            <input
-              disabled={timeLeft?.seconds ? true : false}
-              value={timer?.second}
-              onChange={handleChangeSecond}
-              onKeyDown={(e) => handleKeyDown(e, "second")}
-              placeholder="00"
-              className="w-full h-full bg-transparent flex items-center justify-center text-2xl font-bold font-family outline-none border-none pl-2 text-[#9CA3AF] placeholder:text-gray-700"
-              maxLength={2}
-              minLength={2}
-            />
-          </div>
-        </div>
-        <div className="w-24 h-12 rounded-lg border-2 border-[#374151] border-opacity-50 bg-[#1F2937] bg-opacity-50 flex items-center justify-between p-1">
-          <button
-            disabled={
-              timeLeft?.hours || timeLeft?.minutes || timeLeft?.seconds
-                ? true
-                : false
-            }
-            onClick={() => handleSetAMPM("AM")}
-            className={`${
-              timer.ampm === "AM" && "bg-gray-700"
-            } w-full h-full rounded-lg text-xs font-display text-[#9CA3AF] transition-all`}
-          >
-            AM
-          </button>
-          <button
-            disabled={
-              timeLeft?.hours || timeLeft?.minutes || timeLeft?.seconds
-                ? true
-                : false
-            }
-            onClick={() => handleSetAMPM("PM")}
-            className={`${
-              timer.ampm === "PM" && "bg-gray-700"
-            } w-full h-full rounded-lg text-xs font-display text-[#9CA3AF] transition-all`}
-          >
-            PM
-          </button>
-        </div>
+      <div className="w-full">
+        <CustomTimePicker2
+          onChangeHour={handleChangeHour}
+          valueHour={timer?.hour as string}
+          onKeyDownHour={(event) => handleKeyDown(event, "hour")}
+          disabledHour={timeLeft?.hours ? true : false}
+          onChangeMinute={handleChangeMinute}
+          valueMinute={timer?.minute as string}
+          onKeyDownMinute={(event) => handleKeyDown(event, "minute")}
+          disabledMinute={timeLeft?.minutes ? true : false}
+          onChangeSecond={handleChangeSecond}
+          valueSecond={timer?.second as string}
+          onKeyDownSecond={(event) => handleKeyDown(event, "second")}
+          disabledSecond={timeLeft?.seconds ? true : false}
+          onClickAM={() => handleSetAMPM("AM")}
+          disabledAM={
+            timeLeft?.hours || timeLeft?.minutes || timeLeft?.seconds
+              ? true
+              : false
+          }
+          onClickPM={() => handleSetAMPM("PM")}
+          disabledPM={
+            timeLeft?.hours || timeLeft?.minutes || timeLeft?.seconds
+              ? true
+              : false
+          }
+          buttonValue={timer.ampm as string}
+        />
       </div>
 
       <div className="w-full h-full p-10 mt-5 flex items-center justify-center">
