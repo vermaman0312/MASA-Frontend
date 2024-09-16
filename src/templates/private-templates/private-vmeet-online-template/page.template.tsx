@@ -8,6 +8,7 @@ import PrivateVMeetOnlineParticipantsPageComponent from "./components/page.vmeet
 import PrivateVMeetOnlineAppsPageComponent from "./components/page.vmeet-online-apps.component";
 import PrivateVMeetOnlinePublicChatPageComponent from "./components/page.vmeet-online-public-chat.component";
 import PrivateVMeetOnlineAppWhiteboardPageComponent from "./components/app-component/components/whiteboard-component/page.vmeet-online-app-whiteboard.component";
+import PrivateVMeetOnlineParticipantsCardListPageComponent from "./components/page.vmeet-online-participants-card-list.component";
 
 type StreamWebCamState = {
   video: MediaStream | null;
@@ -189,27 +190,33 @@ const PrivateVMeetOnlinePageTemplate = ({
       }
     } else {
       try {
-        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+        });
         (mediaRecorderRef as any).current = new MediaRecorder(stream);
         (chunksRef as any).current = [];
-        (mediaRecorderRef as any).current.ondataavailable = (event: BlobEvent) => {
+        (mediaRecorderRef as any).current.ondataavailable = (
+          event: BlobEvent
+        ) => {
           if (event.data.size > 0) {
             (chunksRef as any).current.push(event.data);
           }
         };
         (mediaRecorderRef as any).current.onstop = () => {
-          const blob = new Blob((chunksRef as any).current, { type: 'video/mp4' });
+          const blob = new Blob((chunksRef as any).current, {
+            type: "video/mp4",
+          });
           const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
+          const a = document.createElement("a");
           a.href = url;
-          a.download = 'recording.mp4';
+          a.download = "recording.mp4";
           a.click();
           URL.revokeObjectURL(url);
         };
         (mediaRecorderRef as any).current.start();
         setIsRecordingOn(true);
       } catch (err) {
-        console.error('Error starting screen recording:', err);
+        console.error("Error starting screen recording:", err);
       }
     }
   };
@@ -231,8 +238,7 @@ const PrivateVMeetOnlinePageTemplate = ({
               stream={streamScreen}
             />
           ) : (
-            // <PrivateVMeetOnlineAppWhiteboardPageComponent />
-            null
+            <PrivateVMeetOnlineParticipantsCardListPageComponent />
           )}
         </div>
         <div className="w-full">

@@ -5,7 +5,7 @@ import { CustomLabel } from "../../../../../../../components/custom-label/custom
 import { Pause, Play, Trash2 } from "lucide-react";
 
 const PrivateVMeetOnlineAppTimerClockAlertPageComponent = () => {
-  const [alarm, setAlarm] = useState();
+  const [isAlarmPause, setIsAlarmPause] = useState<boolean>(false);
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-2 animate-zoomIn">
       <div className="w-64 h-64 mt-5">
@@ -25,13 +25,23 @@ const PrivateVMeetOnlineAppTimerClockAlertPageComponent = () => {
             </CustomLabel>
           </div>
           <div className="flex items-center gap-2">
-            {alarm ? <Pause /> : <Play />}
-            <Trash2 className="text-orange-700 cursor-pointer" />
+            {isAlarmPause ? (
+              <Play
+                onClick={() => setIsAlarmPause(false)}
+                className={`text-[#6B7280] w-5 h-5 cursor-pointer`}
+              />
+            ) : (
+              <Pause
+                onClick={() => setIsAlarmPause(true)}
+                className={`text-[#6B7280] w-5 h-5 cursor-pointer`}
+              />
+            )}
+            <Trash2 className="text-orange-700 cursor-pointer w-5 h-5" />
           </div>
         </div>
       </div>
       <div className="w-full">
-        <button className="w-full rounded-lg text-xs font-display p-2 text-[#9CA3AF] border-2 border-[#374151] border-opacity-50 bg-[#1F2937] bg-opacity-50">
+        <button className="w-full rounded-lg text-xs font-display p-2 text-[#9CA3AF] border-2 border-[#374151] border-opacity-50 bg-[#1F2937] bg-opacity-50 select-none">
           Set alarm
         </button>
       </div>
